@@ -3,6 +3,18 @@ import { App } from './Home';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import { FormEventHandler } from 'react';
+// import { Button, Form, Navbar, Card } from 'react-bootstrap';
+import {
+  TextInput,
+  Checkbox,
+  NumberInput,
+  Select,
+  Button,
+  Group,
+  Box,
+  Divider,
+} from '@mantine/core';
+import { useForm } from '@mantine/form';
 
 import axios from 'axios';
 
@@ -12,12 +24,25 @@ interface Props {
 }
 
 const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
-  const [input, setInput] = useState('');
+  // const [input, setInput] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [showAllPosts, setShowAllPosts] = useState(false);
   const [allData, setAllData] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [showActions, setShowActions] = useState(true);
+
+  const [addForm, setAddForm] = useState(false);
+  // function returns state to original admin page state
+  //to be passed to MyForm component
+  function cancel() {
+    // setShowForm(false);
+    setAddForm(false);
+    setShowAllPosts(false);
+    setShowEditForm(false);
+    setShowActions(true);
+    setFormData(initialForm);
+  }
 
   const loginAdmin: Function = (password: string) => {
     console.log(password);
@@ -29,6 +54,39 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
       console.log(errorMessage);
     }
   };
+
+  ////// runs the admin login form//////
+  function AdminLogin() {
+    const form = useForm({
+      initialValues: {
+        password: '',
+      },
+    });
+
+    return (
+      <div>
+        <p>Enter Admin Password</p>
+        <Box>
+          <form
+            onSubmit={form.onSubmit((values) => {
+              console.log('admin logged in');
+              loginAdmin(values.password);
+            })}
+          >
+            <TextInput
+              withAsterisk
+              label="Password"
+              {...form.getInputProps('password')}
+            ></TextInput>
+            <Button type="submit">Submit</Button>
+          </form>
+        </Box>
+
+        {errorMessage && <p>{errorMessage}</p>}
+      </div>
+    );
+  }
+  ////////
 
   /// use effect to run when showallposts changes and fetchs data
   useEffect(() => {
@@ -50,8 +108,11 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
     // }
   }, [showAllPosts, showEditForm]);
   /////
+  console.log({ allData });
+  console.log(allData.length);
+
   const initialForm = {
-    id: allData.length,
+    id: allData.length + 1,
     category: '',
     title: '',
     description: '', //make larger text field
@@ -61,292 +122,126 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
     link: '',
     timeStamp: new Date(),
   };
+  console.log({ initialForm });
   const [formData, setFormData] = useState(initialForm);
-  if (!isAdmin) {
-    return (
-      <div>
-        <p>Enter Admin Password</p>
-        <input
-          type="text"
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-        />
-        <button onClick={() => loginAdmin(input)}>Login</button>
-        {errorMessage && <p>{errorMessage}</p>}
-      </div>
-    );
-  }
-
+  console.log({ formData });
   return (
     <div>
-      <p>Welcome Administrator</p>
+      <p>Admin Page</p>
 
-      {!showForm && !showAllPosts && (
+      {isAdmin ? (
         <div>
-          <button
-            onClick={() => {
-              setShowForm(true);
-            }}
-          >
-            Add New Post
-          </button>
-          <button
-            onClick={() => {
-              setShowAllPosts(true);
-            }}
-          >
-            Delete/Edit
-          </button>
-        </div>
-      )}
+          <p>Welcome Administrator</p>
+          {/* show all admin operations */}
+          {showActions && (
+            <div>
+              {/* decide which action to do */}
+              <Button
+                onClick={() => {
+                  console.log({ allData });
+                  console.log({ formData });
+                  setAddForm(true);
+                  setShowActions(false);
+                }}
+              >
+                Add New Post
+              </Button>
+              <Button
+                onClick={() => {
+                  // setAddForm(true);
+                  setShowAllPosts(true);
+                  setShowActions(false);
+                }}
+              >
+                Edit or Delete Post
+              </Button>
+            </div>
+          )}
+          {addForm && (
+            <div>
+              <MyForm
+                newData={initialForm}
+                allData={allData}
+                cancel={cancel}
+                isNew={true}
+              ></MyForm>
+            </div>
+          )}
+          {showEditForm && (
+            <MyForm
+              newData={formData}
+              allData={allData}
+              cancel={cancel}
+              isNew={false}
+            ></MyForm>
+          )}
+          {showAllPosts && (
+            <div>
+              {allData.map((post: any) => (
+                <div>
+                  <p>{post.title}</p>
 
-      {/* add new post */}
-      {showForm && (
-        <form
-          className="postForm"
-          onSubmit={(event) => {
-            event.preventDefault();
-            const form = formData;
-            console.log({ form });
-            if (form) {
-              postBlogPost(form);
-            }
-            setShowForm(false);
-          }}
-        >
-          <label htmlFor="id">ID #:</label>
-          <input
-            type="number"
-            id="id"
-            value={formData.id} // get to auto to next index number
-            onChange={(event) =>
-              setFormData({ ...formData, id: parseInt(event.target.value) })
-            }
-          />{' '}
-          <label htmlFor="category">Category:</label>
-          <select
-            id="category"
-            value={formData.category} // pick from options
-            onChange={(event) =>
-              setFormData({ ...formData, category: event.target.value })
-            }
-          >
-            <option value="Coding">Coding</option>
-            <option value="Martial Arts">Martial Arts</option>
-            <option value="Clothing">Clothing</option>
-          </select>
-          {/* type="text"
-            id="category"
-            value={formData.category} // pick from options
-            onChange={(event) =>
-              setFormData({ ...formData, category: event.target.value })
-            }
-          /> */}
-          <label htmlFor="title">Title:</label>
-          <input
-            type="text"
-            id="name"
-            value={formData.title}
-            onChange={(event) =>
-              setFormData({ ...formData, title: event.target.value })
-            }
-          />
-          <label htmlFor="description">Description:</label>
-          <textarea
-            // type="text"
-            id="description"
-            value={formData.description}
-            onChange={(event) =>
-              setFormData({ ...formData, description: event.target.value })
-            }
-          />
-          <label htmlFor="picture">Picture:</label>
-          <input
-            type="text"
-            id="picture"
-            value={formData.picture}
-            onChange={(event) =>
-              setFormData({ ...formData, picture: event.target.value })
-            }
-          />
-          <label htmlFor="video">Video:</label>
-          <input
-            type="text"
-            id="video"
-            value={formData.video}
-            onChange={(event) =>
-              setFormData({ ...formData, video: event.target.value })
-            }
-          />
-          <label htmlFor="link">Link:</label>
-          <input
-            type="text"
-            id="link"
-            value={formData.link}
-            onChange={(event) =>
-              setFormData({ ...formData, link: event.target.value })
-            }
-          />
-          <button type="submit">Submit</button>
-          <button
-            onClick={() => {
-              /// cancels and resets admin page
-              setInput('');
-              setShowForm(false);
-              setFormData(initialForm);
-            }}
-          >
-            Cancel
-          </button>
-        </form>
-      )}
-      <div></div>
+                  <Button
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          'Are you sure you want to delete this post?'
+                        )
+                      ) {
+                        removePost(Number(post.id));
+                        setShowAllPosts(false);
+                        setShowActions(true);
+                      }
+                    }}
+                  >
+                    Delete
+                  </Button>
+                  {/* once edit button is clicked needs to remove all posts and show editable form with selected post content */}
+                  <Button
+                    onClick={() => {
+                      setShowAllPosts(false);
+                      setFormData(post);
+                      console.log({ formData });
+                      setShowEditForm(true);
+                      // return (
+                      //   <div>
+                      //     <MyForm
+                      //       newData={post}
+                      //       allData={allData}
+                      //       state={showEditForm}
+                      //       setState={setShowEditForm}
+                      //     ></MyForm>
+                      //   </div>
+                      // );
+                      //gotta make a huge form here
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </div>
+              ))}
+              <Button onClick={() => cancel()}>Cancel</Button>
+            </div>
+          )}
 
-      {showAllPosts &&
-        allData.map((post: any) => (
-          <div>
-            <p>{post.title}</p>
-            <button
-              onClick={() => {
-                if (
-                  window.confirm('Are you sure you want to delete this post?')
-                ) {
-                  removePost(Number(post.id));
-                  setShowAllPosts(false);
-                }
-              }}
-            >
-              Delete
-            </button>
-            {/* once edit button is clicked needs to remove all posts and show editable form with selected post content */}
-            <button
-              onClick={() => {
-                setShowAllPosts(false);
-                setFormData(post);
-                console.log({ formData });
-                setShowEditForm(true);
-                //gotta make a huge form here
-              }}
-            >
-              Edit
-            </button>
-          </div>
-        ))}
-      {showEditForm && (
-        // should add error handling for inputs of the same id or title
-        <form
-          className="postForm"
-          onSubmit={(event) => {
-            event.preventDefault();
-            const form = formData;
-            console.log({ form });
-            if (form) {
-              updatePost(form);
-            }
-            setShowForm(false);
-            setShowEditForm(false);
-          }}
-        >
-          <label htmlFor="id">ID #:</label>
-          <input
-            type="number"
-            id="id"
-            value={formData.id}
-            onChange={(event) =>
-              setFormData({
-                ...formData,
-                id: parseInt(event.target.value),
-              })
-            }
-          />{' '}
-          <label htmlFor="category">Category:</label>
-          <input
-            type="text"
-            id="category"
-            value={formData.category}
-            onChange={(event) =>
-              setFormData({
-                ...formData,
-                category: event.target.value,
-              })
-            }
-          />
-          <label htmlFor="title">Title:</label>
-          <input
-            type="text"
-            id="name"
-            value={formData.title}
-            onChange={(event) =>
-              setFormData({ ...formData, title: event.target.value })
-            }
-          />
-          <label htmlFor="description">Description:</label>
-          <input
-            type="text"
-            id="description"
-            value={formData.description}
-            onChange={(event) =>
-              setFormData({
-                ...formData,
-                description: event.target.value,
-              })
-            }
-          />
-          <label htmlFor="picture">Picture:</label>
-          <input
-            type="text"
-            id="picture"
-            value={formData.picture}
-            onChange={(event) =>
-              setFormData({
-                ...formData,
-                picture: event.target.value,
-              })
-            }
-          />
-          <label htmlFor="video">Video:</label>
-          <input
-            type="text"
-            id="video"
-            value={formData.video}
-            onChange={(event) =>
-              setFormData({ ...formData, video: event.target.value })
-            }
-          />
-          <label htmlFor="link">Link:</label>
-          <input
-            type="text"
-            id="link"
-            value={formData.link}
-            onChange={(event) =>
-              setFormData({ ...formData, link: event.target.value })
-            }
-          />
-          <button type="submit">Submit</button>
-          <button
+          {/*  */}
+
+          <Button
             onClick={() => {
-              /// cancels and resets admin page
-              setInput('');
+              setIsAdmin(false);
+              console.log({ isAdmin });
+              setShowAllPosts(false);
+              setShowActions(true);
               setShowEditForm(false);
-              setFormData(initialForm);
+              setShowForm(false);
             }}
           >
-            Cancel
-          </button>
-        </form>
+            Logout
+          </Button>
+        </div>
+      ) : (
+        <AdminLogin></AdminLogin>
       )}
-      {/* delete post */}
-      {/* edit post */}
-      {/* other admin actions??? */}
-
-      <button
-        onClick={() => {
-          setIsAdmin(false);
-          setInput('');
-        }}
-      >
-        Logout
-      </button>
     </div>
   );
 };
@@ -361,6 +256,110 @@ interface Data {
   link: String;
   timeStamp: Date;
 }
+interface Props2 {
+  newData: Data;
+  allData: Data[];
+
+  cancel: Function;
+  isNew: boolean;
+}
+
+///create form for inpu tof new post info
+// should be able to render a new post form or an edit post form based on isNew variable
+
+const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
+  const form = useForm({
+    initialValues: {
+      id: newData.id,
+      category: newData.category,
+      title: newData.title,
+      description: newData.description,
+      picture: newData.picture,
+      video: newData.video,
+      link: newData.link,
+      timeStamp: newData.timeStamp,
+    },
+
+    validate: {
+      // email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+    },
+  });
+  return (
+    <Box>
+      <form
+        onSubmit={form.onSubmit((values: Data) => {
+          console.log(values);
+          if (isNew) {
+            values.timeStamp = new Date();
+            postBlogPost(values);
+          } else {
+            updatePost(newData, values);
+          }
+
+          cancel();
+        })}
+      >
+        <NumberInput
+          withAsterisk
+          label="id"
+          {...form.getInputProps('id')}
+        ></NumberInput>
+        <Select
+          withAsterisk
+          label="Category"
+          data={[
+            { value: 'coding', label: 'coding' },
+            { value: 'movement', label: 'movement' },
+            { value: 'clothing', label: 'clothing' },
+          ]}
+          {...form.getInputProps('category')}
+        ></Select>
+        <TextInput
+          withAsterisk
+          label="Title"
+          placeholder="Title"
+          {...form.getInputProps('title')}
+        />
+        <TextInput
+          withAsterisk
+          label="Description"
+          placeholder="'Description"
+          {...form.getInputProps('description')}
+        />
+        <TextInput
+          withAsterisk
+          label="Picture"
+          placeholder="Picture"
+          {...form.getInputProps('picture')}
+        />
+        <TextInput
+          withAsterisk
+          label="Video"
+          placeholder="Video"
+          {...form.getInputProps('video')}
+        />
+        <TextInput
+          withAsterisk
+          label="Link"
+          placeholder="Link"
+          {...form.getInputProps('link')}
+        ></TextInput>
+        <Button type="submit">Submit</Button>
+        <Button
+          onClick={() => {
+            form.reset();
+            /// cancels and resets admin page
+            cancel();
+            // setFormData(initialForm);
+          }}
+        >
+          Cancel
+          {/* where to keep cancel button so it can setstate and hide the form */}
+        </Button>
+      </form>
+    </Box>
+  );
+};
 
 const postBlogPost = (blogPost: Data) => {
   console.log('posting blog post');
@@ -374,10 +373,13 @@ const postBlogPost = (blogPost: Data) => {
       console.log(response.data);
     });
 };
-const updatePost = (blogPost: Data) => {
+const updatePost = (blogPost: Data, newBlogPost: Data) => {
   console.log('sending update');
   axios
-    .put(`http://localHost:4000/update/${blogPost.id}`, { blogPost })
+    .put(`http://localHost:4000/update/${blogPost.id}/${newBlogPost.id}`, {
+      blogPost,
+      newBlogPost,
+    })
     .then((res) => {
       console.log(res.data);
     })

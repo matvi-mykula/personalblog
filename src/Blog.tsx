@@ -3,14 +3,15 @@ import { App } from './Home';
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+// import { Button, Form, Navbar, Card } from 'react-bootstrap';
+import { Image, Button } from '@mantine/core';
 
 interface Props {
-  blogData: { title: string; content: string };
-  setBlogData: Function;
+  title: string;
 }
 
-const Blog: React.FC<Props> = ({ blogData, setBlogData }) => {
-  console.log(blogData);
+const Blog: React.FC<Props> = ({ title }) => {
+  console.log(title);
   //   const [blogData, setBlogData] = useState<{ title: string; content: string }>({
   //     title: '',
   //     content: '',
@@ -36,7 +37,7 @@ const Blog: React.FC<Props> = ({ blogData, setBlogData }) => {
   const fetchPosts = async (): Promise<Data[]> => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/getPosts?category=` + blogData.title
+        `http://localhost:4000/getPosts?category=` + title
       );
       return response.data;
     } catch (error) {
@@ -95,8 +96,12 @@ const Blog: React.FC<Props> = ({ blogData, setBlogData }) => {
               <p>------------------------------------------</p>
               <p>{item.title}</p>
               <p>{item.description}</p>
+              {/* put all picture into a carasol */}
               {checkExistence(item.picture) && (
-                <img
+                <Image
+                  width={500}
+                  height={300}
+                  fit="contain"
                   src={checkExistence(item.picture)}
                   // src={require('./images/' + item.picture)}
                   // src={'https://drive.google.com/uc?id=' + item.picture}
@@ -110,7 +115,7 @@ const Blog: React.FC<Props> = ({ blogData, setBlogData }) => {
           <p>nothing here</p>
         )}{' '}
       </ul>
-      <button onClick={loadMore}>Load More</button>
+      <Button onClick={loadMore}>Load More</Button>
     </div>
   );
 };
@@ -123,44 +128,4 @@ function checkExistence(filePath: String) {
   } catch (error) {
     return null;
   }
-  // }(require('./images/' + filePath)) {
-  //   return true;
-  // }
-  // if (require('./videos/' + filePath)) {
-  //   return true;
-  // }
-  // return false;
 }
-
-////test data
-// const postData = {
-//   id: 1,
-//   category: 'Coding',
-//   title: 'Heart Rate Monitor',
-//   description:
-//     'This app allows the user to check there heart rate. The user clicks the heart with each beat of their pulse and then the app will after a set amount of time calculate the BPM',
-//   picture: 'na',
-//   video: null,
-//   link: null,
-// };
-// const postData2 = {
-//   id: 2,
-//   category: 'Coding',
-
-//   title: 'Sketch Pad',
-//   description:
-//     'This app allows the user to draw like early sketchbook applications',
-//   picture: 'na',
-//   video: null,
-//   link: null,
-// };
-// const postData3 = {
-//   id: 3,
-//   category: 'Coding',
-
-//   title: 'Forum',
-//   description: 'Simple forum',
-//   picture: 'na',
-//   video: null,
-//   link: null,
-// };

@@ -1,5 +1,7 @@
 import { Link, BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { useState } from 'react';
+// import { Button, Form, Navbar, Card } from 'react-bootstrap';
+import { AppShell, Navbar, Header } from '@mantine/core';
 
 import { App } from './Home';
 import './App.css';
@@ -8,42 +10,38 @@ import { Login } from './Login';
 interface adminProps {
   initialAdminStatus: boolean;
 }
-const AppRouter: React.FC = () => {
-  const [isAdmin, setIsAdmin] = useState(false);
+// const AppRouter: React.FC = () => {
+//   const [isAdmin, setIsAdmin] = useState(false);
 
-  interface Props {
-    blogData: { title: string; content: string };
-    setBlogData: Function;
-  }
+//   interface Props {
+//     blogData: { title: string; content: string };
+//     setBlogData: Function;
+//   }
 
-  const codingData = {
-    title: 'Coding',
-    content: 'Content about Coding',
-  };
-  const fightingData = {
-    title: 'Martial Arts',
-    content: 'Content about fighting',
-  };
-  const clothingData = {
-    title: 'Style Blog',
-    content: 'Content about Clothing',
-  };
-  //   enum ThreeBlogs {
-  //     Coding = 'coding',
-  //     Fighting = 'fighting',
-  //     Clothes = 'clothes',
-  //     Null = 'null',
-  //   }
-  //   const [blogSubject, setBlogSubject] = useState<ThreeBlogs>(ThreeBlogs.Null);
-  const [blogData, setBlogData] = useState<{ title: string; content: string }>({
-    title: '',
-    content: '',
-  });
-  return (
-    <div>
-      <BrowserRouter>
-        <header className="App-links">
-          <Link
+//   const codingData = {
+//     title: 'Coding',
+//     content: 'Content about Coding',
+//   };
+//   const fightingData = {
+//     title: 'Martial Arts',
+//     content: 'Content about fighting',
+//   };
+//   const clothingData = {
+//     title: 'Style Blog',
+//     content: 'Content about Clothing',
+//   };
+//   const [blogData, setBlogData] = useState<{ title: string; content: string }>({
+//     title: '',
+//     content: '',
+//   });
+//   return (
+//     <div>
+//       <BrowserRouter>
+{
+  /* <Navbar className="App-links"> */
+}
+{
+  /* <Link
             to={'/'}
             className="headerLink"
           >
@@ -55,25 +53,11 @@ const AppRouter: React.FC = () => {
           >
             Login{' '}
           </Link>
-        </header>
+        </Navbar>
         <Routes>
           <Route
             path="/"
-            element={
-              <App
-              // blogData={blogData}
-              // setBlogData={setBlogData}
-              // blogSubject={blogSubject}
-              // setBlogSubject={setBlogSubject}
-              ></App>
-            }
-
-            // element={
-            // //   <App
-            // //     userData={userData}
-            // //     setUserData={setUserData}
-            // //   />
-            // }
+            element={<App></App>}
           />
           <Route
             path="/login"
@@ -83,8 +67,14 @@ const AppRouter: React.FC = () => {
                 setIsAdmin={setIsAdmin}
               ></Login>
             }
-          />
-
+          /> */
+}
+{
+  /* <Routes>
+          <Route
+            path="/"
+            element={<App></App>}
+          ></Route>
           <Route
             path="/codingBlog"
             element={
@@ -112,10 +102,20 @@ const AppRouter: React.FC = () => {
               ></Blog>
             }
           ></Route>
+          <Route
+            path="/admin"
+            element={
+              <Login
+                isAdmin={isAdmin}
+                setIsAdmin={setIsAdmin}
+              ></Login>
+            }
+          ></Route>
         </Routes>
-      </BrowserRouter>
-    </div>
-  );
-};
+      </BrowserRouter> */
+}
+//     </div>
+//   );
+// };
 
-export { AppRouter };
+// export { AppRouter };
