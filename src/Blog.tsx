@@ -61,7 +61,7 @@ const Blog: React.FC<Props> = ({ title }) => {
     getData();
     // setData([topicData[0]]);
     setLoading(false);
-  }, []);
+  }, [title]);
 
   //sets inital data to show when topic data has loaded from get request
   useEffect(() => {
