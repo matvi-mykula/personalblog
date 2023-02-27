@@ -13,6 +13,7 @@ import {
   Group,
   Box,
   Divider,
+  Textarea,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
@@ -112,12 +113,12 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
   console.log(allData.length);
 
   const initialForm = {
-    id: allData.length + 1,
+    id: '',
     category: '',
     title: '',
     description: '', //make larger text field
     // how to make pictures into arrays of strings?
-    picture: '',
+    picture: [''],
     video: '',
     link: '',
     timeStamp: new Date(),
@@ -247,13 +248,13 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
 };
 
 interface Data {
-  id: Number;
-  category: String;
-  title: String;
-  description: String;
-  picture: String;
-  video: String;
-  link: String;
+  id: string;
+  category: string;
+  title: string;
+  description: string;
+  picture: string[];
+  video: string;
+  link: string;
   timeStamp: Date;
 }
 interface Props2 {
@@ -267,14 +268,23 @@ interface Props2 {
 ///create form for inpu tof new post info
 // should be able to render a new post form or an edit post form based on isNew variable
 
+///from chatgpt add multiple input fields
 const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
+  const [pictureInputs, setPictureInputs] = useState(['']); // initial array with one input field
+
+  const handleInputChange = (index: number, value: string) => {
+    const newInputs = [...pictureInputs];
+    newInputs[index] = value;
+    setPictureInputs(newInputs);
+  };
+
   const form = useForm({
     initialValues: {
       id: newData.id,
       category: newData.category,
       title: newData.title,
       description: newData.description,
-      picture: newData.picture,
+      picture: pictureInputs,
       video: newData.video,
       link: newData.link,
       timeStamp: newData.timeStamp,
@@ -284,54 +294,74 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
       // email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
     },
   });
+
+  const handleAddMore = () => {
+    setPictureInputs([...pictureInputs, '']); // add a new empty input field to the array
+  };
   return (
     <Box>
       <form
         onSubmit={form.onSubmit((values: Data) => {
           console.log(values);
+
+          values.picture = pictureInputs;
+
           if (isNew) {
             values.timeStamp = new Date();
-            postBlogPost(values);
+            postBlogPost({
+              id: values.id,
+              category: values.category,
+              title: values.title,
+              description: values.description,
+              timeStamp: values.timeStamp,
+            });
+            console.log({ values });
           } else {
-            updatePost(newData, values);
+            console.log({ values });
+
+            // updatePost(newData, values);
           }
 
           cancel();
         })}
       >
-        <NumberInput
+        <TextInput
           withAsterisk
-          label="id"
+          label="ID"
+          placeholder="Identifier"
           {...form.getInputProps('id')}
-        ></NumberInput>
-        <Select
-          withAsterisk
-          label="Category"
-          data={[
-            { value: 'coding', label: 'coding' },
-            { value: 'movement', label: 'movement' },
-            { value: 'clothing', label: 'clothing' },
-          ]}
-          {...form.getInputProps('category')}
-        ></Select>
+        ></TextInput>
+
         <TextInput
           withAsterisk
           label="Title"
           placeholder="Title"
           {...form.getInputProps('title')}
         />
-        <TextInput
+        <Textarea
           withAsterisk
           label="Description"
           placeholder="'Description"
           {...form.getInputProps('description')}
         />
-        <TextInput
-          withAsterisk
-          label="Picture"
-          placeholder="Picture"
-          {...form.getInputProps('picture')}
-        />
+
+        {pictureInputs.map((value, index) => (
+          <TextInput
+            withAsterisk
+            key={index}
+            value={value}
+            label="Picture"
+            placeholder="Picture"
+            onChange={(event) => {
+              handleInputChange(index, event.target.value);
+              console.log(pictureInputs);
+            }}
+
+            // {...form.getInputProps('picture')}
+          />
+        ))}
+        <Button onClick={handleAddMore}></Button>
+
         <TextInput
           withAsterisk
           label="Video"
@@ -361,7 +391,19 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
   );
 };
 
-const postBlogPost = (blogPost: Data) => {
+interface blogPostData {
+  id: string;
+  category: string;
+  title: string;
+  description: string;
+  timeStamp: Date;
+}
+interface folderData {
+  id: string;
+  entries: string[];
+}
+
+const postBlogPost = (blogPost: blogPostData) => {
   console.log('posting blog post');
   axios
     .post('http://localhost:4000/postBlogPost', {
@@ -373,6 +415,11 @@ const postBlogPost = (blogPost: Data) => {
       console.log(response.data);
     });
 };
+const postPictureFolder = (folderData: folderData) => {
+  console.log('posting img folder data');
+  axios.post('http://localhost:4000/postPictureFolder');
+};
+
 const updatePost = (blogPost: Data, newBlogPost: Data) => {
   console.log('sending update');
   axios

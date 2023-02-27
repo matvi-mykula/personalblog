@@ -20,12 +20,12 @@ const Blog: React.FC<Props> = ({ title }) => {
 
   interface Data {
     id: Number;
-    category: String;
-    title: String;
-    description: String;
-    picture: String;
-    video: String;
-    link: String;
+    category: string;
+    title: string;
+    description: string;
+    picture: string;
+    video: string;
+    link: string;
     timeStamp: Date;
   }
   const [loading, setLoading] = useState(true);
@@ -94,7 +94,10 @@ const Blog: React.FC<Props> = ({ title }) => {
           data.map((item) => (
             <div key={String(item.id)}>
               <p>------------------------------------------</p>
-              <p>{item.title}</p>
+              <div>
+                <p>{item.title} ----</p>
+                {item.link && <a href={item.link}>Github Repository</a>}
+              </div>
               <p>{item.description}</p>
               {/* put all picture into a carasol */}
               {checkExistence(item.picture) && (
@@ -103,11 +106,10 @@ const Blog: React.FC<Props> = ({ title }) => {
                   height={300}
                   fit="contain"
                   src={checkExistence(item.picture)}
-                  // src={require('./images/' + item.picture)}
-                  // src={'https://drive.google.com/uc?id=' + item.picture}
                   alt="none"
                 />
               )}
+
               <p>------------------------------------------</p>
             </div>
           ))
@@ -122,7 +124,18 @@ const Blog: React.FC<Props> = ({ title }) => {
 
 export { Blog };
 
-function checkExistence(filePath: String) {
+function splitString(aString: string) {
+  let aList = aString.split(', ');
+  return aList;
+}
+
+function checkExistence(filePath: string) {
+  let trueFile = [filePath];
+  console.log(trueFile);
+  if (filePath.includes(',')) {
+    trueFile = filePath.split(', ');
+    console.log(trueFile);
+  }
   try {
     return require('./images/' + filePath);
   } catch (error) {

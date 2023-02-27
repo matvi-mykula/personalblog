@@ -18,6 +18,8 @@ const MyNav: React.FC<Props> = ({ content, setContent }) => {
     <div>
       <Stack>
         <button onClick={() => setContent('home')}>Home</button>
+        <button onClick={() => setContent('contact')}>Contact Me</button>
+
         <button onClick={() => setContent('coding')}>Coding</button>
 
         <button onClick={() => setContent('movement')}>Martial Arts</button>

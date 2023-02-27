@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { App } from 'Home';
 import { Blog } from 'Blog';
 import { Login } from 'Login';
-
+import { Contact } from 'Contact';
 interface Props {
   content: string;
 }
@@ -17,6 +17,9 @@ const MyContent: React.FC<Props> = ({ content }) => {
   switch (content) {
     case 'home': {
       return <App></App>;
+    }
+    case 'contact': {
+      return <Contact></Contact>;
     }
     case 'coding': {
       return <Blog title={'coding'}></Blog>;
