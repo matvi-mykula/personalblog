@@ -19,19 +19,32 @@ const Blog: React.FC<Props> = ({ title }) => {
   //get request to get all code blog posts
 
   interface Data {
-    id: Number;
+    id: string;
     category: string;
     title: string;
     description: string;
-    picture: string;
-    video: string;
-    link: string;
+    // picture: string;
+    // video: string;
+    // link: string;
     timeStamp: Date;
   }
+
+  interface Content {
+    id: string;
+    picture: string[];
+    video: string[];
+    link: string[];
+  }
+  interface DataAndContent {
+    data: Data;
+    content: Content;
+  }
+
   const [loading, setLoading] = useState(true);
   const [topicData, setTopicData] = useState<Data[]>([]);
 
   const [data, setData] = useState<Data[]>([]);
+  const [content, setContent] = useState<Content[]>([]);
 
   // let initialData: Data[];
   const fetchPosts = async (): Promise<Data[]> => {
@@ -39,6 +52,7 @@ const Blog: React.FC<Props> = ({ title }) => {
       const response = await axios.get(
         `http://localhost:4000/getPosts?category=` + title
       );
+      // const conesponse = await axios.get
       return response.data;
     } catch (error) {
       console.log(error);
@@ -46,6 +60,18 @@ const Blog: React.FC<Props> = ({ title }) => {
     }
   };
 
+  const fetchPostContent = async (id: string): Promise<Content> => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/getPostContent?id=` + id
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return { id: '', picture: [''], video: [''], link: [''] };
+    }
+  };
+  //whenever blog subject changes rerender the topic data
   useEffect(() => {
     console.log('useeffect');
     const getData = async () => {
@@ -80,6 +106,21 @@ const Blog: React.FC<Props> = ({ title }) => {
     }
   };
 
+  // whenever data being shown changes get the content for the newest piece of data
+  // and add it to content list
+  useEffect(() => {
+    const getContent = async (id: string) => {
+      try {
+        const response = await fetchPostContent(id);
+        console.log(response);
+        setContent([...content, response]);
+        console.log({ content });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  });
+
   if (loading || !topicData) {
     return <div>Waiting on server...</div>;
   }
@@ -91,16 +132,17 @@ const Blog: React.FC<Props> = ({ title }) => {
     <div className="codingBlog">
       <ul>
         {data ? (
-          data.map((item) => (
+          data.map((item, index) => (
             <div key={String(item.id)}>
               <p>------------------------------------------</p>
               <div>
                 <p>{item.title} ----</p>
-                {item.link && <a href={item.link}>Github Repository</a>}
+                {/* {item.link && <a href={item.link}>Github Repository</a>} */}
               </div>
               <p>{item.description}</p>
+              <p>{content[index].picture[0]}</p>
               {/* put all picture into a carasol */}
-              {checkExistence(item.picture) && (
+              {/* {checkExistence(item.picture) && (
                 <Image
                   width={500}
                   height={300}
@@ -108,7 +150,7 @@ const Blog: React.FC<Props> = ({ title }) => {
                   src={checkExistence(item.picture)}
                   alt="none"
                 />
-              )}
+              )} */}
 
               <p>------------------------------------------</p>
             </div>
@@ -136,9 +178,15 @@ function checkExistence(filePath: string) {
     trueFile = filePath.split(', ');
     console.log(trueFile);
   }
-  try {
-    return require('./images/' + filePath);
-  } catch (error) {
-    return null;
-  }
+  return trueFile;
+  // try {
+  //   return require('./images/' + filePath);
+  // } catch (error) {
+  //   return null;
+  // }
 }
+
+// function Gallery (stringList:string[]){
+//   let urlList =
+
+// }

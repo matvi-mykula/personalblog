@@ -315,6 +315,10 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
               description: values.description,
               timeStamp: values.timeStamp,
             });
+            postPictureFolder({
+              id: values.id,
+              entries: values.picture,
+            });
             console.log({ values });
           } else {
             console.log({ values });
@@ -417,14 +421,27 @@ const postBlogPost = (blogPost: blogPostData) => {
 };
 const postPictureFolder = (folderData: folderData) => {
   console.log('posting img folder data');
-  axios.post('http://localhost:4000/postPictureFolder');
+  axios
+    .post('http://localhost:4000/postPictureFolder', {
+      folderData,
+    })
+    .then((response) => {
+      console.log('this picture folder should be posted');
+
+      console.log(response.data);
+    });
 };
 
-const updatePost = (blogPost: Data, newBlogPost: Data) => {
+const updatePost = (
+  blogPost: blogPostData,
+  pictureFolder: folderData,
+  newBlogPost: Data
+) => {
   console.log('sending update');
   axios
     .put(`http://localHost:4000/update/${blogPost.id}/${newBlogPost.id}`, {
       blogPost,
+      pictureFolder,
       newBlogPost,
     })
     .then((res) => {
