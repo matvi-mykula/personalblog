@@ -46,7 +46,7 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
   }
 
   const loginAdmin: Function = (password: string) => {
-    console.log(password);
+    // console.log(password);
     if (password === 'admin') {
       /// this prob isnt super secure and i should do this using passport
       setIsAdmin(true);
@@ -91,17 +91,14 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
 
   /// use effect to run when showallposts changes and fetchs data
   useEffect(() => {
-    console.log('useeffect');
     const getData = async () => {
       try {
         const response = await fetchPosts();
-        console.log(response);
         setAllData(response);
       } catch (error) {
         console.log(error);
       }
     };
-    console.log({ allData });
     getData();
     // let postListJSX = []
     // for (let i = 0; i < allData.length; i++) {
@@ -109,23 +106,30 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
     // }
   }, [showAllPosts, showEditForm]);
   /////
-  console.log({ allData });
-  console.log(allData.length);
 
-  const initialForm = {
+  interface formDataType {
+    id: string;
+    category: string;
+    title: string;
+    description: string;
+    pictures: string[];
+    videos: string[];
+    links: string[];
+    timeStamp: Date;
+  }
+
+  const initialForm: formDataType = {
     id: '',
     category: '',
     title: '',
     description: '', //make larger text field
     // how to make pictures into arrays of strings?
-    picture: [''],
-    video: '',
-    link: '',
+    pictures: [''],
+    videos: [''],
+    links: [''],
     timeStamp: new Date(),
   };
-  console.log({ initialForm });
-  const [formData, setFormData] = useState(initialForm);
-  console.log({ formData });
+  const [formData, setFormData] = useState<formDataType>(initialForm);
   return (
     <div>
       <p>Admin Page</p>
@@ -139,8 +143,6 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
               {/* decide which action to do */}
               <Button
                 onClick={() => {
-                  console.log({ allData });
-                  console.log({ formData });
                   setAddForm(true);
                   setShowActions(false);
                 }}
@@ -178,6 +180,7 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
           )}
           {showAllPosts && (
             <div>
+              {/* needs to get data and update/delete data from both postdata and contentdata */}
               {allData.map((post: any) => (
                 <div>
                   <p>{post.title}</p>
@@ -189,9 +192,10 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
                           'Are you sure you want to delete this post?'
                         )
                       ) {
-                        removePost(Number(post.id));
+                        removePost(post.id);
                         setShowAllPosts(false);
                         setShowActions(true);
+                        //needs to also remove content
                       }
                     }}
                   >
@@ -199,22 +203,27 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
                   </Button>
                   {/* once edit button is clicked needs to remove all posts and show editable form with selected post content */}
                   <Button
-                    onClick={() => {
+                    onClick={async () => {
                       setShowAllPosts(false);
-                      setFormData(post);
+                      // something is wrong here
+                      // need to construct post from data and content
+                      // get content into array use that to construct post
+
+                      const content = await fetchPostContent(post.id);
+                      console.log({ post });
+                      console.log(content[0].pictures);
+                      await setFormData({
+                        id: post.id,
+                        title: post.title,
+                        category: post.category,
+                        description: post.description,
+                        timeStamp: post.timeStamp,
+                        pictures: content[0].pictures,
+                        videos: content[0].videos,
+                        links: content[0].links,
+                      });
                       console.log({ formData });
                       setShowEditForm(true);
-                      // return (
-                      //   <div>
-                      //     <MyForm
-                      //       newData={post}
-                      //       allData={allData}
-                      //       state={showEditForm}
-                      //       setState={setShowEditForm}
-                      //     ></MyForm>
-                      //   </div>
-                      // );
-                      //gotta make a huge form here
                     }}
                   >
                     Edit
@@ -247,20 +256,29 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
   );
 };
 
+interface formDataType {
+  id: string;
+  category: string;
+  title: string;
+  description: string;
+  pictures: string[];
+  videos: string[];
+  links: string[];
+  timeStamp: Date;
+}
 interface Data {
   id: string;
   category: string;
   title: string;
   description: string;
   picture: string[];
-  video: string;
-  link: string;
+  video: string[];
+  link: string[];
   timeStamp: Date;
 }
 interface Props2 {
-  newData: Data;
+  newData: formDataType;
   allData: Data[];
-
   cancel: Function;
   isNew: boolean;
 }
@@ -270,9 +288,13 @@ interface Props2 {
 
 ///from chatgpt add multiple input fields
 const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
-  const [pictureInputs, setPictureInputs] = useState(['']); // initial array with one input field
+  console.log(newData);
+  const [pictureInputs, setPictureInputs] = useState(newData.pictures); // initial array with one input field
+  const [videoInputs, setVideoInputs] = useState(['']); // initial array with one input field
+  const [linkInputs, setLinkInputs] = useState(['']); // initial array with one input field
 
   const handleInputChange = (index: number, value: string) => {
+    console.log({ value });
     const newInputs = [...pictureInputs];
     newInputs[index] = value;
     setPictureInputs(newInputs);
@@ -284,9 +306,9 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
       category: newData.category,
       title: newData.title,
       description: newData.description,
-      picture: pictureInputs,
-      video: newData.video,
-      link: newData.link,
+      pictures: pictureInputs,
+      videos: videoInputs,
+      links: linkInputs,
       timeStamp: newData.timeStamp,
     },
 
@@ -301,10 +323,12 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
   return (
     <Box>
       <form
-        onSubmit={form.onSubmit((values: Data) => {
+        onSubmit={form.onSubmit((values: formDataType) => {
           console.log(values);
 
-          values.picture = pictureInputs;
+          values.pictures = pictureInputs;
+          values.videos = videoInputs;
+          values.links = linkInputs;
 
           if (isNew) {
             values.timeStamp = new Date();
@@ -315,15 +339,26 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
               description: values.description,
               timeStamp: values.timeStamp,
             });
-            postPictureFolder({
+            postContentFolder({
               id: values.id,
-              entries: values.picture,
+              pictures: values.pictures,
+              videos: values.videos,
+              links: values.links,
             });
             console.log({ values });
           } else {
             console.log({ values });
 
-            // updatePost(newData, values);
+            updatePost(
+              newData,
+              {
+                id: values.id,
+                pictures: values.pictures,
+                videos: values.videos,
+                links: values.links,
+              },
+              values
+            );
           }
 
           cancel();
@@ -335,6 +370,17 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
           placeholder="Identifier"
           {...form.getInputProps('id')}
         ></TextInput>
+
+        <Select
+          placeholder="Select Category"
+          label="Category"
+          data={[
+            { value: 'coding', label: 'Coding' },
+            { value: 'movement', label: 'Movement' },
+            { value: 'clothing', label: 'Clothing' },
+          ]}
+          {...form.getInputProps('category')}
+        ></Select>
 
         <TextInput
           withAsterisk
@@ -364,7 +410,7 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
             // {...form.getInputProps('picture')}
           />
         ))}
-        <Button onClick={handleAddMore}></Button>
+        <Button onClick={handleAddMore}>+</Button>
 
         <TextInput
           withAsterisk
@@ -404,7 +450,9 @@ interface blogPostData {
 }
 interface folderData {
   id: string;
-  entries: string[];
+  pictures: string[];
+  videos: string[];
+  links: string[];
 }
 
 const postBlogPost = (blogPost: blogPostData) => {
@@ -419,10 +467,10 @@ const postBlogPost = (blogPost: blogPostData) => {
       console.log(response.data);
     });
 };
-const postPictureFolder = (folderData: folderData) => {
+const postContentFolder = (folderData: folderData) => {
   console.log('posting img folder data');
   axios
-    .post('http://localhost:4000/postPictureFolder', {
+    .post('http://localhost:4000/postContentFolder', {
       folderData,
     })
     .then((response) => {
@@ -434,14 +482,14 @@ const postPictureFolder = (folderData: folderData) => {
 
 const updatePost = (
   blogPost: blogPostData,
-  pictureFolder: folderData,
-  newBlogPost: Data
+  contentFolder: folderData,
+  newBlogPost: formDataType
 ) => {
   console.log('sending update');
   axios
     .put(`http://localHost:4000/update/${blogPost.id}/${newBlogPost.id}`, {
       blogPost,
-      pictureFolder,
+      contentFolder,
       newBlogPost,
     })
     .then((res) => {
@@ -455,6 +503,17 @@ const updatePost = (
 const fetchPosts = async () => {
   try {
     const response = await axios.get(`http://localhost:4000/getAllPosts`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+const fetchPostContent = async (id: string) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:4000/getPostContent?id=${id}`
+    );
     return response.data;
   } catch (error) {
     console.log(error);

@@ -9,10 +9,6 @@ interface Props {
 
 const MyContent: React.FC<Props> = ({ content }) => {
   const [isAdmin, setIsAdmin] = useState(false);
-  console.log({ content });
-  useEffect(() => {
-    console.log({ content });
-  }, [content]);
 
   switch (content) {
     case 'home': {
@@ -22,14 +18,14 @@ const MyContent: React.FC<Props> = ({ content }) => {
       return <Contact></Contact>;
     }
     case 'coding': {
-      return <Blog title={'coding'}></Blog>;
+      return <Blog category={'coding'}></Blog>;
     }
     case 'movement': {
       console.log({ content });
-      return <Blog title={'movement'}></Blog>;
+      return <Blog category={'movement'}></Blog>;
     }
     case 'clothing': {
-      return <Blog title={'clothes'}></Blog>;
+      return <Blog category={'clothes'}></Blog>;
     }
     case 'admin': {
       return (

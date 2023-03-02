@@ -35,7 +35,7 @@ const MyAppShell = () => {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
   const [content, setContent] = useState('home');
-  console.log({ content });
+  // console.log({ content });
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}
@@ -54,14 +54,6 @@ const MyAppShell = () => {
                   : theme.colors.gray[0],
             },
           })}
-          // styles={{
-          //   main: {
-          //     background:
-          //       theme.colorScheme === 'dark'F
-          //         ? theme.colors.dark[8]
-          //         : theme.colors.gray[0],
-          //   },
-          // }}
           navbarOffsetBreakpoint="sm"
           asideOffsetBreakpoint="sm"
           navbar={
@@ -71,39 +63,12 @@ const MyAppShell = () => {
               hidden={!opened}
               width={{ sm: 200, lg: 300 }}
             >
-              {/* <BrowserRouter>
-            <Link to={'/'}>Home </Link>
-            <Link to={'/admin'}>Admin </Link>
-          </BrowserRouter> */}
               <MyNav
                 content={content}
                 setContent={setContent}
               ></MyNav>
-              {/* <DarkModeToggle></DarkModeToggle>{' '} */}
             </Navbar>
           }
-          // aside={
-          //   <MediaQuery
-          //     smallerThan="sm"
-          //     styles={{ display: 'none' }}
-          //   >
-          //     <Aside
-          //       p="md"
-          //       hiddenBreakpoint="sm"
-          //       width={{ sm: 200, lg: 300 }}
-          //     >
-          //       <Text>Application sidebar</Text>
-          //     </Aside>
-          //   </MediaQuery>
-          // }
-          // footer={
-          //   <Footer
-          //     height={60}
-          //     p="md"
-          //   >
-          //     Application footer
-          //   </Footer>
-          // }
           header={
             <Header
               height={{ base: 50, md: 70 }}
@@ -142,19 +107,5 @@ const MyAppShell = () => {
     </ColorSchemeProvider>
   );
 };
-
-// function DarkModeToggle() {
-//   const { colorScheme, changeColorScheme } = useColorScheme();
-
-//   const handleClick = () => {
-//     changeColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
-//   };
-
-//   return (
-//     <Button onClick={handleClick}>
-//       {colorScheme === 'dark' ? 'Light mode' : 'Dark mode'}
-//     </Button>
-//   );
-// }
 
 export { MyAppShell };

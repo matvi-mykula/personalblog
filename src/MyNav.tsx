@@ -13,7 +13,6 @@ interface Props {
 
 const MyNav: React.FC<Props> = ({ content, setContent }) => {
   const [isAdmin, setIsAdmin] = useState(false);
-  console.log({ content });
   return (
     <div>
       <Stack>
