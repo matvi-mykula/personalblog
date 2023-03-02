@@ -225,20 +225,28 @@ function splitString(aString: string) {
   return aList;
 }
 
-function checkExistence(filePath: string) {
-  let trueFile = [filePath];
-  console.log(trueFile);
-  if (filePath.includes(',')) {
-    trueFile = filePath.split(', ');
-    console.log(trueFile);
+function checkExistence(filePath: string, contentType: string) {
+  try {
+    return require(`./${contentType}/` + filePath);
+  } catch (error) {
+    return null;
   }
-  return trueFile;
-  // try {
-  //   return require('./images/' + filePath);
-  // } catch (error) {
-  //   return null;
-  // }
 }
+
+// function checkExistence(filePath: string) {
+//   let trueFile = [filePath];
+//   console.log(trueFile);
+//   if (filePath.includes(',')) {
+//     trueFile = filePath.split(', ');
+//     console.log(trueFile);
+//   }
+//   return trueFile;
+//   // try {
+//   //   return require('./images/' + filePath);
+//   // } catch (error) {
+//   //   return null;
+//   // }
+// }
 
 // function Gallery (stringList:string[]){
 //   let urlList =

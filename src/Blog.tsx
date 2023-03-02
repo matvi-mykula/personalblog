@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 // import { Button, Form, Navbar, Card } from 'react-bootstrap';
 import { Image, Button } from '@mantine/core';
+import { Carousel } from '@mantine/carousel';
 
 interface Post {
   id: string;
@@ -34,6 +35,7 @@ const Blog: React.FC<Props> = ({ category }) => {
   const [postsWithContent, setPostsWithContent] = useState<PostWithContent[]>(
     []
   );
+  ///////////////////////////////////////////
   /// when category changes get all posts by category and content for each post and create list of postdata
   useEffect(() => {
     const fetchPosts = async () => {
@@ -59,6 +61,7 @@ const Blog: React.FC<Props> = ({ category }) => {
     };
     fetchPosts();
   }, [category]);
+  ///////////////////////////////////////
 
   if (postsWithContent) {
     return (
@@ -67,20 +70,43 @@ const Blog: React.FC<Props> = ({ category }) => {
           <div key={postWithContent.post.id}>
             <h2>{postWithContent.post.title}</h2>
             <p>{postWithContent.post.description}</p>
-            {postWithContent.content.pictures?.map((picture, index) => (
-              <img
-                key={index}
-                src={picture}
-                alt={`no pic${index}`}
-              />
-            ))}
-            {postWithContent.content.videos?.map((video, index) => (
-              <video
-                key={index}
-                src={video}
-                controls
-              />
-            ))}
+            {checkExistence(postWithContent.content.pictures[0], 'images') ? (
+              <Carousel
+                maw={320}
+                mx="auto"
+                withIndicators
+                height={200}
+              >
+                {postWithContent.content.pictures?.map((picture, index) => (
+                  <Carousel.Slide></Carousel.Slide>
+                  //     key={index}
+                  //     src={picture}
+                  //     alt={`no pic${index}`}
+                  //   />
+                ))}
+              </Carousel>
+            ) : (
+              <p>No Images</p>
+            )}
+            {checkExistence(postWithContent.content.videos[0], 'videos') ? (
+              <Carousel
+                maw={320}
+                mx="auto"
+                withIndicators
+                height={200}
+              >
+                {postWithContent.content.videos?.map((video, index) => (
+                  <Carousel.Slide></Carousel.Slide>
+                  //     key={index}
+                  //     src={picture}
+                  //     alt={`no pic${index}`}
+                  //   />
+                ))}
+              </Carousel>
+            ) : (
+              <p>No Videos</p>
+            )}
+
             {postWithContent.content.links?.map((link, index) => (
               <a
                 key={index}
@@ -101,3 +127,12 @@ const Blog: React.FC<Props> = ({ category }) => {
 };
 
 export { Blog };
+
+///////////////// checks if content strings lead to valid pictures or videos
+function checkExistence(filePath: string, contentType: string) {
+  try {
+    return require(`./${contentType}/` + filePath);
+  } catch (error) {
+    return null;
+  }
+}
