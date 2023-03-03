@@ -322,6 +322,15 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
   const handleAddMore = (inputType: string[], setState: Function) => {
     setState([...inputType, '']); // add a new empty input field to the array
   };
+
+  const handleRemove = (
+    inputType: string[],
+    setState: Function,
+    index: number
+  ) => {
+    const newInput = inputType.splice(index, 1);
+    setState([...inputType]);
+  };
   return (
     <Box>
       <form
@@ -398,24 +407,33 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
         />
 
         {pictureInputs.map((value, index) => (
-          <TextInput
-            withAsterisk
-            key={index}
-            value={value}
-            label="Picture"
-            placeholder="Picture"
-            onChange={(event) => {
-              handleInputChange(
-                index,
-                event.target.value,
-                pictureInputs,
-                setPictureInputs
-              );
-              console.log(pictureInputs);
-            }}
+          <span>
+            <TextInput
+              withAsterisk
+              key={index}
+              value={value}
+              label="Picture"
+              placeholder="Picture"
+              onChange={(event) => {
+                handleInputChange(
+                  index,
+                  event.target.value,
+                  pictureInputs,
+                  setPictureInputs
+                );
+                console.log(pictureInputs);
+              }}
 
-            // {...form.getInputProps('picture')}
-          ></TextInput>
+              // {...form.getInputProps('picture')}
+            ></TextInput>
+            <Button
+              onClick={() => {
+                handleRemove(pictureInputs, setPictureInputs, index);
+              }}
+            >
+              -
+            </Button>
+          </span>
         ))}
         <Button onClick={() => handleAddMore(pictureInputs, setPictureInputs)}>
           +
@@ -423,22 +441,31 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
 
         {videoInputs &&
           videoInputs.map((value, index) => (
-            <TextInput
-              withAsterisk
-              key={index}
-              label="Video"
-              placeholder="Video"
-              value={value}
-              onChange={(event) => {
-                handleInputChange(
-                  index,
-                  event.target.value,
-                  videoInputs,
-                  setVideoInputs
-                );
-                console.log(videoInputs);
-              }}
-            ></TextInput>
+            <span>
+              <TextInput
+                withAsterisk
+                key={index}
+                label="Video"
+                placeholder="Video"
+                value={value}
+                onChange={(event) => {
+                  handleInputChange(
+                    index,
+                    event.target.value,
+                    videoInputs,
+                    setVideoInputs
+                  );
+                  console.log(videoInputs);
+                }}
+              ></TextInput>
+              <Button
+                onClick={() => {
+                  handleRemove(videoInputs, setVideoInputs, index);
+                }}
+              >
+                -
+              </Button>
+            </span>
           ))}
         <Button onClick={() => handleAddMore(videoInputs, setVideoInputs)}>
           +
@@ -446,22 +473,31 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
 
         {linkInputs &&
           linkInputs.map((value, index) => (
-            <TextInput
-              key={index}
-              withAsterisk
-              label="Link"
-              placeholder="Link"
-              value={value}
-              onChange={(event) => {
-                handleInputChange(
-                  index,
-                  event.target.value,
-                  linkInputs,
-                  setLinkInputs
-                );
-                console.log(linkInputs);
-              }}
-            ></TextInput>
+            <span>
+              <TextInput
+                key={index}
+                withAsterisk
+                label="Link"
+                placeholder="Link"
+                value={value}
+                onChange={(event) => {
+                  handleInputChange(
+                    index,
+                    event.target.value,
+                    linkInputs,
+                    setLinkInputs
+                  );
+                  console.log(linkInputs);
+                }}
+              ></TextInput>
+              <Button
+                onClick={() => {
+                  handleRemove(linkInputs, setLinkInputs, index);
+                }}
+              >
+                -
+              </Button>
+            </span>
           ))}
         <Button onClick={() => handleAddMore(linkInputs, setLinkInputs)}>
           +

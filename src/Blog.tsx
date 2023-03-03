@@ -60,16 +60,28 @@ const Blog: React.FC<Props> = ({ category }) => {
     fetchPosts();
   }, [category]);
   ///////////////////////////////////////
+  //    load one at a time ///////////
+
+  const [index, setIndex] = useState(1);
+
+  // shows next blog post //////////////// NEED THIS
+  // const loadMore = () => {
+  //   if (topicData[displayedData.length]) {
+  //     setData([...data, topicData[data.length]]);
+  //     console.log({ data });
+  //   }
+  // };
+
+  ////////////////////////////
 
   if (postsWithContent && typeof postsWithContent !== 'undefined') {
     console.log(postsWithContent[0]);
     return (
       <div>
-        {postsWithContent?.map((postWithContent, index) => (
+        {postsWithContent.slice(0, index)?.map((postWithContent, index) => (
           <div key={postWithContent.post.id}>
             <h2>{postWithContent.post.title}</h2>
             <p>{postWithContent.post.description}</p>
-
             {postWithContent.content.pictures[0] ? (
               <Carousel
                 maw={500}
@@ -107,7 +119,6 @@ const Blog: React.FC<Props> = ({ category }) => {
             ) : (
               <p>No Images</p>
             )}
-
             {postWithContent.content.videos[0] ? (
               <Carousel
                 maw={320}
@@ -122,7 +133,6 @@ const Blog: React.FC<Props> = ({ category }) => {
             ) : (
               <p>No Videos</p>
             )}
-
             {postWithContent.content.links?.map((link, index) => (
               <a
                 key={index}
@@ -132,9 +142,17 @@ const Blog: React.FC<Props> = ({ category }) => {
               >
                 {link}
               </a>
-            ))}
+            ))}{' '}
+            <p>-----------------------------------------------</p>
           </div>
         ))}
+        <Button
+          onClick={() => {
+            setIndex((index) => index + 1);
+          }}
+        >
+          More Content
+        </Button>
       </div>
     );
   } else {
