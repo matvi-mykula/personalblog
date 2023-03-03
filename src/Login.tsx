@@ -100,10 +100,7 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
       }
     };
     getData();
-    // let postListJSX = []
-    // for (let i = 0; i < allData.length; i++) {
-
-    // }
+    console.log(allData);
   }, [showAllPosts, showEditForm]);
   /////
 
@@ -211,16 +208,16 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
 
                       const content = await fetchPostContent(post.id);
                       console.log({ post });
-                      console.log(content[0].pictures);
+                      console.log(content.pictures);
                       await setFormData({
                         id: post.id,
                         title: post.title,
                         category: post.category,
                         description: post.description,
                         timeStamp: post.timeStamp,
-                        pictures: content[0].pictures,
-                        videos: content[0].videos,
-                        links: content[0].links,
+                        pictures: content.pictures,
+                        videos: content.videos,
+                        links: content.links,
                       });
                       console.log({ formData });
                       setShowEditForm(true);
@@ -273,7 +270,7 @@ interface Data {
   description: string;
   picture: string[];
   video: string[];
-  link: string[];
+  links: string[];
   timeStamp: Date;
 }
 interface Props2 {
@@ -290,14 +287,19 @@ interface Props2 {
 const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
   console.log(newData);
   const [pictureInputs, setPictureInputs] = useState(newData.pictures); // initial array with one input field
-  const [videoInputs, setVideoInputs] = useState(['']); // initial array with one input field
-  const [linkInputs, setLinkInputs] = useState(['']); // initial array with one input field
+  const [videoInputs, setVideoInputs] = useState(newData.videos); // initial array with one input field
+  const [linkInputs, setLinkInputs] = useState(newData.links); // initial array with one input field
 
-  const handleInputChange = (index: number, value: string) => {
+  const handleInputChange = (
+    index: number,
+    value: string,
+    inputType: string[],
+    setState: Function
+  ) => {
     console.log({ value });
-    const newInputs = [...pictureInputs];
+    const newInputs = [...inputType];
     newInputs[index] = value;
-    setPictureInputs(newInputs);
+    setState(newInputs);
   };
 
   const form = useForm({
@@ -317,8 +319,8 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
     },
   });
 
-  const handleAddMore = () => {
-    setPictureInputs([...pictureInputs, '']); // add a new empty input field to the array
+  const handleAddMore = (inputType: string[], setState: Function) => {
+    setState([...inputType, '']); // add a new empty input field to the array
   };
   return (
     <Box>
@@ -387,7 +389,7 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
           label="Title"
           placeholder="Title"
           {...form.getInputProps('title')}
-        />
+        ></TextInput>
         <Textarea
           withAsterisk
           label="Description"
@@ -403,28 +405,72 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
             label="Picture"
             placeholder="Picture"
             onChange={(event) => {
-              handleInputChange(index, event.target.value);
+              handleInputChange(
+                index,
+                event.target.value,
+                pictureInputs,
+                setPictureInputs
+              );
               console.log(pictureInputs);
             }}
 
             // {...form.getInputProps('picture')}
-          />
+          ></TextInput>
         ))}
-        <Button onClick={handleAddMore}>+</Button>
+        <Button onClick={() => handleAddMore(pictureInputs, setPictureInputs)}>
+          +
+        </Button>
 
-        <TextInput
-          withAsterisk
-          label="Video"
-          placeholder="Video"
-          {...form.getInputProps('video')}
-        />
-        <TextInput
-          withAsterisk
-          label="Link"
-          placeholder="Link"
-          {...form.getInputProps('link')}
-        ></TextInput>
+        {videoInputs &&
+          videoInputs.map((value, index) => (
+            <TextInput
+              withAsterisk
+              key={index}
+              label="Video"
+              placeholder="Video"
+              value={value}
+              onChange={(event) => {
+                handleInputChange(
+                  index,
+                  event.target.value,
+                  videoInputs,
+                  setVideoInputs
+                );
+                console.log(videoInputs);
+              }}
+            ></TextInput>
+          ))}
+        <Button onClick={() => handleAddMore(videoInputs, setVideoInputs)}>
+          +
+        </Button>
+
+        {linkInputs &&
+          linkInputs.map((value, index) => (
+            <TextInput
+              key={index}
+              withAsterisk
+              label="Link"
+              placeholder="Link"
+              value={value}
+              onChange={(event) => {
+                handleInputChange(
+                  index,
+                  event.target.value,
+                  linkInputs,
+                  setLinkInputs
+                );
+                console.log(linkInputs);
+              }}
+            ></TextInput>
+          ))}
+        <Button onClick={() => handleAddMore(linkInputs, setLinkInputs)}>
+          +
+        </Button>
+        <br></br>
+        <br></br>
+
         <Button type="submit">Submit</Button>
+        <br></br>
         <Button
           onClick={() => {
             form.reset();
@@ -501,19 +547,25 @@ const updatePost = (
 };
 //get all posts to be edited or deleted
 const fetchPosts = async () => {
-  try {
-    const response = await axios.get(`http://localhost:4000/getAllPosts`);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
+  // try {
+  //   axios.get(`http://localhost:4000/getAllPosts`).then((res) => {
+  //     console.log(res.data);
+  //     return res.data;
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  //   return [];
+  // }
+  // return [];
+  const response = await axios.get(`http://localhost:4000/getAllPosts`);
+  return response.data;
 };
 const fetchPostContent = async (id: string) => {
   try {
     const response = await axios.get(
       `http://localhost:4000/getPostContent?id=${id}`
     );
+    console.log(response);
     return response.data;
   } catch (error) {
     console.log(error);

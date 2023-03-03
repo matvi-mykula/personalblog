@@ -51,34 +51,53 @@ const Blog: React.FC<Props> = ({ category }) => {
           `http://localhost:4000/getPostContent?id=${post.id}`
         );
         const content = contentResponse.data;
-        console.log(content);
 
         postsWithContent.push({ post, content });
       }
 
       setPostsWithContent(postsWithContent);
-      console.log(postsWithContent[0].content);
     };
     fetchPosts();
   }, [category]);
   ///////////////////////////////////////
 
-  if (postsWithContent) {
+  if (postsWithContent && typeof postsWithContent !== 'undefined') {
+    console.log(postsWithContent[0]);
     return (
       <div>
         {postsWithContent?.map((postWithContent, index) => (
           <div key={postWithContent.post.id}>
             <h2>{postWithContent.post.title}</h2>
             <p>{postWithContent.post.description}</p>
-            {checkExistence(postWithContent.content.pictures[0], 'images') ? (
+
+            {postWithContent.content.pictures[0] ? (
               <Carousel
-                maw={320}
+                maw={500}
                 mx="auto"
                 withIndicators
-                height={200}
+                height={400}
+                loop
+                styles={{
+                  control: {
+                    '&[data-inactive]': {
+                      opacity: 0,
+                      cursor: 'default',
+                    },
+                  },
+                }}
               >
                 {postWithContent.content.pictures?.map((picture, index) => (
-                  <Carousel.Slide></Carousel.Slide>
+                  <Carousel.Slide key={picture}>
+                    <img
+                      src={`./images/${picture}`}
+                      alt={`./images/${picture}`}
+                      style={{
+                        width: 'auto',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </Carousel.Slide>
                   //     key={index}
                   //     src={picture}
                   //     alt={`no pic${index}`}
@@ -88,7 +107,8 @@ const Blog: React.FC<Props> = ({ category }) => {
             ) : (
               <p>No Images</p>
             )}
-            {checkExistence(postWithContent.content.videos[0], 'videos') ? (
+
+            {postWithContent.content.videos[0] ? (
               <Carousel
                 maw={320}
                 mx="auto"
@@ -96,11 +116,7 @@ const Blog: React.FC<Props> = ({ category }) => {
                 height={200}
               >
                 {postWithContent.content.videos?.map((video, index) => (
-                  <Carousel.Slide></Carousel.Slide>
-                  //     key={index}
-                  //     src={picture}
-                  //     alt={`no pic${index}`}
-                  //   />
+                  <Carousel.Slide key={video}></Carousel.Slide>
                 ))}
               </Carousel>
             ) : (
@@ -127,12 +143,3 @@ const Blog: React.FC<Props> = ({ category }) => {
 };
 
 export { Blog };
-
-///////////////// checks if content strings lead to valid pictures or videos
-function checkExistence(filePath: string, contentType: string) {
-  try {
-    return require(`./${contentType}/` + filePath);
-  } catch (error) {
-    return null;
-  }
-}
