@@ -1,13 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-// import { AppRouter } from './AppRouter';
 import reportWebVitals from './reportWebVitals';
 import { Link, BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppShell, Navbar, Header } from '@mantine/core';
 import { MyAppShell } from './MyAppShell';
-
-// import { RouteSwitch } from './RouteSwitch';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

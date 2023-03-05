@@ -119,8 +119,7 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
     id: '',
     category: '',
     title: '',
-    description: '', //make larger text field
-    // how to make pictures into arrays of strings?
+    description: '',
     pictures: [''],
     videos: [''],
     links: [''],
@@ -202,9 +201,6 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
                   <Button
                     onClick={async () => {
                       setShowAllPosts(false);
-                      // something is wrong here
-                      // need to construct post from data and content
-                      // get content into array use that to construct post
 
                       const content = await fetchPostContent(post.id);
                       console.log({ post });
@@ -314,6 +310,7 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
       timeStamp: newData.timeStamp,
     },
 
+    /// do i need to do more validations?
     validate: {
       id: (value) =>
         value.length < 2 ? 'Name must have at least 2 letters' : null,
@@ -432,8 +429,6 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
                 );
                 console.log(pictureInputs);
               }}
-
-              // {...form.getInputProps('picture')}
             ></TextInput>
             <Button
               onClick={() => {
@@ -519,13 +514,10 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
         <Button
           onClick={() => {
             form.reset();
-            /// cancels and resets admin page
             cancel();
-            // setFormData(initialForm);
           }}
         >
           Cancel
-          {/* where to keep cancel button so it can setstate and hide the form */}
         </Button>
       </form>
     </Box>
@@ -546,6 +538,7 @@ interface folderData {
   links: string[];
 }
 
+///send blog data to database
 const postBlogPost = (blogPost: blogPostData) => {
   console.log('posting blog post');
   axios
@@ -558,6 +551,8 @@ const postBlogPost = (blogPost: blogPostData) => {
       console.log(response.data);
     });
 };
+
+// sends content to database
 const postContentFolder = (folderData: folderData) => {
   console.log('posting img folder data');
   axios
@@ -571,6 +566,7 @@ const postContentFolder = (folderData: folderData) => {
     });
 };
 
+// takes new blog post info and updates both content folder and blog data
 const updatePost = (
   blogPost: blogPostData,
   contentFolder: folderData,
@@ -592,19 +588,11 @@ const updatePost = (
 };
 //get all posts to be edited or deleted
 const fetchPosts = async () => {
-  // try {
-  //   axios.get(`http://localhost:4000/getAllPosts`).then((res) => {
-  //     console.log(res.data);
-  //     return res.data;
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  //   return [];
-  // }
-  // return [];
   const response = await axios.get(`http://localhost:4000/getAllPosts`);
   return response.data;
 };
+
+// get content associated with a specific post id
 const fetchPostContent = async (id: string) => {
   try {
     const response = await axios.get(

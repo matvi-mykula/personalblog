@@ -103,10 +103,6 @@ const Blog: React.FC<Props> = ({ category }) => {
                       }}
                     />
                   </Carousel.Slide>
-                  //     key={index}
-                  //     src={picture}
-                  //     alt={`no pic${index}`}
-                  //   />
                 ))}
               </Carousel>
             ) : null}

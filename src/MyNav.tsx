@@ -58,7 +58,7 @@ const MyNav: React.FC<Props> = ({ content, setContent }) => {
         >
           Martial Arts
         </Button>
-        <Button
+        {/* <Button
           color="gray"
           radius="xl"
           size="md"
@@ -67,7 +67,7 @@ const MyNav: React.FC<Props> = ({ content, setContent }) => {
           onClick={() => setContent('clothing')}
         >
           Clothing
-        </Button>
+        </Button> */}
         <Button
           color="gray"
           radius="xl"
@@ -81,89 +81,6 @@ const MyNav: React.FC<Props> = ({ content, setContent }) => {
       </Stack>{' '}
     </div>
   );
-
-  // interface Props {
-  //   blogData: { title: string; content: string };
-  //   setBlogData: Function;
-  // }
-
-  // const codingData = {
-  //   title: 'Coding',
-  //   content: 'Content about Coding',
-  // };
-  // const fightingData = {
-  //   title: 'Martial Arts',
-  //   content: 'Content about fighting',
-  // };
-  // const clothingData = {
-  //   title: 'Style Blog',
-  //   content: 'Content about Clothing',
-  // };
-  // const [blogData, setBlogData] = useState<{ title: string; content: string }>({
-  //   title: '',
-  //   content: '',
-  // });
-  // return (
-  //   <Stack
-  //     style={{ display: 'flex' }}
-  //     spacing="md"
-  //   >
-  //     <BrowserRouter>
-  //       <Link to={'/'}>Home </Link>
-  //       <Link to={'/codingBlog'}>Coding </Link>
-
-  //       <Link to={'/MovementBlog'}>Martial Arts </Link>
-  //       <Link to={'/styleBlog'}>Style </Link>
-  //       <Link to={'/admin'}>Admin </Link>
-
-  {
-    /* <Routes>
-          <Route
-            path="/"
-            element={<App></App>}
-          />
-          <Route
-            path="/login"
-            element={
-              <Login
-                isAdmin={isAdmin}
-                setIsAdmin={setIsAdmin}
-              ></Login>
-            }
-          />
-
-          <Route
-            path="/codingBlog"
-            element={
-              <Blog
-                blogData={codingData}
-                setBlogData={setBlogData}
-              ></Blog>
-            }
-          ></Route>
-          <Route
-            path="/movementBlog"
-            element={
-              <Blog
-                blogData={fightingData}
-                setBlogData={setBlogData}
-              ></Blog>
-            }
-          ></Route>
-          <Route
-            path="/styleBlog"
-            element={
-              <Blog
-                blogData={clothingData}
-                setBlogData={setBlogData}
-              ></Blog>
-            }
-          ></Route>
-        </Routes> */
-  }
-  //   </BrowserRouter>
-  // </Stack>
-  // );
 };
 
 export { MyNav };

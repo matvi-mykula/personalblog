@@ -38,9 +38,6 @@ const MyContent: React.FC<Props> = ({ content }) => {
     default:
       return <p>hello from router</p>;
   }
-
-  // }, [content]);
-  // return <p>helo from router</p>;
 };
 
 export { MyContent };
