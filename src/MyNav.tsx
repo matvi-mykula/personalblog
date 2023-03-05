@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppShell, Navbar, Header } from '@mantine/core';
+import { Button, AppShell, Navbar, Header } from '@mantine/core';
 import { Stack } from '@mantine/core';
 import { Blog } from './Blog';
 import { Login } from './Login';
@@ -16,14 +16,68 @@ const MyNav: React.FC<Props> = ({ content, setContent }) => {
   return (
     <div>
       <Stack>
-        <button onClick={() => setContent('home')}>Home</button>
-        <button onClick={() => setContent('contact')}>Contact Me</button>
+        <Button
+          color="gray"
+          radius="xl"
+          size="md"
+          compact
+          uppercase
+          onClick={() => setContent('home')}
+        >
+          Home
+        </Button>
+        <Button
+          color="gray"
+          radius="xl"
+          size="md"
+          compact
+          uppercase
+          onClick={() => setContent('contact')}
+        >
+          Contact Me
+        </Button>
 
-        <button onClick={() => setContent('coding')}>Coding</button>
+        <Button
+          color="gray"
+          radius="xl"
+          size="md"
+          compact
+          uppercase
+          onClick={() => setContent('coding')}
+        >
+          Coding
+        </Button>
 
-        <button onClick={() => setContent('movement')}>Martial Arts</button>
-        <button onClick={() => setContent('clothing')}>Clothing</button>
-        <button onClick={() => setContent('admin')}>Admin</button>
+        <Button
+          color="gray"
+          radius="xl"
+          size="md"
+          compact
+          uppercase
+          onClick={() => setContent('movement')}
+        >
+          Martial Arts
+        </Button>
+        <Button
+          color="gray"
+          radius="xl"
+          size="md"
+          compact
+          uppercase
+          onClick={() => setContent('clothing')}
+        >
+          Clothing
+        </Button>
+        <Button
+          color="gray"
+          radius="xl"
+          size="md"
+          compact
+          uppercase
+          onClick={() => setContent('admin')}
+        >
+          Admin
+        </Button>
       </Stack>{' '}
     </div>
   );

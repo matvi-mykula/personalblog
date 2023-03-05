@@ -315,6 +315,15 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
     },
 
     validate: {
+      id: (value) =>
+        value.length < 2 ? 'Name must have at least 2 letters' : null,
+      title: (value) =>
+        value.length < 2 ? 'Name must have at least 2 letters' : null,
+      description: (value) =>
+        value.length < 2 ? 'Name must have at least 2 letters' : null,
+      category: (value) =>
+        value === undefined ? 'Category is required' : null,
+
       // email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
     },
   });

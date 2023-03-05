@@ -3,7 +3,6 @@ import { App } from './Home';
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-// import { Button, Form, Navbar, Card } from 'react-bootstrap';
 import { Image, Button } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 
@@ -64,24 +63,18 @@ const Blog: React.FC<Props> = ({ category }) => {
 
   const [index, setIndex] = useState(1);
 
-  // shows next blog post //////////////// NEED THIS
-  // const loadMore = () => {
-  //   if (topicData[displayedData.length]) {
-  //     setData([...data, topicData[data.length]]);
-  //     console.log({ data });
-  //   }
-  // };
-
   ////////////////////////////
 
-  if (postsWithContent && typeof postsWithContent !== 'undefined') {
+  if (postsWithContent.length > 0 && typeof postsWithContent !== 'undefined') {
     console.log(postsWithContent[0]);
     return (
       <div>
         {postsWithContent.slice(0, index)?.map((postWithContent, index) => (
           <div key={postWithContent.post.id}>
             <h2>{postWithContent.post.title}</h2>
-            <p>{postWithContent.post.description}</p>
+            <p style={{ whiteSpace: 'pre-wrap' }}>
+              {postWithContent.post.description}
+            </p>
             {postWithContent.content.pictures[0] ? (
               <Carousel
                 maw={500}
@@ -116,9 +109,7 @@ const Blog: React.FC<Props> = ({ category }) => {
                   //   />
                 ))}
               </Carousel>
-            ) : (
-              <p>No Images</p>
-            )}
+            ) : null}
             {postWithContent.content.videos[0] ? (
               <Carousel
                 maw={320}
@@ -130,9 +121,7 @@ const Blog: React.FC<Props> = ({ category }) => {
                   <Carousel.Slide key={video}></Carousel.Slide>
                 ))}
               </Carousel>
-            ) : (
-              <p>No Videos</p>
-            )}
+            ) : null}
             {postWithContent.content.links?.map((link, index) => (
               <a
                 key={index}
