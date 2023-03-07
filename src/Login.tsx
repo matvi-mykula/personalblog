@@ -568,11 +568,30 @@ interface folderData {
   links: string[];
 }
 
+/////////////
+function figureAPI() {
+  console.log(window.location);
+  console.log(process.env.NODE_ENV);
+  const devBackend = 'http://localhost:8080/api/';
+  const prodBackend = 'https://young-frog-2584.fly.dev/api/'; ///// replace with fly.io link
+
+  console.log({ prodBackend });
+  const prodEnv = process.env.NODE_ENV === 'production';
+  console.log(prodEnv);
+  let environment;
+  prodEnv ? (environment = prodBackend) : (environment = devBackend);
+  return environment;
+}
+
+const environment = figureAPI();
+
+console.log({ environment });
+
 ///send blog data to database
 const postBlogPost = (blogPost: blogPostData) => {
   console.log('posting blog post');
   axios
-    .post('http://localhost:4000/postBlogPost', {
+    .post(environment + 'postBlogPost', {
       blogPost,
     })
     .then((response) => {
@@ -586,7 +605,7 @@ const postBlogPost = (blogPost: blogPostData) => {
 const postContentFolder = (folderData: folderData) => {
   console.log('posting img folder data');
   axios
-    .post('http://localhost:4000/postContentFolder', {
+    .post(environment + 'postContentFolder', {
       folderData,
     })
     .then((response) => {
@@ -604,7 +623,7 @@ const updatePost = (
 ) => {
   console.log('sending update');
   axios
-    .put(`http://localHost:4000/update/${blogPost.id}/${newBlogPost.id}`, {
+    .put(environment + `update/${blogPost.id}/${newBlogPost.id}`, {
       blogPost,
       contentFolder,
       newBlogPost,
@@ -618,16 +637,14 @@ const updatePost = (
 };
 //get all posts to be edited or deleted
 const fetchPosts = async () => {
-  const response = await axios.get(`http://localhost:4000/getAllPosts`);
+  const response = await axios.get(environment + `getAllPosts`);
   return response.data;
 };
 
 // get content associated with a specific post id
 const fetchPostContent = async (id: string) => {
   try {
-    const response = await axios.get(
-      `http://localhost:4000/getPostContent?id=${id}`
-    );
+    const response = await axios.get(environment + `getPostContent?id=${id}`);
     console.log(response);
     return response.data;
   } catch (error) {
@@ -639,7 +656,7 @@ const fetchPostContent = async (id: string) => {
 // deletes post onclick from database
 const removePost = (id: number) => {
   axios
-    .delete(`http://localhost:4000/delete/${id}`)
+    .delete(environment + `delete/${id}`)
     .then((res) => {
       console.log(res.data);
     })

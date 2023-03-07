@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { Link, BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppShell, Navbar, Header } from '@mantine/core';
 import { MyAppShell } from './MyAppShell';
+import axios from 'axios';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

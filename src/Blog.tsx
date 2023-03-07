@@ -29,6 +29,23 @@ interface PostWithContent {
 interface Props {
   category: string;
 }
+function figureAPI() {
+  console.log(window.location);
+  console.log(process.env.NODE_ENV);
+  const devBackend = 'http://localhost:8080/api/';
+  const prodBackend = 'https://young-frog-2584.fly.dev/api/'; ///// replace with fly.io link
+
+  console.log({ prodBackend });
+  const prodEnv = process.env.NODE_ENV === 'production';
+  console.log(prodEnv);
+  let environment;
+  prodEnv ? (environment = prodBackend) : (environment = devBackend);
+  return environment;
+}
+
+const environment = figureAPI();
+
+console.log({ environment });
 
 const Blog: React.FC<Props> = ({ category }) => {
   const [postsWithContent, setPostsWithContent] = useState<PostWithContent[]>(
@@ -39,7 +56,7 @@ const Blog: React.FC<Props> = ({ category }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await axios.get<Post[]>(
-        `http://localhost:4000/getPosts?category=${category}`
+        environment + `getPosts?category=${category}`
       );
       const posts = response.data;
 
@@ -47,7 +64,7 @@ const Blog: React.FC<Props> = ({ category }) => {
 
       for (const post of posts) {
         const contentResponse = await axios.get<Content>(
-          `http://localhost:4000/getPostContent?id=${post.id}`
+          environment + `getPostContent?id=${post.id}`
         );
         const content = contentResponse.data;
 

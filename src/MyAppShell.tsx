@@ -7,6 +7,7 @@ import { MyNav } from 'MyNav';
 // import { Link, BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MyContent } from 'MyContent';
 import { ThemeSwitcher } from 'ColorScheme';
+import axios from 'axios';
 
 import {
   AppShell,
@@ -125,7 +126,10 @@ const MyAppShell = () => {
             </Header>
           }
         >
-          <MyContent content={content}></MyContent>
+          <MyContent
+            content={content}
+            environment={environment}
+          ></MyContent>
         </AppShell>
       </MantineProvider>
     </ColorSchemeProvider>
