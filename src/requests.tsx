@@ -5,7 +5,8 @@ function figureAPI() {
   console.log(window.location);
   console.log(process.env.NODE_ENV);
   const devBackend = 'http://localhost:8080/';
-  const prodBackend = 'https://restless-fire-5891.fly.dev/'; ///// replace with fly.io link
+  const prodBackend = 'https://blue-pine-501.fly.dev';
+  //   const prodBackend = 'https://restless-fire-5891.fly.dev/'; ///// replace with fly.io link
 
   console.log({ prodBackend });
   const prodEnv = process.env.NODE_ENV === 'production';
