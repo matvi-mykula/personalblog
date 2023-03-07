@@ -47,20 +47,20 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin, user, setUser }) => {
   //// i made user on mongodb manually
   const [loginPassword, setLoginPassword] = useState('');
   /////////////// log in admin user with passport
-  const login = (pass: string) => {
-    console.log('trying login');
-    axios
-      .post('http://localhost:4000/login', {
-        username: 'Admin',
-        password: pass,
-      })
-      .then((response) => {
-        console.log('login working');
+  // const login = (pass: string) => {
+  //   console.log('trying login');
+  //   axios
+  //     .post('http://localhost:4000/login', {
+  //       username: 'Admin',
+  //       password: pass,
+  //     })
+  //     .then((response) => {
+  //       console.log('login working');
 
-        console.log(response.data);
-        setUser(response.data);
-      });
-  };
+  //       console.log(response.data);
+  //       setUser(response.data);
+  //     });
+  // };
 
   //// do i need another get to check user or can i use state and localstorage?
   useEffect(() => {
@@ -95,7 +95,7 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin, user, setUser }) => {
               event.preventDefault();
               const password = form.values.password;
               console.log({ password });
-              login(password);
+              login(password, setUser);
             }}
           >
             <TextInput
@@ -573,7 +573,7 @@ function figureAPI() {
   console.log(window.location);
   console.log(process.env.NODE_ENV);
   const devBackend = 'http://localhost:8080/api/';
-  const prodBackend = 'https://young-frog-2584.fly.dev/api/'; ///// replace with fly.io link
+  const prodBackend = 'https://restless-fire-5891.fly.dev/'; ///// replace with fly.io link
 
   console.log({ prodBackend });
   const prodEnv = process.env.NODE_ENV === 'production';
@@ -587,6 +587,22 @@ const environment = figureAPI();
 
 console.log({ environment });
 
+///////////////
+//////login admin
+const login = (pass: string, setState: Function) => {
+  console.log('trying login');
+  axios
+    .post(environment + 'login', {
+      username: 'Admin',
+      password: pass,
+    })
+    .then((response) => {
+      console.log('login working');
+
+      console.log(response.data);
+      setState(response.data);
+    });
+};
 ///send blog data to database
 const postBlogPost = (blogPost: blogPostData) => {
   console.log('posting blog post');

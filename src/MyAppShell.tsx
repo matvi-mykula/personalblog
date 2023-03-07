@@ -32,7 +32,7 @@ function figureAPI() {
   console.log(window.location);
   console.log(process.env.NODE_ENV);
   const devBackend = 'http://localhost:8080/api/';
-  const prodBackend = 'https://young-frog-2584.fly.dev/api/'; ///// replace with fly.io link
+  const prodBackend = 'https://restless-fire-5891.fly.dev/'; ///// replace with fly.io link
 
   console.log({ prodBackend });
   const prodEnv = process.env.NODE_ENV === 'production';
