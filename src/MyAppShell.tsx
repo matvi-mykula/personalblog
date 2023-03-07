@@ -28,23 +28,23 @@ import {
 } from '@mantine/core';
 
 /////////////get api url and pass to components where it is needed
-function figureAPI() {
-  console.log(window.location);
-  console.log(process.env.NODE_ENV);
-  const devBackend = 'http://localhost:8080/api/';
-  const prodBackend = 'https://restless-fire-5891.fly.dev/'; ///// replace with fly.io link
+// function figureAPI() {
+//   console.log(window.location);
+//   console.log(process.env.NODE_ENV);
+//   const devBackend = 'http://localhost:8080/';
+//   const prodBackend = 'https://restless-fire-5891.fly.dev/'; ///// replace with fly.io link
 
-  console.log({ prodBackend });
-  const prodEnv = process.env.NODE_ENV === 'production';
-  console.log(prodEnv);
-  let environment;
-  prodEnv ? (environment = prodBackend) : (environment = devBackend);
-  return environment;
-}
+//   console.log({ prodBackend });
+//   const prodEnv = process.env.NODE_ENV === 'production';
+//   console.log(prodEnv);
+//   let environment;
+//   prodEnv ? (environment = prodBackend) : (environment = devBackend);
+//   return environment;
+// }
 
-const environment = figureAPI();
+// const environment = figureAPI();
 
-console.log({ environment });
+// console.log({ environment });
 
 const MyAppShell = () => {
   const [opened, setOpened] = useState(false);
@@ -126,10 +126,7 @@ const MyAppShell = () => {
             </Header>
           }
         >
-          <MyContent
-            content={content}
-            environment={environment}
-          ></MyContent>
+          <MyContent content={content}></MyContent>
         </AppShell>
       </MantineProvider>
     </ColorSchemeProvider>

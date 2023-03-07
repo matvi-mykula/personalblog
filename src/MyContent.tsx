@@ -6,7 +6,6 @@ import { Contact } from 'Contact';
 import { About } from 'About';
 interface Props {
   content: string;
-  environment: string;
 }
 interface User {
   user?: string;
@@ -14,7 +13,7 @@ interface User {
   isAdmin?: boolean;
 }
 
-const MyContent: React.FC<Props> = ({ content, environment }) => {
+const MyContent: React.FC<Props> = ({ content }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [user, setUser] = useState<User>({});
 

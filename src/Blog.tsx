@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Image, Button } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
+import { fetchPostsByCat, fetchContentById } from 'requests';
 
 interface Post {
   id: string;
@@ -29,25 +30,10 @@ interface PostWithContent {
 interface Props {
   category: string;
 }
-function figureAPI() {
-  console.log(window.location);
-  console.log(process.env.NODE_ENV);
-  const devBackend = 'http://localhost:8080/api/';
-  const prodBackend = 'https://restless-fire-5891.fly.dev/'; ///// replace with fly.io link
-
-  console.log({ prodBackend });
-  const prodEnv = process.env.NODE_ENV === 'production';
-  console.log(prodEnv);
-  let environment;
-  prodEnv ? (environment = prodBackend) : (environment = devBackend);
-  return environment;
-}
-
-const environment = figureAPI();
-
-console.log({ environment });
 
 const Blog: React.FC<Props> = ({ category }) => {
+  console.log('arrive to blog');
+  console.log(category);
   const [postsWithContent, setPostsWithContent] = useState<PostWithContent[]>(
     []
   );
@@ -55,22 +41,19 @@ const Blog: React.FC<Props> = ({ category }) => {
   /// when category changes get all posts by category and content for each post and create list of postdata
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get<Post[]>(
-        environment + `getPosts?category=${category}`
-      );
+      const response = await fetchPostsByCat(category);
       const posts = response.data;
 
       const postsWithContent: PostWithContent[] = [];
 
       for (const post of posts) {
-        const contentResponse = await axios.get<Content>(
-          environment + `getPostContent?id=${post.id}`
-        );
+        const contentResponse = await fetchContentById(post.id);
+        console.log(contentResponse);
         const content = contentResponse.data;
 
+        console.log('should be getting posts+content');
         postsWithContent.push({ post, content });
       }
-
       setPostsWithContent(postsWithContent);
     };
     fetchPosts();

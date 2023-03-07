@@ -4,6 +4,15 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import { FormEventHandler } from 'react';
 import {
+  login,
+  postBlogPost,
+  postContentFolder,
+  updatePost,
+  fetchPosts,
+  removePost,
+  fetchPostContent,
+} from './requests';
+import {
   TextInput,
   Checkbox,
   NumberInput,
@@ -569,116 +578,117 @@ interface folderData {
 }
 
 /////////////
-function figureAPI() {
-  console.log(window.location);
-  console.log(process.env.NODE_ENV);
-  const devBackend = 'http://localhost:8080/api/';
-  const prodBackend = 'https://restless-fire-5891.fly.dev/'; ///// replace with fly.io link
+// function figureAPI() {
+//   console.log(window.location);
+//   console.log(process.env.NODE_ENV);
+//   const devBackend = 'http://localhost:8080/';
+//   const prodBackend = 'https://restless-fire-5891.fly.dev/'; ///// replace with fly.io link
 
-  console.log({ prodBackend });
-  const prodEnv = process.env.NODE_ENV === 'production';
-  console.log(prodEnv);
-  let environment;
-  prodEnv ? (environment = prodBackend) : (environment = devBackend);
-  return environment;
-}
+//   console.log({ prodBackend });
+//   const prodEnv = process.env.NODE_ENV === 'production';
+//   console.log(prodEnv);
+//   let environment;
+//   prodEnv ? (environment = prodBackend) : (environment = devBackend);
+//   return environment;
+// }
 
-const environment = figureAPI();
+// const environment = figureAPI();
 
-console.log({ environment });
+// console.log({ environment });
 
-///////////////
-//////login admin
-const login = (pass: string, setState: Function) => {
-  console.log('trying login');
-  axios
-    .post(environment + 'login', {
-      username: 'Admin',
-      password: pass,
-    })
-    .then((response) => {
-      console.log('login working');
+// ///////////////
+// //////login admin
 
-      console.log(response.data);
-      setState(response.data);
-    });
-};
-///send blog data to database
-const postBlogPost = (blogPost: blogPostData) => {
-  console.log('posting blog post');
-  axios
-    .post(environment + 'postBlogPost', {
-      blogPost,
-    })
-    .then((response) => {
-      console.log('this blog post should be posted');
+// const login = (pass: string, setState: Function) => {
+//   console.log('trying login');
+//   axios
+//     .post(environment + 'login', {
+//       username: 'Admin',
+//       password: pass,
+//     })
+//     .then((response) => {
+//       console.log('login working');
 
-      console.log(response.data);
-    });
-};
+//       console.log(response.data);
+//       setState(response.data);
+//     });
+// };
+// ///send blog data to database
+// const postBlogPost = (blogPost: blogPostData) => {
+//   console.log('posting blog post');
+//   axios
+//     .post(environment + 'postBlogPost', {
+//       blogPost,
+//     })
+//     .then((response) => {
+//       console.log('this blog post should be posted');
 
-// sends content to database
-const postContentFolder = (folderData: folderData) => {
-  console.log('posting img folder data');
-  axios
-    .post(environment + 'postContentFolder', {
-      folderData,
-    })
-    .then((response) => {
-      console.log('this picture folder should be posted');
+//       console.log(response.data);
+//     });
+// };
 
-      console.log(response.data);
-    });
-};
+// // sends content to database
+// const postContentFolder = (folderData: folderData) => {
+//   console.log('posting img folder data');
+//   axios
+//     .post(environment + 'postContentFolder', {
+//       folderData,
+//     })
+//     .then((response) => {
+//       console.log('this picture folder should be posted');
 
-// takes new blog post info and updates both content folder and blog data
-const updatePost = (
-  blogPost: blogPostData,
-  contentFolder: folderData,
-  newBlogPost: formDataType
-) => {
-  console.log('sending update');
-  axios
-    .put(environment + `update/${blogPost.id}/${newBlogPost.id}`, {
-      blogPost,
-      contentFolder,
-      newBlogPost,
-    })
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-//get all posts to be edited or deleted
-const fetchPosts = async () => {
-  const response = await axios.get(environment + `getAllPosts`);
-  return response.data;
-};
+//       console.log(response.data);
+//     });
+// };
 
-// get content associated with a specific post id
-const fetchPostContent = async (id: string) => {
-  try {
-    const response = await axios.get(environment + `getPostContent?id=${id}`);
-    console.log(response);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
+// // takes new blog post info and updates both content folder and blog data
+// const updatePost = (
+//   blogPost: blogPostData,
+//   contentFolder: folderData,
+//   newBlogPost: formDataType
+// ) => {
+//   console.log('sending update');
+//   axios
+//     .put(environment + `update/${blogPost.id}/${newBlogPost.id}`, {
+//       blogPost,
+//       contentFolder,
+//       newBlogPost,
+//     })
+//     .then((res) => {
+//       console.log(res.data);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
+// //get all posts to be edited or deleted
+// const fetchPosts = async () => {
+//   const response = await axios.get(environment + `getAllPosts`);
+//   return response.data;
+// };
 
-// deletes post onclick from database
-const removePost = (id: number) => {
-  axios
-    .delete(environment + `delete/${id}`)
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+// // get content associated with a specific post id
+// const fetchPostContent = async (id: string) => {
+//   try {
+//     const response = await axios.get(environment + `getPostContent?id=${id}`);
+//     console.log(response);
+//     return response.data;
+//   } catch (error) {
+//     console.log(error);
+//     return [];
+//   }
+// };
+
+// // deletes post onclick from database
+// const removePost = (id: number) => {
+//   axios
+//     .delete(environment + `delete/${id}`)
+//     .then((res) => {
+//       console.log(res.data);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
 
 export { Login };
