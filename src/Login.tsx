@@ -3,7 +3,6 @@ import { App } from './Home';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import { FormEventHandler } from 'react';
-// import { Button, Form, Navbar, Card } from 'react-bootstrap';
 import {
   TextInput,
   Checkbox,
@@ -22,9 +21,16 @@ import axios from 'axios';
 interface Props {
   isAdmin: boolean;
   setIsAdmin: Function;
+  user: User;
+  setUser: Function;
+}
+interface User {
+  user?: string;
+  password?: string;
+  isAdmin?: boolean;
 }
 
-const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
+const Login: React.FC<Props> = ({ isAdmin, setIsAdmin, user, setUser }) => {
   // const [input, setInput] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showForm, setShowForm] = useState(false);
@@ -36,6 +42,32 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
   const [addForm, setAddForm] = useState(false);
   // function returns state to original admin page state
   //to be passed to MyForm component
+
+  ///////////////////// secure passport login ///////////////
+  //// i made user on mongodb manually
+  const [loginPassword, setLoginPassword] = useState('');
+  /////////////// log in admin user with passport
+  const login = (pass: string) => {
+    console.log('trying login');
+    axios
+      .post('http://localhost:4000/login', {
+        username: 'Admin',
+        password: pass,
+      })
+      .then((response) => {
+        console.log('login working');
+
+        console.log(response.data);
+        setUser(response.data);
+      });
+  };
+
+  //// do i need another get to check user or can i use state and localstorage?
+  useEffect(() => {
+    user && setIsAdmin(user.isAdmin);
+  }, [user]);
+
+  /////////////////
   function cancel() {
     // setShowForm(false);
     setAddForm(false);
@@ -45,22 +77,11 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
     setFormData(initialForm);
   }
 
-  const loginAdmin: Function = (password: string) => {
-    // console.log(password);
-    if (password === 'admin') {
-      /// this prob isnt super secure and i should do this using passport
-      setIsAdmin(true);
-    } else {
-      setErrorMessage('Incorrect password. Please try again.');
-      console.log(errorMessage);
-    }
-  };
-
   ////// runs the admin login form//////
   function AdminLogin() {
     const form = useForm({
       initialValues: {
-        password: '',
+        password: loginPassword,
       },
     });
 
@@ -69,14 +90,18 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
         <p>Enter Admin Password</p>
         <Box>
           <form
-            onSubmit={form.onSubmit((values) => {
-              console.log('admin logged in');
-              loginAdmin(values.password);
-            })}
+            onSubmit={(event) => {
+              console.log('submit');
+              event.preventDefault();
+              const password = form.values.password;
+              console.log({ password });
+              login(password);
+            }}
           >
             <TextInput
               withAsterisk
               label="Password"
+              placeholder="Enter Admin Password"
               {...form.getInputProps('password')}
             ></TextInput>
             <Button type="submit">Submit</Button>
@@ -126,6 +151,10 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
     timeStamp: new Date(),
   };
   const [formData, setFormData] = useState<formDataType>(initialForm);
+
+  ///////// check if admin is logged in /////////
+  useEffect(() => {});
+
   return (
     <div>
       <p>Admin Page</p>
@@ -231,6 +260,7 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
 
           <Button
             onClick={() => {
+              setUser({});
               setIsAdmin(false);
               console.log({ isAdmin });
               setShowAllPosts(false);

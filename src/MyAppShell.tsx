@@ -27,6 +27,7 @@ import {
 } from '@mantine/core';
 
 const MyAppShell = () => {
+  const [user, setUser] = useState(null);
   const [opened, setOpened] = useState(false);
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
   const toggleColorScheme = (value?: ColorScheme) =>
