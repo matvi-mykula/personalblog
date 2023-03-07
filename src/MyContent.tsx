@@ -3,6 +3,7 @@ import { App } from 'Home';
 import { Blog } from 'Blog';
 import { Login } from 'Login';
 import { Contact } from 'Contact';
+import { About } from 'About';
 interface Props {
   content: string;
 }
@@ -19,6 +20,9 @@ const MyContent: React.FC<Props> = ({ content }) => {
   switch (content) {
     case 'home': {
       return <App></App>;
+    }
+    case 'about': {
+      return <About></About>;
     }
     case 'contact': {
       return <Contact></Contact>;

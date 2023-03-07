@@ -26,8 +26,26 @@ import {
   ColorSchemeProvider,
 } from '@mantine/core';
 
+/////////////get api url and pass to components where it is needed
+function figureAPI() {
+  console.log(window.location);
+  console.log(process.env.NODE_ENV);
+  const devBackend = 'http://localhost:8080/api/';
+  const prodBackend = 'https://young-frog-2584.fly.dev/api/'; ///// replace with fly.io link
+
+  console.log({ prodBackend });
+  const prodEnv = process.env.NODE_ENV === 'production';
+  console.log(prodEnv);
+  let environment;
+  prodEnv ? (environment = prodBackend) : (environment = devBackend);
+  return environment;
+}
+
+const environment = figureAPI();
+
+console.log({ environment });
+
 const MyAppShell = () => {
-  const [user, setUser] = useState(null);
   const [opened, setOpened] = useState(false);
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
   const toggleColorScheme = (value?: ColorScheme) =>
@@ -45,15 +63,6 @@ const MyAppShell = () => {
         withGlobalStyles
       >
         <AppShell
-          // styles={(theme) => ({
-          //   main: {
-          //     backgroundColor:
-          //       theme.colorScheme === 'dark'
-          //         ? theme.colors.dark[8]
-          //         : theme.colors.gray[0],
-          //   },
-          // })}
-
           styles={(theme) => ({
             main:
               theme.colorScheme === 'dark'
@@ -75,7 +84,7 @@ const MyAppShell = () => {
               p="md"
               hiddenBreakpoint="sm"
               hidden={!opened}
-              width={{ sm: 200, lg: 300 }}
+              width={{ sm: 150, lg: 250 }}
             >
               <MyNav
                 content={content}
@@ -92,6 +101,7 @@ const MyAppShell = () => {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   height: '100%',
                 }}
               >

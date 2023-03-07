@@ -32,9 +32,19 @@ const MyNav: React.FC<Props> = ({ content, setContent }) => {
           size="md"
           compact
           uppercase
+          onClick={() => setContent('about')}
+        >
+          About
+        </Button>
+        <Button
+          color="gray"
+          radius="xl"
+          size="md"
+          compact
+          uppercase
           onClick={() => setContent('contact')}
         >
-          Contact Me
+          Contact
         </Button>
 
         <Button
@@ -45,10 +55,10 @@ const MyNav: React.FC<Props> = ({ content, setContent }) => {
           uppercase
           onClick={() => setContent('coding')}
         >
-          Coding
+          Portfolio
         </Button>
 
-        <Button
+        {/* <Button
           color="gray"
           radius="xl"
           size="md"
@@ -57,7 +67,7 @@ const MyNav: React.FC<Props> = ({ content, setContent }) => {
           onClick={() => setContent('movement')}
         >
           Martial Arts
-        </Button>
+        </Button> */}
         {/* <Button
           color="gray"
           radius="xl"
