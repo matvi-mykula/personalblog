@@ -119,14 +119,17 @@ const Blog: React.FC<Props> = ({ category }) => {
               </Carousel>
             ) : null}
             {postWithContent.content.links?.map((link, index) => (
-              <a
-                key={index}
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {link}
-              </a>
+              <div>
+                <br></br>
+                <a
+                  key={index}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {link}
+                </a>
+              </div>
             ))}{' '}
             <p>-----------------------------------------------</p>
           </div>
