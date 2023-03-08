@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Login } from 'Login';
-// import { AppRouter } from 'AppRouter';
 import { App } from 'Home';
 import { useColorScheme } from '@mantine/hooks';
 import { MyNav } from 'MyNav';
-// import { Link, BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MyContent } from 'MyContent';
 import { ThemeSwitcher } from 'ColorScheme';
 import axios from 'axios';
@@ -20,31 +18,11 @@ import {
   Burger,
   useMantineTheme,
   Card,
-} from '@mantine/core';
-import {
   MantineProvider,
   ColorScheme,
   ColorSchemeProvider,
 } from '@mantine/core';
-
-/////////////get api url and pass to components where it is needed
-// function figureAPI() {
-//   console.log(window.location);
-//   console.log(process.env.NODE_ENV);
-//   const devBackend = 'http://localhost:8080/';
-//   const prodBackend = 'https://restless-fire-5891.fly.dev/'; ///// replace with fly.io link
-
-//   console.log({ prodBackend });
-//   const prodEnv = process.env.NODE_ENV === 'production';
-//   console.log(prodEnv);
-//   let environment;
-//   prodEnv ? (environment = prodBackend) : (environment = devBackend);
-//   return environment;
-// }
-
-// const environment = figureAPI();
-
-// console.log({ environment });
+// import { SunIcon, MoonIcon } from '@modulz/radix-icons';
 
 const MyAppShell = () => {
   const [opened, setOpened] = useState(false);

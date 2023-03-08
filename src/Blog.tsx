@@ -77,7 +77,7 @@ const Blog: React.FC<Props> = ({ category }) => {
             </p>
             {postWithContent.content.pictures[0] ? (
               <Carousel
-                maw={500}
+                maw={'80vw'}
                 mx="auto"
                 withIndicators
                 height={400}
@@ -97,9 +97,9 @@ const Blog: React.FC<Props> = ({ category }) => {
                       src={`./images/${picture}`}
                       alt={`./images/${picture}`}
                       style={{
-                        width: 'auto',
-                        height: '100%',
-                        objectFit: 'cover',
+                        width: '90%',
+                        height: 'auto',
+                        objectFit: 'fill',
                       }}
                     />
                   </Carousel.Slide>
@@ -108,7 +108,7 @@ const Blog: React.FC<Props> = ({ category }) => {
             ) : null}
             {postWithContent.content.videos[0] ? (
               <Carousel
-                maw={320}
+                maw={'80vw'}
                 mx="auto"
                 withIndicators
                 height={200}
@@ -135,6 +135,12 @@ const Blog: React.FC<Props> = ({ category }) => {
           </div>
         ))}
         <Button
+          color="gray"
+          radius="xl"
+          size="md"
+          compact
+          uppercase
+          style={{ marginBottom: '12px' }}
           onClick={() => {
             setIndex((index) => index + 1);
           }}
