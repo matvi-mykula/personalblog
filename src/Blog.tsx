@@ -50,10 +50,7 @@ const Blog: React.FC<Props> = ({ category }) => {
 
       for (const post of posts) {
         const contentResponse = await fetchContentById(post.id);
-        console.log(contentResponse);
         const content = contentResponse.data;
-
-        console.log('should be getting posts+content');
         postsWithContent.push({ post, content });
       }
       setPostsWithContent(postsWithContent);
@@ -68,11 +65,13 @@ const Blog: React.FC<Props> = ({ category }) => {
   ////////////////////////////
 
   if (postsWithContent.length > 0 && typeof postsWithContent !== 'undefined') {
-    console.log(postsWithContent[0]);
     return (
       <div>
-        {postsWithContent.slice(0, index)?.map((postWithContent, index) => (
-          <div key={postWithContent.post.id}>
+        {postsWithContent.slice(0, index)?.map((postWithContent, index2) => (
+          <div
+            key={postWithContent.post.id}
+            id={String(index2)} /// cause id has to be a string
+          >
             <h2>{postWithContent.post.title}</h2>
             <p style={{ whiteSpace: 'pre-wrap' }}>
               {postWithContent.post.description}
@@ -99,8 +98,8 @@ const Blog: React.FC<Props> = ({ category }) => {
                       src={`./images/${picture}`}
                       alt={`./images/${picture}`}
                       style={{
-                        width: '90%',
-                        height: 'auto',
+                        width: '100%',
+                        height: '100%',
                         objectFit: 'fill',
                       }}
                     />
@@ -147,8 +146,19 @@ const Blog: React.FC<Props> = ({ category }) => {
           compact
           uppercase
           style={{ marginBottom: '12px' }}
-          onClick={() => {
-            setIndex((index) => index + 1);
+          onClick={async () => {
+            // i should let people know theyv reached the end of content
+            await setIndex((index) => index + 1);
+            console.log({ index });
+            const element = document.getElementById(String(index) || '0');
+            if (element) {
+              console.log('scrolling');
+              console.log({ element });
+              element.scrollTo({
+                top: element.scrollHeight,
+                behavior: 'smooth',
+              });
+            }
           }}
         >
           More Content
