@@ -2,6 +2,7 @@ import { ActionIcon, useMantineColorScheme, Button } from '@mantine/core';
 
 import { useColorScheme } from '@mantine/hooks';
 import React from 'react';
+import sun from 'sun.svg';
 
 // import { SunIcon, MoonIcon } from '@modulz/radix-icons';
 
@@ -20,20 +21,32 @@ const ThemeSwitcher: React.FC = () => {
         <Button
           style={{
             backgroundColor: 'yellow',
-            color: 'yellow',
-            width: 18,
-            height: 18,
+            // color: 'navy',
+            // width: 18,
+            // height: 18,
           }}
-        />
+        >
+          <img
+            src="./sun.svg"
+            alt="nothing here"
+          ></img>
+        </Button>
       ) : (
         <Button
-          style={{
-            backgroundColor: 'navy',
-            color: 'navy',
-            width: 18,
-            height: 18,
-          }}
-        />
+          style={
+            {
+              // backgroundColor: 'navy',
+              // color: 'yellow',
+              // width: 18,
+              // height: 18,
+            }
+          }
+        >
+          <img
+            src="./moon.svg"
+            alt="nothing here"
+          ></img>
+        </Button>
       )}
     </ActionIcon>
   );
