@@ -66,6 +66,7 @@ const MyAppShell = () => {
               width={{ sm: 150, lg: 250 }}
             >
               <MyNav
+                setOpened={setOpened}
                 content={content}
                 setContent={setContent}
               ></MyNav>
