@@ -79,11 +79,11 @@ const MyAppShell = () => {
             >
               <div
                 style={{
+                  maxWidth: '90vw',
                   display: 'flex',
-                  // alignItems: 'center',
-                  // justifyContent: 'center',
-                  // height: '100%',
-                  width: '60vw',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '100vw',
                 }}
               >
                 <MediaQuery
@@ -98,8 +98,10 @@ const MyAppShell = () => {
                     mr="xl"
                   />
                 </MediaQuery>
-                <Text>Personal Blog of Matvi</Text>
-                <div style={{ paddingLeft: '60vw' }}>
+                <Text ta="center">Personal Blog of Matvi</Text>
+                <div
+                // style={{ paddingLeft: '60vw' }}
+                >
                   <ThemeSwitcher></ThemeSwitcher>
                 </div>
               </div>
