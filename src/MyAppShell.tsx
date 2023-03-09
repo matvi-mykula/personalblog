@@ -98,7 +98,15 @@ const MyAppShell = () => {
                     mr="xl"
                   />
                 </MediaQuery>
-                <Text ta="center">Personal Blog of Matvi</Text>
+                <Text
+                  variant="gradient"
+                  gradient={{ from: 'blue', to: 'pink', deg: 45 }}
+                  fw={700}
+                  fz="lg"
+                  ta="center"
+                >
+                  Personal Blog of Matvi
+                </Text>
                 <div
                 // style={{ paddingLeft: '60vw' }}
                 >
