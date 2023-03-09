@@ -85,9 +85,8 @@ const MyNav: React.FC<Props> = ({ content, setContent }) => {
           compact
           uppercase
           onClick={() => setContent('admin')}
-        >
-          Admin
-        </Button>
+          variant="outline"
+        ></Button>
       </Stack>{' '}
     </div>
   );

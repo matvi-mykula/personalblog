@@ -3,9 +3,11 @@ import { App } from './Home';
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Image, Button } from '@mantine/core';
+import { Image, Button, createStyles } from '@mantine/core';
+
 import { Carousel } from '@mantine/carousel';
 import { fetchPostsByCat, fetchContentById } from 'requests';
+import { ThemeSwitcher } from 'ColorScheme';
 
 interface Post {
   id: string;
@@ -108,13 +110,16 @@ const Blog: React.FC<Props> = ({ category }) => {
             ) : null}
             {postWithContent.content.videos[0] ? (
               <Carousel
-                maw={'80vw'}
+                maw={'auto'}
                 mx="auto"
                 withIndicators
                 height={200}
               >
                 {postWithContent.content.videos?.map((video, index) => (
-                  <Carousel.Slide key={video}></Carousel.Slide>
+                  <Carousel.Slide
+                    justify-content-center
+                    key={video}
+                  ></Carousel.Slide>
                 ))}
               </Carousel>
             ) : null}
@@ -126,6 +131,7 @@ const Blog: React.FC<Props> = ({ category }) => {
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
+                  style={{ color: 'grey' }}
                 >
                   {link}
                 </a>
@@ -155,3 +161,22 @@ const Blog: React.FC<Props> = ({ category }) => {
 };
 
 export { Blog };
+
+/////////// mantine stuff ///////////
+
+//// trying to make slide controls only show when hovering
+// const useStyles = createStyles(() => ({
+//   controls: {
+//     ref: getStylesRef('controls'),
+//     transition: 'opacity 150ms ease',
+//     opacity: 0,
+//   },
+
+//   root: {
+//     '&:hover': {
+//       [`& .${getStylesRef('controls')}`]: {
+//         opacity: 1,
+//       },
+//     },
+//   },
+// }));
