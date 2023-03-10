@@ -43,12 +43,14 @@ const Blog: React.FC<Props> = ({ category }) => {
   /////////// loading state to make misha happy //////
 
   const [loading, setLoading] = useState<Boolean>(true);
+  const [responsive, setResponsive] = useState<Boolean>(true);
   ///////////////////////////////////////////
   /// when category changes get all posts by category and content for each post and create list of postdata
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetchPostsByCat(category);
       const posts = response.data;
+      console.log({ posts });
 
       const postsWithContent: PostWithContent[] = [];
 

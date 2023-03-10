@@ -21,6 +21,7 @@ import {
   MantineProvider,
   ColorScheme,
   ColorSchemeProvider,
+  Box,
 } from '@mantine/core';
 // import { SunIcon, MoonIcon } from '@modulz/radix-icons';
 
@@ -77,7 +78,7 @@ const MyAppShell = () => {
               height={{ base: 50, md: 70 }}
               p="md"
             >
-              <div
+              <Box
                 style={{
                   maxWidth: '90vw',
                   display: 'flex',
@@ -107,10 +108,10 @@ const MyAppShell = () => {
                 >
                   Personal Blog of Matvi
                 </Text>
-                <div>
+                <Box>
                   <ThemeSwitcher></ThemeSwitcher>
-                </div>
-              </div>
+                </Box>
+              </Box>
             </Header>
           }
         >
