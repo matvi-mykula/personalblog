@@ -3,7 +3,7 @@ import { App } from './Home';
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Image, Button, createStyles, Loader } from '@mantine/core';
+import { Image, Button, createStyles, Loader, Box, Text } from '@mantine/core';
 
 import { Carousel } from '@mantine/carousel';
 import { fetchPostsByCat, fetchContentById } from 'requests';
@@ -43,15 +43,17 @@ const Blog: React.FC<Props> = ({ category }) => {
   /////////// loading state to make misha happy //////
 
   const [loading, setLoading] = useState<Boolean>(true);
-  const [responsive, setResponsive] = useState<Boolean>(true);
+  const [responsive, setResponsive] = useState<Boolean>(navigator.onLine);
   ///////////////////////////////////////////
   /// when category changes get all posts by category and content for each post and create list of postdata
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetchPostsByCat(category);
-      const posts = response.data;
-      console.log({ posts });
+      console.log({ response });
+      let posts: Post[] = [];
+      response ? (posts = response.data) : console.log('no response');
 
+      console.log({ posts });
       const postsWithContent: PostWithContent[] = [];
 
       for (const post of posts) {
@@ -63,13 +65,28 @@ const Blog: React.FC<Props> = ({ category }) => {
       setLoading(false);
     };
     fetchPosts();
-  }, [category]);
+  }, [category, responsive]);
   ///////////////////////////////////////
   //    load one at a time ///////////
 
   const [index, setIndex] = useState(1);
 
   ////////////////////////////
+
+  if (!responsive) {
+    return (
+      <Box>
+        <Text>It seems you have no internet silly billy!</Text>
+        <Button
+          onClick={() => {
+            setResponsive(navigator.onLine);
+          }}
+        >
+          Try Again
+        </Button>
+      </Box>
+    );
+  }
 
   if (loading) {
     return <Loader />;

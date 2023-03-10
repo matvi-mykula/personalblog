@@ -160,10 +160,14 @@ interface PostWithContent {
 }
 
 const fetchPostsByCat = async (category: string) => {
-  const response = await axios.get<Post[]>(
-    environment + `getPosts?category=${category}`
-  );
-  return response;
+  try {
+    const response = await axios.get<Post[]>(
+      environment + `getPosts?category=${category}`
+    );
+    return response;
+  } catch (err) {
+    return false;
+  }
 };
 const fetchContentById = async (id: string) => {
   const contentResponse = await axios.get<Content>(
