@@ -107,9 +107,7 @@ const MyAppShell = () => {
                 >
                   Personal Blog of Matvi
                 </Text>
-                <div
-                // style={{ paddingLeft: '60vw' }}
-                >
+                <div>
                   <ThemeSwitcher></ThemeSwitcher>
                 </div>
               </div>

@@ -3,7 +3,7 @@ import { App } from './Home';
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Image, Button, createStyles } from '@mantine/core';
+import { Image, Button, createStyles, Loader } from '@mantine/core';
 
 import { Carousel } from '@mantine/carousel';
 import { fetchPostsByCat, fetchContentById } from 'requests';
@@ -166,7 +166,7 @@ const Blog: React.FC<Props> = ({ category }) => {
       </div>
     );
   } else {
-    return <p>Nothing Here</p>;
+    return <Loader />;
   }
 };
 
