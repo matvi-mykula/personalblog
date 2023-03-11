@@ -23,7 +23,6 @@ import {
   ColorSchemeProvider,
   Box,
 } from '@mantine/core';
-// import { SunIcon, MoonIcon } from '@modulz/radix-icons';
 
 const MyAppShell = () => {
   const [opened, setOpened] = useState(false);
@@ -39,7 +38,7 @@ const MyAppShell = () => {
       toggleColorScheme={toggleColorScheme}
     >
       <MantineProvider
-        theme={{ colorScheme: colorScheme }}
+        theme={{ colorScheme: colorScheme, fontFamily: 'Monospace' }}
         withGlobalStyles
       >
         <AppShell
@@ -100,11 +99,12 @@ const MyAppShell = () => {
                   />
                 </MediaQuery>
                 <Text
-                  variant="gradient"
-                  gradient={{ from: 'blue', to: 'pink', deg: 45 }}
+                  // variant="gradient"
+                  // gradient={{ from: 'blue', to: 'pink', deg: 45 }}
                   fw={700}
-                  fz="lg"
-                  ta="center"
+                  // fz="lg"
+                  // ta="center"
+                  style={{ fontSize: 'calc(15px + 0.390625vw)' }}
                 >
                   Personal Blog of Matvi
                 </Text>

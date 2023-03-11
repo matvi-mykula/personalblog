@@ -166,33 +166,35 @@ const Blog: React.FC<Props> = ({ category }) => {
                   </a>
                 </div>
               ))}{' '}
-              <p>-----------------------------------------------</p>
+              <p>---------------------------------</p>
             </div>
           ))}
-          <Button
-            color="gray"
-            radius="xl"
-            size="md"
-            compact
-            uppercase
-            style={{ marginBottom: '12px' }}
-            onClick={async () => {
-              // i should let people know theyv reached the end of content
-              await setIndex((index) => index + 1);
-              console.log({ index });
-              const element = document.getElementById(String(index) || '0');
-              if (element) {
-                console.log('scrolling');
-                console.log({ element });
-                element.scrollTo({
-                  top: element.scrollHeight,
-                  behavior: 'smooth',
-                });
-              }
-            }}
-          >
-            More Content
-          </Button>
+          {postsWithContent[index] ? (
+            <Button
+              color="gray"
+              radius="xl"
+              size="md"
+              compact
+              uppercase
+              style={{ marginBottom: '12px' }}
+              onClick={async () => {
+                // i should let people know theyv reached the end of content
+                await setIndex((index) => index + 1);
+                console.log({ index });
+                const element = document.getElementById(String(index) || '0');
+                if (element) {
+                  console.log('scrolling');
+                  console.log({ element });
+                  element.scrollTo({
+                    top: element.scrollHeight,
+                    behavior: 'smooth',
+                  });
+                }
+              }}
+            >
+              More Content
+            </Button>
+          ) : null}
         </div>
       );
     } else {
