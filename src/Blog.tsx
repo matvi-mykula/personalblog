@@ -76,7 +76,7 @@ const Blog: React.FC<Props> = ({ category }) => {
   if (!responsive) {
     return (
       <Box>
-        <Text>It seems you have no internet silly billy!</Text>
+        <Text>It seems you have no internet silly billy! asdfadf</Text>
         <Button
           onClick={() => {
             setResponsive(navigator.onLine);
