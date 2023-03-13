@@ -40,26 +40,66 @@ const MyAppShell = () => {
       <MantineProvider
         theme={{ colorScheme: colorScheme, fontFamily: 'Monospace' }}
         withGlobalStyles
+        // styles={{
+        //   Navbar: (theme: MantineTheme) => ({
+        //     /////// this isnt doing anythign
+        //     root: {
+        //       backgroundColor:
+        //         theme.colorScheme === 'dark'
+        //           ? theme.colorScheme
+        //           : theme.colorScheme[4],
+        //       color:
+        //         theme.colorScheme === 'dark'
+        //           ? theme.colorScheme[9]
+        //           : theme.colorScheme[8],
+        //     },
+        //   }),
+        // }}
       >
         <AppShell
-          styles={(theme) => ({
-            main:
-              theme.colorScheme === 'dark'
-                ? {
-                    /////define dark mode
+          // styles={(theme) => ({
+          //   // header:
+          //   //   theme.colorScheme === 'dark'
+          //   //     ? { backgroundColor: theme.colors.dark[7] }
+          //   //     : { backgroundColor: theme.colors.blue[1] },
+          //   main:
+          //     theme.colorScheme === 'dark'
+          //       ? {
+          //           /////define dark mode
 
-                    backgroundColor: theme.colors.dark[7],
-                    color: theme.colors.pastelpink,
-                  }
-                : {
-                    ////define light mode
-                    backgroundColor: theme.colors.blue[1],
-                  },
-          })}
+          //           backgroundColor: theme.colors.dark[7],
+          //         }
+          //       : {
+          //           ////define light mode
+          //           backgroundColor: theme.colors.blue[1],
+          //         },
+          //   Navbar: (theme: MantineTheme) => ({
+          //     /////// this isnt doing anythign
+          //     root: {
+          //       backgroundColor:
+          //         theme.colorScheme === 'dark'
+          //           ? theme.colorScheme
+          //           : theme.colorScheme[4],
+          //       color:
+          //         theme.colorScheme === 'dark'
+          //           ? theme.colorScheme[9]
+          //           : theme.colorScheme[8],
+          //     },
+          //   }),
+          //   Header: (theme: MantineTheme) => ({
+          //     root: {
+          //       backgroundColor:
+          //         theme.colorScheme === 'dark'
+          //           ? theme.colorScheme[0]
+          //           : theme.colorScheme[4],
+          //     },
+          //   }),
+          // })}
           navbarOffsetBreakpoint="sm"
           asideOffsetBreakpoint="sm"
           navbar={
             <Navbar
+              // style={{ background: theme.colorScheme.colors.blue[2] }}
               p="md"
               hiddenBreakpoint="sm"
               hidden={!opened}

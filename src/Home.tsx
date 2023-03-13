@@ -12,7 +12,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <p>::: My name is Mat :::</p>
+        <p>::: Hey! My name is Mat :::</p>
       </header>
       <p className="homeBlurb">
         I am a budding full stack developer passionate about clever code,
