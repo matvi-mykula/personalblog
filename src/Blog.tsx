@@ -41,7 +41,6 @@ const Blog: React.FC<Props> = ({ category }) => {
   );
 
   /////////// loading state to make misha happy //////
-
   const [loading, setLoading] = useState<Boolean>(true);
   const [responsive, setResponsive] = useState<Boolean>(navigator.onLine);
   ///////////////////////////////////////////
@@ -204,22 +203,3 @@ const Blog: React.FC<Props> = ({ category }) => {
 };
 
 export { Blog };
-
-/////////// mantine stuff ///////////
-
-//// trying to make slide controls only show when hovering
-// const useStyles = createStyles(() => ({
-//   controls: {
-//     ref: getStylesRef('controls'),
-//     transition: 'opacity 150ms ease',
-//     opacity: 0,
-//   },
-
-//   root: {
-//     '&:hover': {
-//       [`& .${getStylesRef('controls')}`]: {
-//         opacity: 1,
-//       },
-//     },
-//   },
-// }));

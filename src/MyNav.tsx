@@ -18,11 +18,7 @@ const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
     <div>
       <Stack>
         <Button
-          // color="gray"
-          // radius="xl"
-          // size="md"
-          // compact
-          // uppercase
+          //should style this globally
           onClick={() => {
             setContent('home');
             setOpened(false);
@@ -71,26 +67,6 @@ const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
           Portfolio
         </Button>
 
-        {/* <Button
-          color="gray"
-          radius="xl"
-          size="md"
-          compact
-          uppercase
-          onClick={() => setContent('movement')}
-        >
-          Martial Arts
-        </Button> */}
-        {/* <Button
-          color="gray"
-          radius="xl"
-          size="md"
-          compact
-          uppercase
-          onClick={() => setContent('clothing')}
-        >
-          Clothing
-        </Button> */}
         <Affix></Affix>
         <Button
           color="gray"

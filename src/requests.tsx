@@ -6,7 +6,6 @@ function figureAPI() {
   console.log(process.env.NODE_ENV);
   const devBackend = 'http://localhost:8080/';
   const prodBackend = 'https://dry-silence-9236.fly.dev/';
-  //   const prodBackend = 'https://restless-fire-5891.fly.dev/'; ///// replace with fly.io link
 
   console.log({ prodBackend });
   const prodEnv = process.env.NODE_ENV === 'production';
@@ -175,22 +174,6 @@ const fetchContentById = async (id: string) => {
   );
   return contentResponse;
 };
-
-//////////   dont think i need this   /////////////
-// const fetchPostsAndContent = async (category: string) => {
-//   const response = await fetchPostsByCat(category);
-//   const posts = response.data;
-
-//   const postsWithContent: PostWithContent[] = [];
-
-//   for (const post of posts) {
-//     const contentResponse = await fetchContentById(post.id);
-//     const content = contentResponse.data;
-
-//     postsWithContent.push({ post, content });
-//   }
-//   return postsWithContent;
-// };
 
 export {
   updatePost,
