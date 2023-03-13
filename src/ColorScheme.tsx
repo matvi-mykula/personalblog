@@ -18,35 +18,27 @@ const ThemeSwitcher: React.FC = () => {
       title="Toggle color scheme"
     >
       {dark ? (
-        <Button
+        <img
           style={{
             backgroundColor: 'yellow',
             // color: 'navy',
             // width: 18,
             // height: 18,
           }}
-        >
-          <img
-            src="./sun.svg"
-            alt="nothing here"
-          ></img>
-        </Button>
+          src="./sun.svg"
+          alt="nothing here"
+        ></img>
       ) : (
-        <Button
-          style={
-            {
-              // backgroundColor: 'navy',
-              // color: 'yellow',
-              // width: 18,
-              // height: 18,
-            }
-          }
-        >
-          <img
-            src="./moon.svg"
-            alt="nothing here"
-          ></img>
-        </Button>
+        <img
+          style={{
+            backgroundColor: 'navy',
+            // color: 'yellow',
+            // width: 18,
+            // height: 18,
+          }}
+          src="./moon.svg"
+          alt="nothing here"
+        ></img>
       )}
     </ActionIcon>
   );
