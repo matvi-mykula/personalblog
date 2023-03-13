@@ -1,22 +1,21 @@
 import React from 'react';
-import './App.css';
+import './App.css'; /// should i use css at all????
 
-import { Link, BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppShell, Navbar, Header } from '@mantine/core';
+import { Text, Box } from '@mantine/core';
 
 const About: React.FC = () => {
   return (
-    <div className="App">
+    <Box className="App">
       <header className="App-header">
-        <p>::: About This Website :::</p>
+        <Text>::: About This Website :::</Text>
       </header>
 
-      <p className="homeBlurb">
+      <Text>
         &nbsp; &nbsp;Hello there! Welcome! This blog was created by me with
         Typescript and the Mantine CSS framework. It is powered by a MongoDB
         server to create, store, update and retrieve blog data.{' '}
-      </p>
-      <p>
+      </Text>
+      <Text>
         &nbsp; &nbsp;As a new developer, I wanted to create a platform to
         showcase my programming skills and provide information about myself. I
         used my knowledge of React and TypeScript to build a responsive and
@@ -31,24 +30,24 @@ const About: React.FC = () => {
         a popular NoSQL database. MongoDB is known for its flexibility and
         scalability, making it a great choice for building web applications that
         require fast and reliable data storage.{' '}
-      </p>
+      </Text>
 
-      <p>
+      <Text>
         &nbsp;&nbsp; My desire is that this site represents my dedication to
         programming as a skill and trade as well as my increasing skill for
         creating high-quality applications that meet the needs of users. Please
         check out my other coding projects!
-      </p>
+      </Text>
       <br></br>
-      <p>::: Acknowledgements :::</p>
-      <p>
+      <Text>::: Acknowledgements :::</Text>
+      <Text>
         &nbsp;&nbsp;I am so grateful for the mentors and helpful friends who
         have given me so much knowledge and assisted me through the frustrating
         programming roadblocks that I have come across. Peter Gui, Misha Kanai,
         and Max Jowett have all been absolutely instrumental in my progress as a
         programmer and I could not have done it without these three.
-      </p>
-    </div>
+      </Text>
+    </Box>
   );
 };
 

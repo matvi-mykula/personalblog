@@ -316,9 +316,7 @@ interface Props2 {
 }
 
 ///create form for inpu tof new post info
-// should be able to render a new post form or an edit post form based on isNew variable
 
-///from chatgpt add multiple input fields
 const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
   console.log(newData);
   const [pictureInputs, setPictureInputs] = useState(newData.pictures); // initial array with one input field
@@ -576,119 +574,5 @@ interface folderData {
   videos: string[];
   links: string[];
 }
-
-/////////////
-// function figureAPI() {
-//   console.log(window.location);
-//   console.log(process.env.NODE_ENV);
-//   const devBackend = 'http://localhost:8080/';
-//   const prodBackend = 'https://restless-fire-5891.fly.dev/'; ///// replace with fly.io link
-
-//   console.log({ prodBackend });
-//   const prodEnv = process.env.NODE_ENV === 'production';
-//   console.log(prodEnv);
-//   let environment;
-//   prodEnv ? (environment = prodBackend) : (environment = devBackend);
-//   return environment;
-// }
-
-// const environment = figureAPI();
-
-// console.log({ environment });
-
-// ///////////////
-// //////login admin
-
-// const login = (pass: string, setState: Function) => {
-//   console.log('trying login');
-//   axios
-//     .post(environment + 'login', {
-//       username: 'Admin',
-//       password: pass,
-//     })
-//     .then((response) => {
-//       console.log('login working');
-
-//       console.log(response.data);
-//       setState(response.data);
-//     });
-// };
-// ///send blog data to database
-// const postBlogPost = (blogPost: blogPostData) => {
-//   console.log('posting blog post');
-//   axios
-//     .post(environment + 'postBlogPost', {
-//       blogPost,
-//     })
-//     .then((response) => {
-//       console.log('this blog post should be posted');
-
-//       console.log(response.data);
-//     });
-// };
-
-// // sends content to database
-// const postContentFolder = (folderData: folderData) => {
-//   console.log('posting img folder data');
-//   axios
-//     .post(environment + 'postContentFolder', {
-//       folderData,
-//     })
-//     .then((response) => {
-//       console.log('this picture folder should be posted');
-
-//       console.log(response.data);
-//     });
-// };
-
-// // takes new blog post info and updates both content folder and blog data
-// const updatePost = (
-//   blogPost: blogPostData,
-//   contentFolder: folderData,
-//   newBlogPost: formDataType
-// ) => {
-//   console.log('sending update');
-//   axios
-//     .put(environment + `update/${blogPost.id}/${newBlogPost.id}`, {
-//       blogPost,
-//       contentFolder,
-//       newBlogPost,
-//     })
-//     .then((res) => {
-//       console.log(res.data);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
-// //get all posts to be edited or deleted
-// const fetchPosts = async () => {
-//   const response = await axios.get(environment + `getAllPosts`);
-//   return response.data;
-// };
-
-// // get content associated with a specific post id
-// const fetchPostContent = async (id: string) => {
-//   try {
-//     const response = await axios.get(environment + `getPostContent?id=${id}`);
-//     console.log(response);
-//     return response.data;
-//   } catch (error) {
-//     console.log(error);
-//     return [];
-//   }
-// };
-
-// // deletes post onclick from database
-// const removePost = (id: number) => {
-//   axios
-//     .delete(environment + `delete/${id}`)
-//     .then((res) => {
-//       console.log(res.data);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
 
 export { Login };
