@@ -22,6 +22,7 @@ import {
   ColorScheme,
   ColorSchemeProvider,
   Box,
+  ButtonProps,
 } from '@mantine/core';
 
 const MyAppShell = () => {
@@ -40,61 +41,39 @@ const MyAppShell = () => {
       <MantineProvider
         theme={{ colorScheme: colorScheme, fontFamily: 'Monospace' }}
         withGlobalStyles
-        // styles={{
-        //   Navbar: (theme: MantineTheme) => ({
-        //     /////// this isnt doing anythign
-        //     root: {
-        //       backgroundColor:
-        //         theme.colorScheme === 'dark'
-        //           ? theme.colorScheme
-        //           : theme.colorScheme[4],
-        //       color:
-        //         theme.colorScheme === 'dark'
-        //           ? theme.colorScheme[9]
-        //           : theme.colorScheme[8],
-        //     },
-        //   }),
-        // }}
       >
         <AppShell
-          // styles={(theme) => ({
-          //   // header:
-          //   //   theme.colorScheme === 'dark'
-          //   //     ? { backgroundColor: theme.colors.dark[7] }
-          //   //     : { backgroundColor: theme.colors.blue[1] },
-          //   main:
-          //     theme.colorScheme === 'dark'
-          //       ? {
-          //           /////define dark mode
+          styles={(theme) => ({
+            Button: (theme: {
+              colorScheme: string;
+              colors: { dark: any[]; gray: any[] };
+            }) => ({
+              // Shared button styles are applied to all buttons
+              root: { height: 42, padding: '0 30px', color: 'blue' },
 
-          //           backgroundColor: theme.colors.dark[7],
-          //         }
-          //       : {
-          //           ////define light mode
-          //           backgroundColor: theme.colors.blue[1],
-          //         },
-          //   Navbar: (theme: MantineTheme) => ({
-          //     /////// this isnt doing anythign
-          //     root: {
-          //       backgroundColor:
-          //         theme.colorScheme === 'dark'
-          //           ? theme.colorScheme
-          //           : theme.colorScheme[4],
-          //       color:
-          //         theme.colorScheme === 'dark'
-          //           ? theme.colorScheme[9]
-          //           : theme.colorScheme[8],
-          //     },
-          //   }),
-          //   Header: (theme: MantineTheme) => ({
-          //     root: {
-          //       backgroundColor:
-          //         theme.colorScheme === 'dark'
-          //           ? theme.colorScheme[0]
-          //           : theme.colorScheme[4],
-          //     },
-          //   }),
-          // })}
+              // These styles are applied only to buttons with outline variant
+              outline: {
+                // You can use any selectors inside (the same way as in createStyles function)
+                '&:hover': {
+                  backgroundColor:
+                    theme.colorScheme === 'dark'
+                      ? theme.colors.dark[8]
+                      : theme.colors.gray[0],
+                },
+              },
+            }),
+            main:
+              theme.colorScheme === 'dark'
+                ? {
+                    /////define dark mode
+
+                    backgroundColor: theme.colors.dark[7],
+                  }
+                : {
+                    ////define light mode
+                    backgroundColor: theme.colors.blue[1],
+                  },
+          })}
           navbarOffsetBreakpoint="sm"
           asideOffsetBreakpoint="sm"
           navbar={
