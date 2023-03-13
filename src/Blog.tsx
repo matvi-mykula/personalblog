@@ -198,7 +198,7 @@ const Blog: React.FC<Props> = ({ category }) => {
         </div>
       );
     } else {
-      return <p>No Content </p>;
+      return <Text>No Content </Text>;
     }
   }
 };
