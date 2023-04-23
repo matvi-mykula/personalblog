@@ -60,16 +60,6 @@ const MyAppShell = () => {
                       backgroundColor: 'black',
                     },
                   },
-                  // variant === 'filled'
-                  //   ? theme.colors[params.color || theme.primaryColor][9]
-                  //   : undefined,
-                  // '&:hover': {
-                  //   transform: 'scale(1.1)',
-                  //   backgroundColor: 'black',
-                  // colorScheme === 'dark'
-                  //   ? theme.colors.dark[0]
-                  //   : theme.colors.blue[2],
-                  // },
                 },
               }),
             },

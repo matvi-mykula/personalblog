@@ -13,7 +13,7 @@ const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
     <div>
       <Stack>
         <Button
-          // color="gray"
+          color="gray"
           // radius="xl"
           // size="md"
           // compact
