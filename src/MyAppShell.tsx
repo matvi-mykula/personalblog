@@ -23,6 +23,7 @@ import {
   ColorSchemeProvider,
   Box,
   ButtonProps,
+  ButtonStylesParams,
 } from '@mantine/core';
 
 const MyAppShell = () => {
@@ -39,34 +40,51 @@ const MyAppShell = () => {
       toggleColorScheme={toggleColorScheme}
     >
       <MantineProvider
-        theme={{ colorScheme: colorScheme, fontFamily: 'Monospace' }}
-        withGlobalStyles
+        theme={{
+          colorScheme: colorScheme,
+          fontFamily: 'Monospace',
+          components: {
+            Button: {
+              styles: (theme, params: ButtonStylesParams, { variant }) => ({
+                root: {
+                  height: '2.625rem',
+                  padding: '0 1.875rem',
+                  backgroundColor:
+                    variant === 'filled'
+                      ? theme.colors[params.color || theme.primaryColor][9]
+                      : undefined,
+                },
+              }),
+            },
+          },
+        }}
+        // withGlobalStyles
       >
         <AppShell
           styles={(theme) => ({
-            Button: (theme: {
-              colorScheme: string;
-              colors: { dark: any[]; gray: any[] };
-            }) => ({
-              // Shared button styles are applied to all buttons
-              root: { height: 42, padding: '0 30px', color: 'blue' },
+            // Button: (theme: {
+            //   colorScheme: string;
+            //   colors: { dark: any[]; gray: any[] };
+            // }) => ({
+            //   // Shared button styles are applied to all buttons
+            //   root: { height: 42, padding: '0 30px', color: 'blue' },
 
-              // These styles are applied only to buttons with outline variant
-              outline: {
-                // You can use any selectors inside (the same way as in createStyles function)
-                '&:hover': {
-                  backgroundColor:
-                    theme.colorScheme === 'dark'
-                      ? theme.colors.dark[8]
-                      : theme.colors.gray[0],
-                },
-              },
-            }),
+            //   // These styles are applied only to buttons with outline variant
+            //   outline: {
+            //     // You can use any selectors inside (the same way as in createStyles function)
+            //     '&:hover': {
+            //       backgroundColor:
+            //         theme.colorScheme === 'dark'
+            //           ? theme.colors.dark[8]
+            //           : theme.colors.gray[0],
+            //     },
+            //   },
+            // }),
             main:
               theme.colorScheme === 'dark'
                 ? {
                     /////define dark mode
-
+                    color: 'white',
                     backgroundColor: theme.colors.dark[7],
                   }
                 : {
@@ -118,7 +136,10 @@ const MyAppShell = () => {
                 </MediaQuery>
                 <Text
                   fw={700}
-                  style={{ fontSize: 'calc(15px + 0.390625vw)' }}
+                  style={{
+                    fontSize: 'calc(15px + 0.390625vw)',
+                    color: colorScheme === 'dark' ? 'white' : 'black',
+                  }}
                 >
                   Personal Blog of Matvi
                 </Text>
