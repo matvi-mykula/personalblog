@@ -13,7 +13,8 @@ const About: React.FC = () => {
       <Text>
         &nbsp; &nbsp;Hello there! Welcome! This blog was created by me with
         Typescript and the Mantine CSS framework. It is powered by a MongoDB
-        server to create, store, update and retrieve blog data.{' '}
+        Database and an Express server to create, store, update and retrieve
+        blog data.{' '}
       </Text>
       <Text>
         &nbsp; &nbsp;As a new developer, I wanted to create a platform to
