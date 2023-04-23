@@ -15,9 +15,9 @@ const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
         <Button
           color="gray"
           // radius="xl"
-          // size="md"
+          size="md"
           // compact
-          // uppercase
+          uppercase
           //should style this globally but howwwwww?????
           onClick={() => {
             setContent('home');
