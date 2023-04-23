@@ -1,10 +1,6 @@
-import { ActionIcon, useMantineColorScheme, Button } from '@mantine/core';
+import { ActionIcon, useMantineColorScheme } from '@mantine/core';
 
-import { useColorScheme } from '@mantine/hooks';
 import React from 'react';
-import sun from 'sun.svg';
-
-// import { SunIcon, MoonIcon } from '@modulz/radix-icons';
 
 const ThemeSwitcher: React.FC = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();

@@ -1,13 +1,9 @@
-import { Link, BrowserRouter, Routes, Route } from 'react-router-dom';
-import { App } from './Home';
 import './App.css';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Image, Button, createStyles, Loader, Box, Text } from '@mantine/core';
+import { Button, Loader, Box, Text } from '@mantine/core';
 
 import { Carousel } from '@mantine/carousel';
 import { fetchPostsByCat, fetchContentById } from 'requests';
-import { ThemeSwitcher } from 'ColorScheme';
 
 interface Post {
   id: string;

@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
-import { Link, BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Button, AppShell, Navbar, Header, Affix } from '@mantine/core';
+import React from 'react';
+import { Button, Affix } from '@mantine/core';
 import { Stack } from '@mantine/core';
-import { Blog } from './Blog';
-import { Login } from './Login';
-import { App } from './Home';
 
 interface Props {
   content: string;
@@ -13,17 +9,16 @@ interface Props {
 }
 
 const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
-  const [isAdmin, setIsAdmin] = useState(false);
   return (
     <div>
       <Stack>
         <Button
-          color="gray"
-          radius="xl"
-          size="md"
-          compact
-          uppercase
-          //should style this globally
+          // color="gray"
+          // radius="xl"
+          // size="md"
+          // compact
+          // uppercase
+          //should style this globally but howwwwww?????
           onClick={() => {
             setContent('home');
             setOpened(false);

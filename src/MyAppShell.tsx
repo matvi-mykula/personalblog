@@ -1,34 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { Login } from 'Login';
-import { App } from 'Home';
-import { useColorScheme } from '@mantine/hooks';
+import React, { useState } from 'react';
+
 import { MyNav } from 'MyNav';
 import { MyContent } from 'MyContent';
 import { ThemeSwitcher } from 'ColorScheme';
-import axios from 'axios';
 
 import {
   AppShell,
   Navbar,
   Header,
-  Footer,
-  Aside,
   Text,
   MediaQuery,
   Burger,
-  useMantineTheme,
-  Card,
   MantineProvider,
   ColorScheme,
   ColorSchemeProvider,
   Box,
-  ButtonProps,
   ButtonStylesParams,
 } from '@mantine/core';
 
 const MyAppShell = () => {
   const [opened, setOpened] = useState(false);
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
@@ -47,13 +39,37 @@ const MyAppShell = () => {
             Button: {
               styles: (theme, params: ButtonStylesParams, { variant }) => ({
                 root: {
+                  width: '90%',
                   height: '2.625rem',
                   padding: '0 1.875rem',
-                  backgroundColor:
-                    variant === 'filled'
-                      ? theme.colors[params.color || theme.primaryColor][9]
-                      : undefined,
-                  '&:hover': { transform: 'scale(1.1)' },
+                  // color="gray"
+                  // radius="xl"
+                  // size="md"
+                  // compact
+                  // uppercase
+
+                  borderRadius: '5%',
+                  uppercase: true,
+                  filled: {
+                    backgroundColor:
+                      colorScheme === 'dark'
+                        ? theme.colors.dark[2]
+                        : theme.colors.blue[5],
+                    '&:hover': {
+                      transform: 'scale(1.2)',
+                      backgroundColor: 'black',
+                    },
+                  },
+                  // variant === 'filled'
+                  //   ? theme.colors[params.color || theme.primaryColor][9]
+                  //   : undefined,
+                  // '&:hover': {
+                  //   transform: 'scale(1.1)',
+                  //   backgroundColor: 'black',
+                  // colorScheme === 'dark'
+                  //   ? theme.colors.dark[0]
+                  //   : theme.colors.blue[2],
+                  // },
                 },
               }),
             },

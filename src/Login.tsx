@@ -1,8 +1,5 @@
-import { Link, BrowserRouter, Routes, Route } from 'react-router-dom';
-import { App } from './Home';
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { FormEventHandler } from 'react';
 import {
   login,
   postBlogPost,
@@ -12,20 +9,8 @@ import {
   removePost,
   fetchPostContent,
 } from './requests';
-import {
-  TextInput,
-  Checkbox,
-  NumberInput,
-  Select,
-  Button,
-  Group,
-  Box,
-  Divider,
-  Textarea,
-} from '@mantine/core';
+import { TextInput, Select, Button, Box, Textarea } from '@mantine/core';
 import { useForm } from '@mantine/form';
-
-import axios from 'axios';
 
 interface Props {
   isAdmin: boolean;

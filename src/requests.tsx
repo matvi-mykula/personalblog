@@ -153,11 +153,6 @@ interface Content {
   links: string[];
 }
 
-interface PostWithContent {
-  post: Post;
-  content: Content;
-}
-
 const fetchPostsByCat = async (category: string) => {
   try {
     const response = await axios.get<Post[]>(
