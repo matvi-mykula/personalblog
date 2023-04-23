@@ -53,6 +53,7 @@ const MyAppShell = () => {
                     variant === 'filled'
                       ? theme.colors[params.color || theme.primaryColor][9]
                       : undefined,
+                  '&:hover': { transform: 'scale(1.1)' },
                 },
               }),
             },
