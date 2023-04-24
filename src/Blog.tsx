@@ -49,7 +49,7 @@ const Blog: React.FC<Props> = ({ category }) => {
       response ? (posts = response.data) : console.log('no response');
 
       console.log({ posts });
-      let postsToBecomeContent: PostWithContent[] = [];
+      const postsToBecomeContent: PostWithContent[] = [];
 
       for (const post of posts) {
         const contentResponse = await fetchContentById(post.id);
