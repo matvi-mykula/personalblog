@@ -49,7 +49,7 @@ const Blog: React.FC<Props> = ({ category }) => {
       response ? (posts = response.data) : console.log('no response');
 
       console.log({ posts });
-      const postsToBecomeContent: PostWithContent[] = [];
+      let postsToBecomeContent: PostWithContent[] = [];
 
       for (const post of posts) {
         const contentResponse = await fetchContentById(post.id);
@@ -71,7 +71,7 @@ const Blog: React.FC<Props> = ({ category }) => {
   if (!responsive) {
     return (
       <Box>
-        <Text>It seems you have no internet silly billy! asdfadf</Text>
+        <Text>It seems you have no internet silly billy!</Text>
         <Button
           onClick={() => {
             setResponsive(navigator.onLine);
