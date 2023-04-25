@@ -48,10 +48,6 @@ const Blog: React.FC<Props> = ({ category }) => {
         type: 'pending';
       }
     | {
-        type: 'nothing';
-        message: 'No Data';
-      }
-    | {
         type: 'success';
         response: any; /// can type this to response structure
       }; /////////// loading state to make misha happy //////
@@ -68,16 +64,13 @@ const Blog: React.FC<Props> = ({ category }) => {
         setLoading({ type: 'pending' });
         const response: any = await fetchPostsByCat(category);
 
-        if (response.data.length === 0) {
-          setLoading({ type: 'nothing', message: 'No Data' });
-          return;
-        }
         if (!response || !response.success) {
           setLoading({ type: 'error', errorType: 'network' });
           return;
         }
 
         let posts: Post[] = response.data;
+        console.log({ posts });
 
         const postsToBecomeContent: PostWithContent[] = [];
 
@@ -86,11 +79,10 @@ const Blog: React.FC<Props> = ({ category }) => {
           const content = contentResponse.data.data;
           postsToBecomeContent.push({ post, content });
         }
+        console.log({ postsToBecomeContent });
         setPostsWithContent(postsToBecomeContent);
 
-        postsWithContent.length > 0
-          ? setLoading({ type: 'success', response: postsWithContent })
-          : setLoading({ type: 'pending' });
+        // setLoading({ type: 'success', response: postsWithContent });
         return;
       } catch (err) {
         console.log(err);
@@ -102,6 +94,11 @@ const Blog: React.FC<Props> = ({ category }) => {
       abortController.abort();
     };
   }, [category, responsive]);
+
+  /// added this to make sure status is updated when state is updated
+  useEffect(() => {
+    setLoading({ type: 'success', response: postsWithContent });
+  }, [postsWithContent]);
 
   const [index, setIndex] = useState(1);
 
@@ -126,10 +123,10 @@ const Blog: React.FC<Props> = ({ category }) => {
       return <Loader />;
     case 'error':
       return <Box>ERROR</Box>;
-    case 'nothing':
-      return <Box>NO DATA</Box>;
     case 'success':
-      return (
+      return loading.response.length === 0 ? (
+        <Box>NO DATA</Box>
+      ) : (
         <div>
           {postsWithContent.slice(0, index)?.map((postWithContent, index2) => (
             <div
