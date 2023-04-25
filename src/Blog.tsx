@@ -42,13 +42,11 @@ const Blog: React.FC<Props> = ({ category }) => {
   ///////////////////////////////////////////
   /// when category changes get all posts by category and content for each post and create list of postdata
   useEffect(() => {
+    const abortController = new AbortController();
     const fetchPosts = async () => {
       const response = await fetchPostsByCat(category);
-      console.log({ response });
       let posts: Post[] = [];
       response ? (posts = response.data) : console.log('no response');
-
-      console.log({ posts });
       const postsToBecomeContent: PostWithContent[] = [];
 
       for (const post of posts) {
@@ -60,6 +58,9 @@ const Blog: React.FC<Props> = ({ category }) => {
       setLoading(false);
     };
     fetchPosts();
+    return () => {
+      abortController.abort();
+    };
   }, [category, responsive]);
   ///////////////////////////////////////
   //    load one at a time ///////////
@@ -87,8 +88,8 @@ const Blog: React.FC<Props> = ({ category }) => {
     return <Loader />;
   } else {
     if (
-      postsWithContent.length > 0 &&
-      typeof postsWithContent !== 'undefined'
+      typeof postsWithContent !== 'undefined' &&
+      postsWithContent.length > 0
     ) {
       return (
         <div>
