@@ -42,13 +42,18 @@ const Blog: React.FC<Props> = ({ category }) => {
       }
     | {
         type: 'error';
+        errorType: 'validation' | 'network' | 'UNEXPECTED';
       }
     | {
         type: 'pending';
       }
-    | { type: 'nothing' }
+    | {
+        type: 'nothing';
+        message: 'No Data';
+      }
     | {
         type: 'success';
+        response: any; /// can type this to response structure
       }; /////////// loading state to make misha happy //////
 
   const [loading, setLoading] = useState<Status>({ type: 'initial' });
@@ -61,37 +66,44 @@ const Blog: React.FC<Props> = ({ category }) => {
     const fetchPosts = async () => {
       try {
         setLoading({ type: 'pending' });
-        const response = await fetchPostsByCat(category);
-        let posts: Post[] = [];
-        response ? (posts = response.data) : console.log('no response');
-        const postsToBecomeContent: PostWithContent[] = [];
+        const response: any = await fetchPostsByCat(category);
 
-        if (posts.length === 0) {
-          setLoading({ type: 'nothing' });
+        if (response.data.length === 0) {
+          setLoading({ type: 'nothing', message: 'No Data' });
+          return;
         }
+        if (!response || !response.success) {
+          setLoading({ type: 'error', errorType: 'network' });
+          return;
+        }
+
+        let posts: Post[] = response.data;
+
+        const postsToBecomeContent: PostWithContent[] = [];
 
         for (const post of posts) {
           const contentResponse = await fetchContentById(post.id);
-          const content = contentResponse.data;
+          const content = contentResponse.data.data;
           postsToBecomeContent.push({ post, content });
         }
         setPostsWithContent(postsToBecomeContent);
-        setLoading({ type: 'success' });
+
+        postsWithContent.length > 0
+          ? setLoading({ type: 'success', response: postsWithContent })
+          : setLoading({ type: 'pending' });
+        return;
       } catch (err) {
         console.log(err);
       }
     };
     fetchPosts();
+    console.log({ postsWithContent });
     return () => {
       abortController.abort();
     };
   }, [category, responsive]);
-  ///////////////////////////////////////
-  //    load one at a time ///////////
 
   const [index, setIndex] = useState(1);
-
-  ////////////////////////////
 
   if (!responsive) {
     return (
