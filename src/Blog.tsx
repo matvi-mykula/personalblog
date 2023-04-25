@@ -36,26 +36,50 @@ const Blog: React.FC<Props> = ({ category }) => {
     []
   );
 
-  /////////// loading state to make misha happy //////
-  const [loading, setLoading] = useState<Boolean>(true);
+  type Status =
+    | {
+        type: 'initial';
+      }
+    | {
+        type: 'error';
+      }
+    | {
+        type: 'pending';
+      }
+    | { type: 'nothing' }
+    | {
+        type: 'success';
+      }; /////////// loading state to make misha happy //////
+
+  const [loading, setLoading] = useState<Status>({ type: 'initial' });
   const [responsive, setResponsive] = useState<Boolean>(navigator.onLine);
+
   ///////////////////////////////////////////
   /// when category changes get all posts by category and content for each post and create list of postdata
   useEffect(() => {
     const abortController = new AbortController();
     const fetchPosts = async () => {
-      const response = await fetchPostsByCat(category);
-      let posts: Post[] = [];
-      response ? (posts = response.data) : console.log('no response');
-      const postsToBecomeContent: PostWithContent[] = [];
+      try {
+        setLoading({ type: 'pending' });
+        const response = await fetchPostsByCat(category);
+        let posts: Post[] = [];
+        response ? (posts = response.data) : console.log('no response');
+        const postsToBecomeContent: PostWithContent[] = [];
 
-      for (const post of posts) {
-        const contentResponse = await fetchContentById(post.id);
-        const content = contentResponse.data;
-        postsToBecomeContent.push({ post, content });
+        if (posts.length === 0) {
+          setLoading({ type: 'nothing' });
+        }
+
+        for (const post of posts) {
+          const contentResponse = await fetchContentById(post.id);
+          const content = contentResponse.data;
+          postsToBecomeContent.push({ post, content });
+        }
+        setPostsWithContent(postsToBecomeContent);
+        setLoading({ type: 'success' });
+      } catch (err) {
+        console.log(err);
       }
-      setPostsWithContent(postsToBecomeContent);
-      setLoading(false);
     };
     fetchPosts();
     return () => {
@@ -83,14 +107,16 @@ const Blog: React.FC<Props> = ({ category }) => {
       </Box>
     );
   }
-
-  if (loading) {
-    return <Loader />;
-  } else {
-    if (
-      typeof postsWithContent !== 'undefined' &&
-      postsWithContent.length > 0
-    ) {
+  switch (loading.type) {
+    case 'initial':
+      return <Loader />;
+    case 'pending':
+      return <Loader />;
+    case 'error':
+      return <Box>ERROR</Box>;
+    case 'nothing':
+      return <Box>NO DATA</Box>;
+    case 'success':
       return (
         <div>
           {postsWithContent.slice(0, index)?.map((postWithContent, index2) => (
@@ -193,10 +219,8 @@ const Blog: React.FC<Props> = ({ category }) => {
           ) : null}
         </div>
       );
-    } else {
-      return <Text>No Content </Text>;
-    }
   }
 };
+// };
 
 export { Blog };
