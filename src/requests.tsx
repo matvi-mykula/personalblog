@@ -118,7 +118,6 @@ const fetchPosts = async () => {
 const fetchPostContent = async (id: string) => {
   try {
     const response = await axios.get(environment + `getPostContent?id=${id}`);
-    console.log(response);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -155,16 +154,16 @@ interface Content {
 
 const fetchPostsByCat = async (category: string) => {
   try {
-    const response = await axios.get<Post[]>(
+    const response = await axios.get(
       environment + `getPosts?category=${category}`
     );
-    return response;
+    return response.data;
   } catch (err) {
-    return false;
+    return { success: false, code: 400, data: 'caught' };
   }
 };
 const fetchContentById = async (id: string) => {
-  const contentResponse = await axios.get<Content>(
+  const contentResponse = await axios.get(
     environment + `getPostContent?id=${id}`
   );
   return contentResponse;
