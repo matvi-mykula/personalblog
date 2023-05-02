@@ -1,12 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import codeSnippet from './images/codeSnippet.png';
-import boxingUppercut from './images/boxingUppercut.jpeg';
-import sillyBeachLex from './images/sillyBeachLex.jpeg';
-import { Link, BrowserRouter, Routes, Route } from 'react-router-dom';
-// import { Button, Form, Navbar, Card } from 'react-bootstrap';
-import { AppShell, Navbar, Header } from '@mantine/core';
 
 const App: React.FC = () => {
   return (

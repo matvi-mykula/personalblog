@@ -78,3 +78,10 @@ img {
 a {
   text-decoration: none;
 }
+.adminButtons {
+  display: flex;
+  flex-direction: column;
+}
+.adminButtons > * {
+  margin-bottom: 5%;
+}

@@ -1,20 +1,5 @@
 import React from 'react';
-import {
-  AppShell,
-  Navbar,
-  Header,
-  Footer,
-  Aside,
-  Text,
-  MediaQuery,
-  Burger,
-  useMantineTheme,
-  Card,
-  MantineProvider,
-  ColorScheme,
-  ColorSchemeProvider,
-  Box,
-} from '@mantine/core';
+import { Text, Box } from '@mantine/core';
 const Contact: React.FC = () => {
   return (
     <Box>

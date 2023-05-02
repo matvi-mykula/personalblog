@@ -158,7 +158,7 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin, user, setUser }) => {
           <p>Welcome Administrator</p>
           {/* show all admin operations */}
           {showActions && (
-            <div>
+            <div className="adminButtons">
               {/* decide which action to do */}
               <Button
                 onClick={() => {
