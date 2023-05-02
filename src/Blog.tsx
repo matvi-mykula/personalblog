@@ -63,7 +63,7 @@ const Blog: React.FC<Props> = ({ category }) => {
       try {
         setLoading({ type: 'pending' });
         const response: any = await fetchPostsByCat(category);
-
+        console.log({ response });
         if (!response || !response.success) {
           setLoading({ type: 'error', errorType: 'network' });
           return;
