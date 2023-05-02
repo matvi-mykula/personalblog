@@ -124,6 +124,7 @@ const Blog: React.FC<Props> = ({ category }) => {
     case 'error':
       return <Box>ERROR</Box>;
     case 'success':
+      console.log(postsWithContent);
       return loading.response.length === 0 ? (
         <Box>NO DATA</Box>
       ) : (
