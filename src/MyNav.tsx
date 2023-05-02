@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, Affix } from '@mantine/core';
-import { Stack } from '@mantine/core';
+import { Button, Affix, MediaQuery, Stack, rem } from '@mantine/core';
 
 interface Props {
   content: string;

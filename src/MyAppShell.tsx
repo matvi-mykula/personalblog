@@ -48,7 +48,7 @@ const MyAppShell = () => {
                   // compact
                   // uppercase
 
-                  borderRadius: '5%',
+                  borderRadius: '5px',
                   uppercase: true,
                   filled: {
                     backgroundColor:
@@ -107,7 +107,7 @@ const MyAppShell = () => {
               p="md"
               hiddenBreakpoint="sm"
               hidden={!opened}
-              width={{ sm: 150, lg: 250 }}
+              width={{ sm: 200, lg: 250 }}
             >
               <MyNav
                 setOpened={setOpened}
