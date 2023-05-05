@@ -1,6 +1,6 @@
 import './App.css';
-import { useEffect, useState } from 'react';
-import { Button, Loader, Box, Text } from '@mantine/core';
+import { useEffect, useRef, useState } from 'react';
+import { Button, Loader, Box, Text, ScrollArea } from '@mantine/core';
 
 import { Carousel } from '@mantine/carousel';
 import { fetchPostsByCat, fetchContentById } from 'requests';
@@ -162,7 +162,7 @@ const Blog: React.FC<Props> = ({ category }) => {
                         style={{
                           width: '100%',
                           height: '100%',
-                          objectFit: 'fill',
+                          objectFit: 'contain',
                         }}
                       />
                     </Carousel.Slide>

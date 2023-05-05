@@ -9,6 +9,10 @@ interface Props {
 
 const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
   return (
+    // <MediaQuery
+    //   query="(min-width: 50em)"
+    //   styles={{ fontSize: rem(20) }}
+    // >
     <div>
       <Stack>
         <Button
@@ -18,6 +22,11 @@ const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
           // compact
           uppercase
           //should style this globally but howwwwww?????
+          // sx={(theme) => ({
+          //   '@media (min-width:500)': {
+          //     fontSize: '16px',
+          //   },
+          // })}
           onClick={() => {
             setContent('home');
             setOpened(false);
@@ -85,6 +94,7 @@ const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
         ></Button>
       </Stack>{' '}
     </div>
+    // </MediaQuery>
   );
 };
 
