@@ -85,6 +85,7 @@ const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
           style={{
             position: 'absolute',
             bottom: '0px',
+            border: 'none',
           }}
           onClick={() => {
             setContent('admin');

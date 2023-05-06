@@ -49,6 +49,7 @@ const MyAppShell = () => {
                   // uppercase
 
                   borderRadius: '5px',
+                  border: '1px solid black',
                   uppercase: true,
                   filled: {
                     backgroundColor:
@@ -60,6 +61,17 @@ const MyAppShell = () => {
                       backgroundColor: 'black',
                     },
                   },
+                },
+              }),
+            },
+            Header: {
+              styles: (theme, params: ButtonStylesParams, { variant }) => ({
+                root: {
+                  border: '1px solid black',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  justifyItems: 'center',
                 },
               }),
             },
@@ -126,7 +138,9 @@ const MyAppShell = () => {
                   maxWidth: '90vw',
                   display: 'flex',
                   flexDirection: 'row',
+                  verticalAlign: 'middle',
                   justifyContent: 'space-between',
+                  alignItems: 'center',
                   width: '100vw',
                 }}
               >
@@ -144,7 +158,7 @@ const MyAppShell = () => {
                 <Text
                   fw={700}
                   style={{
-                    fontSize: 'calc(15px + 0.390625vw)',
+                    fontSize: 'calc(18px + 0.390625vw)',
                     color: colorScheme === 'dark' ? 'white' : 'black',
                   }}
                 >

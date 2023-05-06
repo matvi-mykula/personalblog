@@ -17,9 +17,10 @@ const ThemeSwitcher: React.FC = () => {
         <img
           style={{
             backgroundColor: 'yellow',
-            // color: 'navy',
+            // color: 'yellow',
             // width: 18,
             // height: 18,
+            border: 'none',
           }}
           src="./sun.svg"
           alt="nothing here"
