@@ -11,6 +11,7 @@ import {
 } from './requests';
 import { TextInput, Select, Button, Box, Textarea } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { AdminLogin } from 'AdminLogin';
 
 interface Props {
   isAdmin: boolean;
@@ -39,7 +40,6 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin, user, setUser }) => {
 
   ///////////////////// secure passport login ///////////////
   //// i made user on mongodb manually
-  const [loginPassword, setLoginPassword] = useState('');
   /////////////// log in admin user with passport
   // const login = (pass: string) => {
   //   console.log('trying login');
@@ -57,9 +57,14 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin, user, setUser }) => {
   // };
 
   //// do i need another get to check user or can i use state and localstorage?
-  useEffect(() => {
-    user && setIsAdmin(user.isAdmin);
-  }, [user]);
+  // useEffect(() => {
+  //   const handleLogin = async () => {
+  //     user && (await setIsAdmin(user.isAdmin));
+  //   };
+  //   handleLogin();
+  //   console.log(user);
+  //   console.log({ isAdmin });
+  // }, [user]);
 
   /////////////////
   function cancel() {
@@ -71,41 +76,6 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin, user, setUser }) => {
     setFormData(initialForm);
   }
 
-  ////// runs the admin login form//////
-  function AdminLogin() {
-    const form = useForm({
-      initialValues: {
-        password: loginPassword,
-      },
-    });
-
-    return (
-      <div>
-        <p>Enter Admin Password</p>
-        <Box>
-          <form
-            onSubmit={(event) => {
-              console.log('submit');
-              event.preventDefault();
-              const password = form.values.password;
-              console.log({ password });
-              login(password, setUser);
-            }}
-          >
-            <TextInput
-              withAsterisk
-              label="Password"
-              placeholder="Enter Admin Password"
-              {...form.getInputProps('password')}
-            ></TextInput>
-            <Button type="submit">Submit</Button>
-          </form>
-        </Box>
-
-        {errorMessage && <p>{errorMessage}</p>}
-      </div>
-    );
-  }
   ////////
 
   /// use effect to run when showallposts changes and fetchs data
@@ -267,7 +237,10 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin, user, setUser }) => {
           </Button>
         </div>
       ) : (
-        <AdminLogin></AdminLogin>
+        <AdminLogin
+          isAdmin={isAdmin}
+          setIsAdmin={setIsAdmin}
+        ></AdminLogin>
       )}
     </div>
   );
@@ -434,7 +407,7 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
           {...form.getInputProps('description')}
         />
 
-        {pictureInputs.map((value, index) => (
+        {pictureInputs?.map((value, index) => (
           <span>
             <TextInput
               withAsterisk
@@ -466,7 +439,7 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
         </Button>
 
         {videoInputs &&
-          videoInputs.map((value, index) => (
+          videoInputs?.map((value, index) => (
             <span>
               <TextInput
                 withAsterisk

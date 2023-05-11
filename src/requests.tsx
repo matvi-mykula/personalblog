@@ -21,6 +21,12 @@ console.log({ environment });
 
 ///////////////
 //////login admin
+
+interface User {
+  user?: string;
+  password?: string;
+  isAdmin?: boolean;
+}
 const login = (pass: string, setState: Function) => {
   console.log('trying login');
   axios
@@ -28,11 +34,15 @@ const login = (pass: string, setState: Function) => {
       username: 'Admin',
       password: pass,
     })
-    .then((response) => {
+    .then(async (response) => {
       console.log('login working');
 
-      console.log(response.data);
-      setState(response.data);
+      console.log(response.data.data);
+      await setState(response.data.data.isAdmin);
+      console.log(response.data.data.isAdmin);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 

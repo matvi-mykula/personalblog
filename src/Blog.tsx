@@ -1,6 +1,6 @@
 import './App.css';
-import { useEffect, useRef, useState } from 'react';
-import { Button, Loader, Box, Text, ScrollArea } from '@mantine/core';
+import { useEffect, useState } from 'react';
+import { Button, Loader, Box, Text, Accordion } from '@mantine/core';
 
 import { Carousel } from '@mantine/carousel';
 import { fetchPostsByCat, fetchContentById } from 'requests';
@@ -126,111 +126,97 @@ const Blog: React.FC<Props> = ({ category }) => {
     case 'success':
       console.log(postsWithContent);
       return loading.response.length === 0 ? (
-        <Box>NO DATA</Box>
+        <Loader />
       ) : (
         <div>
-          {postsWithContent.slice(0, index)?.map((postWithContent, index2) => (
-            <div
-              key={postWithContent.post.id}
-              id={String(index2)} /// cause id has to be a string
-            >
-              <h2>{postWithContent.post.title}</h2>
-              <p style={{ whiteSpace: 'pre-wrap' }}>
-                {postWithContent.post.description}
-              </p>
-              {postWithContent.content.pictures[0] ? (
-                <Carousel
-                  maw={'80vw'}
-                  mx="auto"
-                  withIndicators
-                  height={400}
-                  loop
-                  styles={{
-                    control: {
-                      '&[data-inactive]': {
-                        opacity: 0,
-                        cursor: 'default',
-                      },
-                    },
-                  }}
-                >
-                  {postWithContent.content.pictures?.map((picture, index) => (
-                    <Carousel.Slide key={picture}>
-                      <img
-                        src={`./images/${picture}`}
-                        alt={`./images/${picture}`}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'contain',
-                        }}
-                      />
-                    </Carousel.Slide>
-                  ))}
-                </Carousel>
-              ) : null}
-              {postWithContent.content.videos[0] ? (
-                <Carousel
-                  maw={'auto'}
-                  mx="auto"
-                  withIndicators
-                  height={200}
-                >
-                  {postWithContent.content.videos?.map((video, index) => (
-                    <Carousel.Slide
-                      justify-content-center
-                      key={video}
-                    ></Carousel.Slide>
-                  ))}
-                </Carousel>
-              ) : null}
-              {postWithContent.content.links?.map((link, index) => (
-                <div>
-                  <br></br>
-                  <a
-                    key={index}
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: 'grey' }}
+          <Accordion
+            defaultValue={null}
+            transitionDuration={800}
+          >
+            {postsWithContent?.map((postWithContent, index2) => (
+              <Accordion.Item value={`${index2}`}>
+                <Accordion.Control>
+                  {postWithContent.post.title}
+                </Accordion.Control>
+                <Accordion.Panel>
+                  <div
+                    key={postWithContent.post.id}
+                    id={String(index2)}
                   >
-                    {link}
-                  </a>
-                </div>
-              ))}{' '}
-              <p>---------------------------------</p>
-            </div>
-          ))}
-          {postsWithContent[index] ? (
-            <Button
-              color="gray"
-              radius="xl"
-              size="md"
-              compact
-              uppercase
-              style={{ marginBottom: '12px' }}
-              onClick={async () => {
-                // i should let people know theyv reached the end of content
-                await setIndex((index) => index + 1);
-                console.log({ index });
-                const element = document.getElementById(String(index) || '0');
-                if (element) {
-                  console.log('scrolling');
-                  console.log({ element });
-                  element.scrollTo({
-                    top: element.scrollHeight,
-                    behavior: 'smooth',
-                  });
-                }
-              }}
-            >
-              More Content
-            </Button>
-          ) : null}
+                    <p style={{ whiteSpace: 'pre-wrap' }}>
+                      {postWithContent.post.description}
+                    </p>
+                    {postWithContent.content.pictures[0] ? (
+                      <Carousel
+                        maw={'80vw'}
+                        mx="auto"
+                        withIndicators
+                        height={400}
+                        loop
+                        styles={{
+                          control: {
+                            '&[data-inactive]': {
+                              opacity: 0,
+                              cursor: 'default',
+                            },
+                          },
+                        }}
+                      >
+                        {postWithContent.content.pictures?.map(
+                          (picture, index) => (
+                            <Carousel.Slide key={picture}>
+                              <img
+                                src={`./images/${picture}`}
+                                alt={`./images/${picture}`}
+                                style={{
+                                  width: '100%',
+                                  height: '100%',
+                                  objectFit: 'contain',
+                                }}
+                              />
+                            </Carousel.Slide>
+                          )
+                        )}
+                      </Carousel>
+                    ) : null}
+                    {postWithContent.content.videos[0] ? (
+                      <Carousel
+                        maw={'auto'}
+                        mx="auto"
+                        withIndicators
+                        height={200}
+                      >
+                        {postWithContent.content.videos?.map((video, index) => (
+                          <Carousel.Slide
+                            justify-content-center
+                            key={video}
+                          ></Carousel.Slide>
+                        ))}
+                      </Carousel>
+                    ) : null}
+                    {postWithContent.content.links?.map((link, index) => (
+                      <div>
+                        <br></br>
+                        <a
+                          key={index}
+                          href={link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: 'grey' }}
+                        >
+                          {link}
+                        </a>
+                      </div>
+                    ))}{' '}
+                    <p>---------------------------------</p>
+                  </div>
+                </Accordion.Panel>
+              </Accordion.Item>
+            ))}
+          </Accordion>
         </div>
       );
   }
 };
-// };
 
 export { Blog };
