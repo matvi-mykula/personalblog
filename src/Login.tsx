@@ -16,18 +16,9 @@ import { AdminLogin } from 'AdminLogin';
 interface Props {
   isAdmin: boolean;
   setIsAdmin: Function;
-  user: User;
-  setUser: Function;
-}
-interface User {
-  user?: string;
-  password?: string;
-  isAdmin?: boolean;
 }
 
-const Login: React.FC<Props> = ({ isAdmin, setIsAdmin, user, setUser }) => {
-  // const [input, setInput] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
   const [showForm, setShowForm] = useState(false);
   const [showAllPosts, setShowAllPosts] = useState(false);
   const [allData, setAllData] = useState([]);
@@ -35,36 +26,6 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin, user, setUser }) => {
   const [showActions, setShowActions] = useState(true);
 
   const [addForm, setAddForm] = useState(false);
-  // function returns state to original admin page state
-  //to be passed to MyForm component
-
-  ///////////////////// secure passport login ///////////////
-  //// i made user on mongodb manually
-  /////////////// log in admin user with passport
-  // const login = (pass: string) => {
-  //   console.log('trying login');
-  //   axios
-  //     .post('http://localhost:4000/login', {
-  //       username: 'Admin',
-  //       password: pass,
-  //     })
-  //     .then((response) => {
-  //       console.log('login working');
-
-  //       console.log(response.data);
-  //       setUser(response.data);
-  //     });
-  // };
-
-  //// do i need another get to check user or can i use state and localstorage?
-  // useEffect(() => {
-  //   const handleLogin = async () => {
-  //     user && (await setIsAdmin(user.isAdmin));
-  //   };
-  //   handleLogin();
-  //   console.log(user);
-  //   console.log({ isAdmin });
-  // }, [user]);
 
   /////////////////
   function cancel() {
@@ -224,7 +185,7 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin, user, setUser }) => {
 
           <Button
             onClick={() => {
-              setUser({});
+              // setUser({});
               setIsAdmin(false);
               console.log({ isAdmin });
               setShowAllPosts(false);

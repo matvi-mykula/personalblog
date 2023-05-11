@@ -7,15 +7,9 @@ import { About } from 'About';
 interface Props {
   content: string;
 }
-interface User {
-  user?: string;
-  password?: string;
-  isAdmin?: boolean;
-}
 
 const MyContent: React.FC<Props> = ({ content }) => {
   const [isAdmin, setIsAdmin] = useState(false);
-  const [user, setUser] = useState<User>({});
 
   switch (content) {
     case 'home': {
@@ -42,8 +36,6 @@ const MyContent: React.FC<Props> = ({ content }) => {
         <Login
           isAdmin={isAdmin}
           setIsAdmin={setIsAdmin}
-          user={user}
-          setUser={setUser}
         ></Login>
       );
     }
