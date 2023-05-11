@@ -190,7 +190,19 @@ const Blog: React.FC<Props> = ({ category }) => {
                           <Carousel.Slide
                             justify-content-center
                             key={video}
-                          ></Carousel.Slide>
+                          >
+                            <video
+                              src={`./videos/${video}`}
+                              controls
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'contain',
+                              }}
+                            >
+                              Video not available
+                            </video>
+                          </Carousel.Slide>
                         ))}
                       </Carousel>
                     ) : null}
