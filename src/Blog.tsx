@@ -4,6 +4,7 @@ import { Button, Loader, Box, Text, Accordion } from '@mantine/core';
 
 import { Carousel } from '@mantine/carousel';
 import { fetchPostsByCat, fetchContentById } from 'requests';
+import { ContentCarousel } from 'Carousel';
 
 interface Post {
   id: string;
@@ -129,6 +130,17 @@ const Blog: React.FC<Props> = ({ category }) => {
         <Loader />
       ) : (
         <div>
+          {/* {postsWithContent?.map((postWithContent, index2) => (
+            <div>
+              {postWithContent.content.pictures[0] ? (
+                <ContentCarousel
+                  videoContent={postWithContent.content.videos}
+                  imageContent={postWithContent.content.pictures}
+                ></ContentCarousel>
+              ) : null}
+            </div>
+          ))} */}
+
           <Accordion
             defaultValue={null}
             transitionDuration={800}
@@ -147,64 +159,10 @@ const Blog: React.FC<Props> = ({ category }) => {
                       {postWithContent.post.description}
                     </p>
                     {postWithContent.content.pictures[0] ? (
-                      <Carousel
-                        maw={'80vw'}
-                        mx="auto"
-                        withIndicators
-                        height={400}
-                        loop
-                        styles={{
-                          control: {
-                            '&[data-inactive]': {
-                              opacity: 0,
-                              cursor: 'default',
-                            },
-                          },
-                        }}
-                      >
-                        {postWithContent.content.pictures?.map(
-                          (picture, index) => (
-                            <Carousel.Slide key={picture}>
-                              <img
-                                src={`./images/${picture}`}
-                                alt={`./images/${picture}`}
-                                style={{
-                                  width: '100%',
-                                  height: '100%',
-                                  objectFit: 'contain',
-                                }}
-                              />
-                            </Carousel.Slide>
-                          )
-                        )}
-                      </Carousel>
-                    ) : null}
-                    {postWithContent.content.videos[0] ? (
-                      <Carousel
-                        maw={'auto'}
-                        mx="auto"
-                        withIndicators
-                        height={200}
-                      >
-                        {postWithContent.content.videos?.map((video, index) => (
-                          <Carousel.Slide
-                            justify-content-center
-                            key={video}
-                          >
-                            <video
-                              src={`./videos/${video}`}
-                              controls
-                              style={{
-                                width: '100%',
-                                height: '100%',
-                                objectFit: 'contain',
-                              }}
-                            >
-                              Video not available
-                            </video>
-                          </Carousel.Slide>
-                        ))}
-                      </Carousel>
+                      <ContentCarousel
+                        videoContent={postWithContent.content.videos}
+                        imageContent={postWithContent.content.pictures}
+                      ></ContentCarousel>
                     ) : null}
                     {postWithContent.content.links?.map((link, index) => (
                       <div>
