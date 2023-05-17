@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { App } from 'Home';
-import { Blog } from 'Blog';
+import { Blog } from 'BlogOG';
 import { Login } from 'Login';
 import { Contact } from 'Contact';
 import { About } from 'About';
