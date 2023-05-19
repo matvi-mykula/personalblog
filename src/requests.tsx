@@ -127,7 +127,9 @@ const fetchPosts = async () => {
 // get content associated with a specific post id
 const fetchPostContent = async (id: string) => {
   try {
+    console.log('fetching post content');
     const response = await axios.get(environment + `getPostContent?id=${id}`);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

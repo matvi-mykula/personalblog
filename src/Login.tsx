@@ -157,19 +157,17 @@ const Login: React.FC<Props> = ({ isAdmin, setIsAdmin }) => {
                       setShowAllPosts(false);
 
                       const content = await fetchPostContent(post.id);
-                      console.log({ post });
-                      console.log(content.pictures);
+
                       await setFormData({
                         id: post.id,
                         title: post.title,
                         category: post.category,
                         description: post.description,
                         timeStamp: post.timeStamp,
-                        pictures: content.pictures,
-                        videos: content.videos,
-                        links: content.links,
+                        pictures: content.data.pictures,
+                        videos: content.data.videos,
+                        links: content.data.links,
                       });
-                      console.log({ formData });
                       setShowEditForm(true);
                     }}
                   >
@@ -237,7 +235,6 @@ interface Props2 {
 ///create form for inpu tof new post info
 
 const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
-  console.log(newData);
   const [pictureInputs, setPictureInputs] = useState(newData.pictures); // initial array with one input field
   const [videoInputs, setVideoInputs] = useState(newData.videos); // initial array with one input field
   const [linkInputs, setLinkInputs] = useState(newData.links); // initial array with one input field
@@ -253,7 +250,6 @@ const MyForm: React.FC<Props2> = ({ newData, allData, cancel, isNew }) => {
     newInputs[index] = value;
     setState(newInputs);
   };
-
   const form = useForm({
     initialValues: {
       id: newData.id,
