@@ -16,24 +16,9 @@ const MyNav: React.FC<Props> = ({
   colorScheme,
 }) => {
   return (
-    // <MediaQuery
-    //   query="(min-width: 50em)"
-    //   styles={{ fontSize: rem(20) }}
-    // >
     <div>
       <Stack>
         <Button
-          // color="gray"
-          // // radius="xl"
-          // size="md"
-          // // compact
-          // uppercase
-          //should style this globally but howwwwww?????
-          // sx={(theme) => ({
-          //   '@media (min-width:500)': {
-          //     fontSize: '16px',
-          //   },
-          // })}
           onClick={() => {
             setContent('home');
             setOpened(false);
@@ -42,12 +27,6 @@ const MyNav: React.FC<Props> = ({
           Home
         </Button>
         <Button
-          // color="dark"
-          // font-size="30px"
-          // radius="xl"
-          // size="xl"
-          // compact
-          // uppercase
           onClick={() => {
             setContent('about');
             setOpened(false);
@@ -90,7 +69,6 @@ const MyNav: React.FC<Props> = ({
         ></Button>
       </Stack>{' '}
     </div>
-    // </MediaQuery>
   );
 };
 

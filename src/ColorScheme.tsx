@@ -17,9 +17,7 @@ const ThemeSwitcher: React.FC = () => {
         <img
           style={{
             backgroundColor: 'yellow',
-            // color: 'yellow',
-            // width: 18,
-            // height: 18,
+
             border: 'none',
           }}
           src="./sun.svg"
@@ -29,9 +27,6 @@ const ThemeSwitcher: React.FC = () => {
         <img
           style={{
             backgroundColor: 'navy',
-            // color: 'yellow',
-            // width: 18,
-            // height: 18,
           }}
           src="./moon.svg"
           alt="light theme"

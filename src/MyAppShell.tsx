@@ -50,11 +50,7 @@ const MyAppShell = () => {
                   width: '90%',
                   height: '2.625rem',
                   padding: '0 1.875rem',
-                  // color="gray"
-                  // radius="xl"
-                  // size="md"
-                  // compact
-                  // uppercase
+
                   textTransform: 'uppercase',
                   textDecoration: 'uppercase',
                   borderRadius: '5px',

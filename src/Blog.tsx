@@ -130,17 +130,6 @@ const Blog: React.FC<Props> = ({ category }) => {
         <Loader />
       ) : (
         <div>
-          {/* {postsWithContent?.map((postWithContent, index2) => (
-            <div>
-              {postWithContent.content.pictures[0] ? (
-                <ContentCarousel
-                  videoContent={postWithContent.content.videos}
-                  imageContent={postWithContent.content.pictures}
-                ></ContentCarousel>
-              ) : null}
-            </div>
-          ))} */}
-
           <Accordion
             defaultValue={null}
             transitionDuration={800}
@@ -172,7 +161,7 @@ const Blog: React.FC<Props> = ({ category }) => {
                           href={link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          style={{ color: 'blue' }}
+                          color="yellow"
                         >
                           {link}
                         </a>
