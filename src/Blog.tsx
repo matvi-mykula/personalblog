@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { Button, Loader, Box, Text, Accordion } from '@mantine/core';
+import { Button, Loader, Box, Text, Accordion, Anchor } from '@mantine/core';
 
 import { Carousel } from '@mantine/carousel';
 import { fetchPostsByCat, fetchContentById } from 'requests';

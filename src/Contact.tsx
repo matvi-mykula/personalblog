@@ -1,13 +1,17 @@
 import React from 'react';
-import { Text, Box } from '@mantine/core';
+import { Text, Box, Anchor } from '@mantine/core';
+
+interface Props {
+  colorScheme: any;
+}
 const Contact: React.FC = () => {
   return (
     <Box>
       <Text>
         Send me an email at ...{' '}
-        <a href="matt.pronchick@gmail.com?subject=Blog%20Inquiry">
+        <Anchor href="matt.pronchick@gmail.com?subject=Blog%20Inquiry">
           matt.pronchick@gmail.com
-        </a>
+        </Anchor>
       </Text>
     </Box>
   );

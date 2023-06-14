@@ -16,6 +16,7 @@ import {
   ColorSchemeProvider,
   Box,
   ButtonStylesParams,
+  Anchor,
 } from '@mantine/core';
 
 const MyAppShell = () => {
@@ -36,6 +37,13 @@ const MyAppShell = () => {
           colorScheme: colorScheme,
           fontFamily: 'Monospace',
           components: {
+            Anchor: {
+              styles: (theme, params: ButtonStylesParams, { variant }) => ({
+                root: {
+                  color: colorScheme === 'dark' ? 'white' : 'darkblue',
+                },
+              }),
+            },
             Button: {
               styles: (theme, params: ButtonStylesParams, { variant }) => ({
                 root: {
@@ -80,24 +88,6 @@ const MyAppShell = () => {
       >
         <AppShell
           styles={(theme) => ({
-            // Button: (theme: {
-            //   colorScheme: string;
-            //   colors: { dark: any[]; gray: any[] };
-            // }) => ({
-            //   // Shared button styles are applied to all buttons
-            //   root: { height: 42, padding: '0 30px', color: 'blue' },
-
-            //   // These styles are applied only to buttons with outline variant
-            //   outline: {
-            //     // You can use any selectors inside (the same way as in createStyles function)
-            //     '&:hover': {
-            //       backgroundColor:
-            //         theme.colorScheme === 'dark'
-            //           ? theme.colors.dark[8]
-            //           : theme.colors.gray[0],
-            //     },
-            //   },
-            // }),
             main:
               theme.colorScheme === 'dark'
                 ? {
@@ -148,12 +138,15 @@ const MyAppShell = () => {
                   largerThan="sm"
                   styles={{ display: 'none' }}
                 >
-                  <Burger
-                    opened={opened}
-                    onClick={() => setOpened((o) => !o)}
-                    size="sm"
-                    mr="xl"
-                  />
+                  <div>
+                    <Burger
+                      title="Open navigation"
+                      opened={opened}
+                      onClick={() => setOpened((o) => !o)}
+                      size="sm"
+                      mr="xl"
+                    />
+                  </div>
                 </MediaQuery>
                 <Text
                   fw={700}
@@ -171,7 +164,10 @@ const MyAppShell = () => {
             </Header>
           }
         >
-          <MyContent content={content}></MyContent>
+          <MyContent
+            content={content}
+            colorScheme={colorScheme}
+          ></MyContent>
         </AppShell>
       </MantineProvider>
     </ColorSchemeProvider>

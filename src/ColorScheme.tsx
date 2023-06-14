@@ -23,7 +23,7 @@ const ThemeSwitcher: React.FC = () => {
             border: 'none',
           }}
           src="./sun.svg"
-          alt="nothing here"
+          alt="dark theme"
         ></img>
       ) : (
         <img
@@ -34,7 +34,7 @@ const ThemeSwitcher: React.FC = () => {
             // height: 18,
           }}
           src="./moon.svg"
-          alt="nothing here"
+          alt="light theme"
         ></img>
       )}
     </ActionIcon>

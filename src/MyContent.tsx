@@ -6,9 +6,10 @@ import { Contact } from 'Contact';
 import { About } from 'About';
 interface Props {
   content: string;
+  colorScheme: any;
 }
 
-const MyContent: React.FC<Props> = ({ content }) => {
+const MyContent: React.FC<Props> = ({ content, colorScheme }) => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   switch (content) {
@@ -22,14 +23,29 @@ const MyContent: React.FC<Props> = ({ content }) => {
       return <Contact></Contact>;
     }
     case 'coding': {
-      return <Blog category={'coding'}></Blog>;
+      return (
+        <Blog
+          category={'coding'}
+          colorScheme={colorScheme}
+        ></Blog>
+      );
     }
     case 'movement': {
       console.log({ content });
-      return <Blog category={'movement'}></Blog>;
+      return (
+        <Blog
+          category={'movement'}
+          colorScheme={colorScheme}
+        ></Blog>
+      );
     }
     case 'clothing': {
-      return <Blog category={'clothes'}></Blog>;
+      return (
+        <Blog
+          category={'clothes'}
+          colorScheme={colorScheme}
+        ></Blog>
+      );
     }
     case 'admin': {
       return (

@@ -27,9 +27,10 @@ interface PostWithContent {
 
 interface Props {
   category: string;
+  colorScheme: any;
 }
 
-const Blog: React.FC<Props> = ({ category }) => {
+const Blog: React.FC<Props> = ({ category, colorScheme }) => {
   console.log('arrive to blog');
   console.log(category);
   const [postsWithContent, setPostsWithContent] = useState<PostWithContent[]>(
@@ -140,6 +141,8 @@ const Blog: React.FC<Props> = ({ category }) => {
               </p>{' '}
               {postWithContent.content.videos[0] ? (
                 <Carousel
+                  previousControlLabel="previous video slide"
+                  nextControlLabel="next video slide"
                   maw={'auto'}
                   mx="auto"
                   withIndicators
@@ -168,6 +171,8 @@ const Blog: React.FC<Props> = ({ category }) => {
               ) : null}
               {postWithContent.content.pictures[0] ? (
                 <Carousel
+                  previousControlLabel="previous picture slide"
+                  nextControlLabel="next picture slide"
                   maw={'80vw'}
                   mx="auto"
                   withIndicators
@@ -205,7 +210,9 @@ const Blog: React.FC<Props> = ({ category }) => {
                     href={link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: 'grey' }}
+                    style={{
+                      color: colorScheme === 'dark' ? 'white' : 'black',
+                    }}
                   >
                     {link}
                   </a>
