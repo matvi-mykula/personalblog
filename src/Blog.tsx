@@ -172,7 +172,7 @@ const Blog: React.FC<Props> = ({ category }) => {
                           href={link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          style={{ color: 'grey' }}
+                          style={{ color: 'blue' }}
                         >
                           {link}
                         </a>
