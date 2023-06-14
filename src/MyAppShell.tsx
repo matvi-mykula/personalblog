@@ -47,20 +47,19 @@ const MyAppShell = () => {
                   // size="md"
                   // compact
                   // uppercase
-
+                  textTransform: 'uppercase',
+                  textDecoration: 'uppercase',
                   borderRadius: '5px',
                   border: '1px solid black',
                   uppercase: true,
-                  filled: {
+                  fontSize: '1.2rem',
+                  backgroundColor:
+                    colorScheme === 'dark' ? 'white' : 'darkblue',
+                  ...theme.fn.hover({
                     backgroundColor:
-                      colorScheme === 'dark'
-                        ? theme.colors.dark[2]
-                        : theme.colors.blue[5],
-                    '&:hover': {
-                      transform: 'scale(1.2)',
-                      backgroundColor: 'black',
-                    },
-                  },
+                      colorScheme === 'dark' ? 'lightblue' : 'black',
+                  }),
+                  color: colorScheme === 'dark' ? 'black' : 'white',
                 },
               }),
             },
@@ -125,6 +124,7 @@ const MyAppShell = () => {
                 setOpened={setOpened}
                 content={content}
                 setContent={setContent}
+                colorScheme={colorScheme}
               ></MyNav>
             </Navbar>
           }

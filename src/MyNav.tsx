@@ -1,13 +1,20 @@
 import React from 'react';
 import { Button, Affix, MediaQuery, Stack, rem } from '@mantine/core';
+import './App.css';
 
 interface Props {
   content: string;
   setContent: Function;
   setOpened: Function;
+  colorScheme: any;
 }
 
-const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
+const MyNav: React.FC<Props> = ({
+  content,
+  setContent,
+  setOpened,
+  colorScheme,
+}) => {
   return (
     // <MediaQuery
     //   query="(min-width: 50em)"
@@ -16,11 +23,11 @@ const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
     <div>
       <Stack>
         <Button
-          color="gray"
-          // radius="xl"
-          size="md"
-          // compact
-          uppercase
+          // color="gray"
+          // // radius="xl"
+          // size="md"
+          // // compact
+          // uppercase
           //should style this globally but howwwwww?????
           // sx={(theme) => ({
           //   '@media (min-width:500)': {
@@ -35,11 +42,12 @@ const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
           Home
         </Button>
         <Button
-          color="gray"
-          radius="xl"
-          size="md"
-          compact
-          uppercase
+          // color="dark"
+          // font-size="30px"
+          // radius="xl"
+          // size="xl"
+          // compact
+          // uppercase
           onClick={() => {
             setContent('about');
             setOpened(false);
@@ -48,11 +56,6 @@ const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
           About
         </Button>
         <Button
-          color="gray"
-          radius="xl"
-          size="md"
-          compact
-          uppercase
           onClick={() => {
             setContent('contact');
             setOpened(false);
@@ -62,11 +65,6 @@ const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
         </Button>
 
         <Button
-          color="gray"
-          radius="xl"
-          size="md"
-          compact
-          uppercase
           onClick={() => {
             setContent('coding');
             setOpened(false);
@@ -77,12 +75,9 @@ const MyNav: React.FC<Props> = ({ content, setContent, setOpened }) => {
 
         <Affix></Affix>
         <Button
-          color="gray"
-          radius="xl"
-          size="md"
-          compact
-          uppercase
           style={{
+            backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
+
             position: 'absolute',
             bottom: '0px',
             border: 'none',
