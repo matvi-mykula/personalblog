@@ -9,7 +9,7 @@ const App: React.FC = () => {
         <p>::: Hey! My name is Mat :::</p>
       </header>
       <p className="homeBlurb">
-        I am a budding full stack developer passionate about clever code,
+        I am a software developer passionate about clever code,
         detailed process and visual design.
       </p>
       <p></p>
