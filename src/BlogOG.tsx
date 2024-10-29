@@ -117,6 +117,7 @@ const Blog: React.FC<Props> = ({ category, colorScheme }) => {
       </Box>
     );
   }
+
   switch (loading.type) {
     case 'initial':
       return <Loader />;
@@ -127,7 +128,7 @@ const Blog: React.FC<Props> = ({ category, colorScheme }) => {
     case 'success':
       console.log(postsWithContent);
       return loading.response.length === 0 ? (
-        <Box>NO DATA</Box>
+        <Loader /> //This is hacky why is the response successful but not have any entries?
       ) : (
         <div>
           {postsWithContent.slice(0, index)?.map((postWithContent, index2) => (
