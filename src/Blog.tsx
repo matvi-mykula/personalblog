@@ -153,6 +153,7 @@ const Blog: React.FC<Props> = ({ category }) => {
                         imageContent={postWithContent.content.pictures}
                       ></ContentCarousel>
                     ) : null}
+                    <br/>
                     {postWithContent.content.links?.map((link, index) => (
                       <div>
                         <br></br>
