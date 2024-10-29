@@ -31,7 +31,6 @@ const MyContent: React.FC<Props> = ({ content, colorScheme }) => {
       );
     }
     case 'movement': {
-      console.log({ content });
       return (
         <Blog
           category={'movement'}

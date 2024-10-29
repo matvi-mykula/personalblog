@@ -18,39 +18,23 @@ const MyNav: React.FC<Props> = ({
   return (
     <div>
       <Stack>
-        <Button
-          onClick={() => {
-            setContent('home');
-            setOpened(false);
-          }}
-        >
-          Home
-        </Button>
-        <Button
-          onClick={() => {
-            setContent('about');
-            setOpened(false);
-          }}
-        >
-          About
-        </Button>
-        <Button
-          onClick={() => {
-            setContent('contact');
-            setOpened(false);
-          }}
-        >
-          Contact
-        </Button>
-
-        <Button
-          onClick={() => {
-            setContent('coding');
-            setOpened(false);
-          }}
-        >
-          Portfolio
-        </Button>
+    {['home', 'about', 'contact', 'coding'].map((item) => (
+          <Button
+            key={item}
+            onClick={() => {
+              setContent(item);
+              setOpened(false);
+            }}
+            style={{
+              width: '100%', 
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {item.charAt(0).toUpperCase() + item.slice(1)}
+          </Button>
+        ))}
 
         <Affix></Affix>
         <Button
