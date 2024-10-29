@@ -152,6 +152,7 @@ const Blog: React.FC<Props> = ({ category, colorScheme }) => {
                     <Carousel.Slide
                       justify-content-center
                       key={video}
+                      style={{marginBottom:'5px'}}
                     >
                       {' '}
                       <video
