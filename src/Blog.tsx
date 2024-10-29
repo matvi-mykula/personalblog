@@ -155,7 +155,7 @@ const Blog: React.FC<Props> = ({ category }) => {
                     ) : null}
                     <br/>
                     {postWithContent.content.links?.map((link, index) => (
-                      <div>
+                      <div style={{marginTop:'5px'}}>
                         <br></br>
                         <a
                           key={index}
