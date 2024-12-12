@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-
-import { MyNav } from 'MyNav';
-import { MyContent } from 'MyContent';
-import { ThemeSwitcher } from 'ColorScheme';
-
+import React, { useState } from "react";
+import { MyNav } from "MyNav";
+import { MyContent } from "MyContent";
+import { ThemeSwitcher } from "ColorScheme";
 import {
   AppShell,
   Navbar,
@@ -16,17 +14,16 @@ import {
   ColorSchemeProvider,
   Box,
   ButtonStylesParams,
-  Anchor,
-} from '@mantine/core';
+} from "@mantine/core";
 
 const MyAppShell = () => {
   const [opened, setOpened] = useState(false);
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
   const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
-  const [content, setContent] = useState('home');
-  // console.log({ content });
+  const [content, setContent] = useState("home");
+
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}
@@ -35,46 +32,46 @@ const MyAppShell = () => {
       <MantineProvider
         theme={{
           colorScheme: colorScheme,
-          fontFamily: 'Monospace',
+          fontFamily: "Monospace",
           components: {
             Anchor: {
               styles: (theme, params: ButtonStylesParams, { variant }) => ({
                 root: {
-                  color: colorScheme === 'dark' ? 'white' : 'darkblue',
+                  color: colorScheme === "dark" ? "white" : "darkblue",
                 },
               }),
             },
             Button: {
               styles: (theme, params: ButtonStylesParams, { variant }) => ({
                 root: {
-                  width: '90%',
-                  height: '2.625rem',
-                  padding: '0 1.875rem',
+                  width: "90%",
+                  height: "2.625rem",
+                  padding: "0 1.875rem",
 
-                  textTransform: 'uppercase',
-                  textDecoration: 'uppercase',
-                  borderRadius: '5px',
-                  border: '1px solid black',
+                  textTransform: "uppercase",
+                  textDecoration: "uppercase",
+                  borderRadius: "5px",
+                  border: "1px solid black",
                   uppercase: true,
-                  fontSize: '1.2rem',
+                  fontSize: "1.2rem",
                   backgroundColor:
-                    colorScheme === 'dark' ? 'white' : 'darkblue',
+                    colorScheme === "dark" ? "white" : "darkblue",
                   ...theme.fn.hover({
                     backgroundColor:
-                      colorScheme === 'dark' ? 'lightblue' : 'black',
+                      colorScheme === "dark" ? "lightblue" : "black",
                   }),
-                  color: colorScheme === 'dark' ? 'black' : 'white',
+                  color: colorScheme === "dark" ? "black" : "white",
                 },
               }),
             },
             Header: {
               styles: (theme, params: ButtonStylesParams, { variant }) => ({
                 root: {
-                  border: '1px solid black',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  justifyItems: 'center',
+                  border: "1px solid black",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  justifyItems: "center",
                 },
               }),
             },
@@ -85,10 +82,10 @@ const MyAppShell = () => {
         <AppShell
           styles={(theme) => ({
             main:
-              theme.colorScheme === 'dark'
+              theme.colorScheme === "dark"
                 ? {
                     /////define dark mode
-                    color: 'white',
+                    color: "white",
                     backgroundColor: theme.colors.dark[7],
                   }
                 : {
@@ -100,7 +97,6 @@ const MyAppShell = () => {
           asideOffsetBreakpoint="sm"
           navbar={
             <Navbar
-              // style={{ background: theme.colorScheme.colors.blue[2] }}
               p="md"
               hiddenBreakpoint="sm"
               hidden={!opened}
@@ -115,25 +111,19 @@ const MyAppShell = () => {
             </Navbar>
           }
           header={
-            <Header
-              height={{ base: 50, md: 70 }}
-              p="md"
-            >
+            <Header height={{ base: 50, md: 70 }} p="md">
               <Box
                 style={{
-                  maxWidth: '90vw',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  verticalAlign: 'middle',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  width: '100vw',
+                  maxWidth: "90vw",
+                  display: "flex",
+                  flexDirection: "row",
+                  verticalAlign: "middle",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "100vw",
                 }}
               >
-                <MediaQuery
-                  largerThan="sm"
-                  styles={{ display: 'none' }}
-                >
+                <MediaQuery largerThan="sm" styles={{ display: "none" }}>
                   <div>
                     <Burger
                       title="Open navigation"
@@ -147,8 +137,8 @@ const MyAppShell = () => {
                 <Text
                   fw={700}
                   style={{
-                    fontSize: 'calc(18px + 0.390625vw)',
-                    color: colorScheme === 'dark' ? 'white' : 'black',
+                    fontSize: "calc(18px + 0.390625vw)",
+                    color: colorScheme === "dark" ? "white" : "black",
                   }}
                 >
                   Personal Blog of Matvi
@@ -160,10 +150,7 @@ const MyAppShell = () => {
             </Header>
           }
         >
-          <MyContent
-            content={content}
-            colorScheme={colorScheme}
-          ></MyContent>
+          <MyContent content={content} colorScheme={colorScheme}></MyContent>
         </AppShell>
       </MantineProvider>
     </ColorSchemeProvider>
