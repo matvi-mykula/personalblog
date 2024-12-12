@@ -93,14 +93,12 @@ const MyAppShell = () => {
                     backgroundColor: theme.colors.blue[1],
                   },
           })}
-          navbarOffsetBreakpoint="sm"
-          asideOffsetBreakpoint="sm"
           navbar={
             <Navbar
               p="md"
-              hiddenBreakpoint="sm"
+              hiddenBreakpoint="xl"
               hidden={!opened}
-              width={{ sm: 200, lg: 250 }}
+              // width={{ sm: 200, lg: 200 }}
             >
               <MyNav
                 setOpened={setOpened}
@@ -111,41 +109,25 @@ const MyAppShell = () => {
             </Navbar>
           }
           header={
-            <Header height={{ base: 50, md: 70 }} p="md">
+            <Header height={{ base: 50 }} p="md">
               <Box
                 style={{
-                  maxWidth: "90vw",
                   display: "flex",
-                  flexDirection: "row",
-                  verticalAlign: "middle",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  width: "100vw",
+                  width: "100%",
                 }}
               >
-                <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-                  <div>
-                    <Burger
-                      title="Open navigation"
-                      opened={opened}
-                      onClick={() => setOpened((o) => !o)}
-                      size="sm"
-                      mr="xl"
-                    />
-                  </div>
-                </MediaQuery>
-                <Text
-                  fw={700}
-                  style={{
-                    fontSize: "calc(18px + 0.390625vw)",
-                    color: colorScheme === "dark" ? "white" : "black",
-                  }}
-                >
-                  Personal Blog of Matvi
-                </Text>
-                <Box>
-                  <ThemeSwitcher></ThemeSwitcher>
-                </Box>
+                <Burger
+                  title="Open navigation"
+                  opened={opened}
+                  onClick={() => setOpened((o) => !o)}
+                  size="sm"
+                  mr="xl"
+                />
+                <div style={{ marginLeft: "auto" }}>
+                  <ThemeSwitcher />
+                </div>
               </Box>
             </Header>
           }

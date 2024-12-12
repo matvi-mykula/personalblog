@@ -1,22 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Container, Center, Text } from "@mantine/core";
 
-const App: React.FC = () => {
+const Home: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>::: Hey! My name is Mat :::</p>
-      </header>
-      <p className="homeBlurb">
-        I am a software developer passionate about clever code,
-        detailed process and visual design.
-      </p>
-      <p></p>
-
-      <p></p>
-    </div>
+    <Container
+      size="md"
+      style={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Center style={{ flexDirection: "column" }}>
+        <Text size="xl" weight={700} align="center" mb="lg">
+          ::: Hey! My name is Mat :::
+        </Text>
+        <Text size="md" align="center" color="dimmed">
+          Around here we seriously love to code, explore new things, make art,
+          move, oxford commas, and being a try hard.
+        </Text>
+      </Center>
+    </Container>
   );
 };
 
-export { App };
+export { Home };
