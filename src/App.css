@@ -85,3 +85,38 @@ a {
 .adminButtons > * {
   margin-bottom: 5%;
 }
+
+/* for the crowd */
+@keyframes raiseArms {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px); /* Arms raised */
+  }
+}
+
+@keyframes lowerArms {
+  0% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0); /* Arms lowered */
+  }
+}
+
+.stick-figure {
+  position: absolute;
+  text-align: center;
+  cursor: pointer;
+  font-family: monospace;
+  transition: transform 0.3s ease-in-out;
+}
+
+.stick-figure.raised {
+  animation: raiseArms 0.3s ease-in-out forwards;
+}
+
+.stick-figure.lowered {
+  animation: lowerArms 0.3s ease-in-out forwards;
+}

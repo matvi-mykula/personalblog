@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Center, Text, Box } from "@mantine/core";
-
+import "./App.css";
 const stickFigures = Array.from({ length: 12 }, () => ({
   body: [" o ", "/|\\", "/ \\"],
 }));
@@ -20,6 +20,7 @@ const StickFigure: React.FC<{
 
   return (
     <Box
+      className={`stick-figure ${hovered ? "raised" : "lowered"}`} // Apply class based on hover state
       style={{
         position: "absolute",
         top: `calc(50% + ${y}px)`,
@@ -55,7 +56,7 @@ const Home: React.FC = () => {
           :::
         </Text>
         <Text size="lg" weight={700} align="center" mb="lg">
-          Hey! My name is Mat
+          Matvi Mykula
         </Text>
         <Text size="lg" weight={700} align="center" mb="lg">
           :::
