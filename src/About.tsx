@@ -1,15 +1,12 @@
-import React from 'react';
-import './App.css'; /// should i use css at all????
+import React from "react";
+import "./App.css"; /// should i use css at all????
 
-import { Text, Box, Accordion } from '@mantine/core';
+import { Text, Box, Accordion } from "@mantine/core";
 
 const About: React.FC = () => {
   return (
     <Box className="App">
-      <Accordion
-        defaultValue="about"
-        transitionDuration={800}
-      >
+      <Accordion defaultValue="about" transitionDuration={800}>
         <Accordion.Item value="about">
           <Accordion.Control>About</Accordion.Control>
           <Accordion.Panel>
@@ -50,20 +47,9 @@ const About: React.FC = () => {
         <Accordion.Item value="otherProjects">
           <Accordion.Control>Other Projects</Accordion.Control>
           <Accordion.Panel>
-            GitHub <br></br>
-            <a
-              href="https://github.com/matvi-mykula"
-              target="_blank"
-            >
+            GitHub -&nbsp;
+            <a href="https://github.com/matvi-mykula" target="_blank">
               matvi-mykula
-            </a>{' '}
-            <br></br>
-            Subconscious News Generator <br></br>
-            <a
-              href="https://poetry-news-frontend.vercel.app/home"
-              target="_blank"
-            >
-              news=&gt;poems
             </a>
           </Accordion.Panel>
         </Accordion.Item>

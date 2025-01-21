@@ -25,6 +25,9 @@ const MyContent: React.FC<Props> = ({ content, colorScheme }) => {
     case "coding": {
       return <Blog category={"coding"} colorScheme={colorScheme}></Blog>;
     }
+    case "sculpture": {
+      return <>Art stuff here</>;
+    }
     case "movement": {
       return <Blog category={"movement"} colorScheme={colorScheme}></Blog>;
     }

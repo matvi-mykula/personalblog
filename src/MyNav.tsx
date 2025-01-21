@@ -1,6 +1,6 @@
-import React from 'react';
-import { Button, Affix, MediaQuery, Stack, rem } from '@mantine/core';
-import './App.css';
+import React from "react";
+import { Button, Affix, MediaQuery, Stack, rem } from "@mantine/core";
+import "./App.css";
 
 interface Props {
   content: string;
@@ -18,7 +18,7 @@ const MyNav: React.FC<Props> = ({
   return (
     <div>
       <Stack>
-    {['home', 'about', 'contact', 'coding'].map((item) => (
+        {["home", "about", "contact", "coding", "sculpture"].map((item) => (
           <Button
             key={item}
             onClick={() => {
@@ -26,10 +26,10 @@ const MyNav: React.FC<Props> = ({
               setOpened(false);
             }}
             style={{
-              width: '100%', 
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
+              width: "100%",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
             }}
           >
             {item.charAt(0).toUpperCase() + item.slice(1)}
@@ -39,19 +39,18 @@ const MyNav: React.FC<Props> = ({
         <Affix></Affix>
         <Button
           style={{
-            backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
-
-            position: 'absolute',
-            bottom: '0px',
-            border: 'none',
+            backgroundColor: "transparent",
+            position: "absolute",
+            bottom: "0px",
+            border: "none",
           }}
           onClick={() => {
-            setContent('admin');
+            setContent("admin");
             setOpened(false);
           }}
           variant="subtle"
         ></Button>
-      </Stack>{' '}
+      </Stack>
     </div>
   );
 };

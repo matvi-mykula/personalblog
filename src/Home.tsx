@@ -22,9 +22,11 @@ const StickFigure: React.FC<{
     <Box
       className={`stick-figure ${hovered ? "raised" : "lowered"}`} // Apply class based on hover state
       style={{
+        width: "100px",
+        height: "100px",
         position: "absolute",
         top: `calc(50% + ${y}px)`,
-        left: `calc(50% + ${x}px)`,
+        left: `calc(45% + ${x}px)`,
         textAlign: "center",
         cursor: "pointer",
         fontFamily: "monospace",
