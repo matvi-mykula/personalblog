@@ -4,6 +4,7 @@ import { Blog } from "BlogOG";
 import { Login } from "Login";
 import { Contact } from "Contact";
 import { About } from "About";
+import { ArtGrid } from "ArtGrid";
 interface Props {
   content: string;
   colorScheme: any;
@@ -26,7 +27,7 @@ const MyContent: React.FC<Props> = ({ content, colorScheme }) => {
       return <Blog category={"coding"} colorScheme={colorScheme}></Blog>;
     }
     case "sculpture": {
-      return <>Art stuff here</>;
+      return <ArtGrid />;
     }
     case "movement": {
       return <Blog category={"movement"} colorScheme={colorScheme}></Blog>;
